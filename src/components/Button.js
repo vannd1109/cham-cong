@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-    fontSize: 15,
-    lineHeight: 26,
+    fontSize: 20,
+    lineHeight: 30,
+    textTransform: 'uppercase'
   },
 });

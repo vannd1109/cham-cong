@@ -3,13 +3,13 @@ import React from 'react';
 import {ImageBackground, StyleSheet, KeyboardAvoidingView} from 'react-native';
 import {theme} from '../core/theme';
 
-const image = {uri: 'https://as1.ftcdn.net/v2/jpg/02/81/74/34/1000_F_281743427_lPuHFlCJdiWjWfd1u5YPSUQ4tfSgHtJs.jpg'};
+const image = {uri: 'https://img.freepik.com/free-photo/chinese-new-year-concept_23-2148738449.jpg?size=626&ext=jpg&ga=GA1.1.1219745364.1673400153&semt=ais'};
 
 export default function Background({children}) {
   return (
     <ImageBackground
       source={image}
-      resizeMode="cover"
+      resizeMode="stretch"
       style={styles.background}>
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         {children}

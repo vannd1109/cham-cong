@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { DefaultTheme } from 'react-native-paper'
 
 export const theme = {
