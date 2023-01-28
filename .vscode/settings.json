@@ -6,7 +6,10 @@
         "chính",
         "công",
         "Đăng",
+        "đóng",
+        "Đồng",
         "dùng",
+        "dụng",
         "đúng",
         "được",
         "giây",
@@ -16,6 +19,7 @@
         "Không",
         "liệu",
         "lương",
+        "muốn",
         "Ngày",
         "Nghỉ",
         "người",
@@ -30,10 +34,12 @@
         "Thoát",
         "Thông",
         "thống",
+        "thực",
         "Trang",
         "trống",
         "Vàng",
         "Việt"
     ],
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

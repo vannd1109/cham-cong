@@ -16,13 +16,6 @@ function CheckInOut() {
   const [timeIn, setTimeIn] = useState('');
   const [timeOut, setTimeOut] = useState('');
   const [data, setData] = useState([]);
-  const [selectedDay, setSelectedDay] = useState({
-    '2023-01-25': {
-      selected: true,
-      marked: true,
-      selectedColor: '#f4511e',
-    },
-  });
   const [isLoading, setLoading] = useState(false);
   const [markedDates, setMarkedDates] = useState({});
 
@@ -33,18 +26,25 @@ function CheckInOut() {
     setCurrentDay(currentTime.getDate());
     setCurrentMonth(currentTime.getMonth() + 1);
 
-    // let b = {};
+    let currentMarkedDates = {};
 
-    // b[`${convertTimeCurrent}`] = "selected: true, selectedColor: '#f4511e'";
+    currentMarkedDates[`${convertTimeCurrent}`] = {
+      selected: true,
+      selectedColor: '#f4511e',
+    };
 
-    // setSelectedDay(b);
+    setMarkedDates(currentMarkedDates);
+    setLoading(true);
 
-    fetchData(convertTimeCurrent);
+    
+    const timer = setInterval(() => {
+      fetchData(convertTimeCurrent);
+      setLoading(false);
+      clearInterval(timer);
+    }, 100);
   }, []);
 
-  const fetchData = timeDate => {
-    setTimeIn('');
-    setTimeOut('');
+  const fetchData = async timeDate => {
     fetch(
       `${API_URL}/api/v1/check-in-out?UserEnrollNumber=3492&TimeDate=${timeDate}`,
       {
@@ -57,8 +57,17 @@ function CheckInOut() {
       .then(async res => {
         try {
           const result = await res.json();
+          setData(result);
           if (res.status === 200) {
-            setData(result);
+            let currentTimeIn = new Date(result[0]?.TimeStr);
+            setTimeIn(
+              `${currentTimeIn.getHours() - 7}:${currentTimeIn.getMinutes()}`,
+            );
+
+            let currentTimeOut = new Date(result[1]?.TimeStr);
+            setTimeOut(
+              `${currentTimeOut.getHours() - 7}:${currentTimeOut.getMinutes()}`,
+            );
           }
         } catch (err) {
           console.log(err);
@@ -69,71 +78,31 @@ function CheckInOut() {
       });
   };
 
-  const handleTimeChange = day => {
+  const handleTimeChange = async day => {
     const {dateString} = day;
-    const result = [];
+    const currentDate = Object.keys(markedDates)[0];
+    if (dateString !== currentDate) {
+      let currentMarkedDates = {};
 
-    markedDates[`${dateString}`] = {selected: true, selectedColor: '#f4511e'};
+      currentMarkedDates[`${dateString}`] = {
+        selected: true,
+        selectedColor: '#f4511e',
+      };
 
-    setMarkedDates(markedDates);
+      setMarkedDates(currentMarkedDates);
+      
+      setTimeIn('');
+      setTimeOut('');
+      setLoading(true);
+      setCurrentMonth(day.month);
+      setCurrentDay(day.day);
+      await fetchData(dateString);
 
-    console.log(markedDates);
-
-    for(let item in markedDates) {
-      result.push([item, markedDates [item]]);
-      console.log(item);
+      const timer = setInterval(() => {
+        setLoading(false);
+        clearInterval(timer);
+      }, 100);
     }
-
-    const lastItem = {}
-
-    
-
-    // console.log(markedDates);
-
-    // const isMarkedBefore = !!(
-    //   // markedDates[`${dateString}`] &&
-    //   markedDates[`${dateString}`].selected &&
-    //   markedDates[`${dateString}`].selectedColor
-    // );
-
-    // markedDates[`${dateString}`] = { selected: !isMarkedBefore };
-
-    // setMarkedDates(markedDates)
-
-    // console.log("-----------------------");
-    // console.log(markedDates);
-
-    // console.log(value);
-    // setTimeIn('');
-    // setTimeOut('');
-    // // setLoading(true);
-    // setCurrentMonth(value.month);
-    // setCurrentDay(value.day);
-
-    // let b = {};
-
-    // b[`${value.dateString}`] = "selected: true, selectedColor: '#f4511e'";
-
-    // setSelectedDay(b);
-
-    // fetchData(value.dateString);
-
-    // if (data) {
-    //   let currentTimeIn = new Date(data[0]?.TimeStr);
-    //   setTimeIn(
-    //     `${currentTimeIn.getHours() - 7}:${currentTimeIn.getMinutes()}`,
-    //   );
-
-    //   let currentTimeOut = new Date(data[1]?.TimeStr);
-    //   setTimeOut(
-    //     `${currentTimeOut.getHours() - 7}:${currentTimeOut.getMinutes()}`,
-    //   );
-    // }
-
-    // const timer = setInterval(() => {
-    //   setLoading(false);
-    //   clearInterval(timer);
-    // }, 500);
 
     // const timer = setInterval( () => {
     //   if (data) {
@@ -184,7 +153,6 @@ function CheckInOut() {
     <View style={styles.center}>
       <Calendar
         onDayPress={day => handleTimeChange(day)}
-        // markedDates={selectedDay}
         markedDates={markedDates}
       />
       <View style={{flex: 1}}>
@@ -200,7 +168,7 @@ function CheckInOut() {
           </View>
           <View style={{flex: 1}}>
             <Text style={styles.timer}>
-              <Text>{timeIn}</Text>
+              {timeIn != 'NaN:NaN' && <Text>{timeIn}</Text>}
               <Text style={{margin: 10, display: 'flex'}}>-</Text>
               {timeOut != 'NaN:NaN' && <Text>{timeOut}</Text>}
             </Text>
@@ -214,9 +182,9 @@ function CheckInOut() {
           indicatorStyler="red"
         />
 
-        {!isLoading && (
+        {data.length > 0 && !isLoading && (
           <View style={styles.content}>
-            {timeIn != 'NaN:NaN' && (
+            {timeIn !== 'NaN:NaN' && (
               <View style={styles.contentItem}>
                 <Text style={styles.contentItemPoint}></Text>
                 <View>
@@ -229,7 +197,15 @@ function CheckInOut() {
               </View>
             )}
 
-            {timeOut != 'NaN:NaN' && (
+            {timeIn === 'NaN:NaN' && (
+              <View style={styles.contentItem}>
+              <Text style={{fontWeight: 'bold', color: '#f4511e'}}>
+                    Không có giờ vào
+                  </Text>
+              </View>
+            )}
+
+            {timeOut !== 'NaN:NaN' && (
               <View style={styles.contentItemLast}>
                 <Text style={styles.contentItemPoint}></Text>
                 <View>
@@ -241,12 +217,33 @@ function CheckInOut() {
                 </View>
               </View>
             )}
+            {timeOut === 'NaN:NaN' && (
+              <View style={styles.contentItemLast}>
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{fontWeight: 'bold', color: '#f4511e'}}>
+                    Không có giờ ra
+                  </Text>
+                </View>
+              </View>
+            )}
           </View>
         )}
 
-        {!data && (
+        {data.length === 0 && !isLoading && (
           <View style={styles.content}>
-            <Text>No Data</Text>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: '#f4511e',
+              }}>
+              Không có dữ liệu
+            </Text>
           </View>
         )}
       </View>
@@ -282,6 +279,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   contentItem: {
     flexDirection: 'row',
