@@ -6,7 +6,7 @@ import { Text, StyleSheet, Button, View, Modal } from 'react-native';
 export default function MyModal({children, modalVisible, setModalVisible, titleModal, onLogout}) {
   return (
     <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {

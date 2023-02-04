@@ -1,5 +1,6 @@
 // import axios from 'axios';
 import {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import moment from 'moment';
 import {View, Text, StyleSheet} from 'react-native';
 import {Calendar} from 'react-native-calendars';
@@ -8,6 +9,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 const API_URL =
   Platform.OS === 'ios' ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
 function CheckInOut() {
+  const user = useSelector(state => state.user);
+  const userNumber = parseInt(user.value);
   const timeNow = Date.now;
   const [currentDay, setCurrentDay] = useState(new Date(timeNow).getDate());
   const [currentMonth, setCurrentMonth] = useState(
@@ -36,17 +39,16 @@ function CheckInOut() {
     setMarkedDates(currentMarkedDates);
     setLoading(true);
 
-    
     const timer = setInterval(() => {
-      fetchData(convertTimeCurrent);
+      fetchData(convertTimeCurrent, userNumber);
       setLoading(false);
       clearInterval(timer);
     }, 100);
   }, []);
 
-  const fetchData = async timeDate => {
+  const fetchData = async (timeDate, userNumber) => {
     fetch(
-      `${API_URL}/api/v1/check-in-out?UserEnrollNumber=3492&TimeDate=${timeDate}`,
+      `${API_URL}/api/v1/check-in-out?UserEnrollNumber=${userNumber}&TimeDate=${timeDate}`,
       {
         method: 'GET',
         headers: {
@@ -90,13 +92,13 @@ function CheckInOut() {
       };
 
       setMarkedDates(currentMarkedDates);
-      
+
       setTimeIn('');
       setTimeOut('');
       setLoading(true);
       setCurrentMonth(day.month);
       setCurrentDay(day.day);
-      await fetchData(dateString);
+      await fetchData(dateString, userNumber);
 
       const timer = setInterval(() => {
         setLoading(false);
@@ -199,9 +201,9 @@ function CheckInOut() {
 
             {timeIn === 'NaN:NaN' && (
               <View style={styles.contentItem}>
-              <Text style={{fontWeight: 'bold', color: '#f4511e'}}>
-                    Không có giờ vào
-                  </Text>
+                <Text style={{fontWeight: 'bold', color: '#f4511e'}}>
+                  Không có giờ vào
+                </Text>
               </View>
             )}
 
