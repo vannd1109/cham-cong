@@ -1,12 +1,12 @@
 // import axios from 'axios';
 import {useState, useEffect} from 'react';
 import moment from 'moment';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const API_URL =
-  Platform.OS === 'ios' ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
+  Platform.OS === "ios" ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
 function CheckInOut() {
   const timeNow = Date.now;
   const [currentDay, setCurrentDay] = useState(new Date(timeNow).getDate());
@@ -36,6 +36,7 @@ function CheckInOut() {
     setMarkedDates(currentMarkedDates);
     setLoading(true);
 
+    console.log(data);
     
     const timer = setInterval(() => {
       fetchData(convertTimeCurrent);
