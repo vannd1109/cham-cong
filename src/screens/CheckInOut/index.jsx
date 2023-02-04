@@ -2,12 +2,12 @@
 import {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import moment from 'moment';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const API_URL =
-  Platform.OS === 'ios' ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
+  Platform.OS === "ios" ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
 function CheckInOut() {
   const user = useSelector(state => state.user);
   const userNumber = parseInt(user.value);
@@ -39,6 +39,7 @@ function CheckInOut() {
     setMarkedDates(currentMarkedDates);
     setLoading(true);
 
+    
     const timer = setInterval(() => {
       fetchData(convertTimeCurrent, userNumber);
       setLoading(false);
