@@ -10,7 +10,7 @@ const API_URL =
   Platform.OS === "ios" ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
 function CheckInOut() {
   const user = useSelector(state => state.user);
-  const userNumber = parseInt(user.value);
+  const userNumber = parseInt(user?.value);
   const timeNow = Date.now;
   const [currentDay, setCurrentDay] = useState(new Date(timeNow).getDate());
   const [currentMonth, setCurrentMonth] = useState(

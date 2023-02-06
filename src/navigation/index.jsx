@@ -10,7 +10,7 @@ import CheckInOut from '../screens/CheckInOut/index';
 import TimeOffScreen from '../screens/TimeOff/index';
 import LoginScreen from '../screens/Login/index';
 import Icon from 'react-native-vector-icons/Ionicons';
-import PayRollScreen from '../screens/PayRoll/index';
+import PayRollScreen from '../screens/PayRolls/index';
 import {logout} from '../actions/auth';
 import CustomDrawerList from './CustomDrawerList';
 import {useState} from 'react';
@@ -68,7 +68,7 @@ const MyDrawer = () => {
   return (
     <>
       <Drawer.Navigator
-        initialRouteName="LogIn"
+        initialRouteName="PayRoll"
         screenOptions={{
           drawerStyle: {
             backgroundColor: '#fff',
@@ -80,7 +80,7 @@ const MyDrawer = () => {
           return (
             <DrawerContentScrollView {...props}>
               <CustomDrawerList {...props} setMyNavigation={setMyNavigation} />
-              <Button title="Thoát" color="#Ad0c22" onPress={() => onModal()} />
+              <Button title="Thoát" color="#ac2b36" onPress={() => onModal()} />
             </DrawerContentScrollView>
           );
         }}>
@@ -97,11 +97,11 @@ const MyDrawer = () => {
           options={{
             title: 'Chấm công',
             headerStyle: {
-              backgroundColor: '#887700',
+              backgroundColor: '#d68f19',
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#0e447a',
             drawerIcon: () => (
-              <Icon name="checkbox-outline" color="#f4511e" size={24} />
+              <Icon name="checkbox-outline" color="#0e447a" size={24} />
             ),
             headerRight: () => (
               <View
@@ -123,12 +123,12 @@ const MyDrawer = () => {
                   style={{
                     position: 'absolute',
                     borderWidth: 1,
-                    borderColor: '#f4511e',
+                    borderColor: '#0e447a',
                     width: 18,
                     height: 18,
                     textAlign: 'center',
                     color: '#fff',
-                    backgroundColor: '#f4511e',
+                    backgroundColor: '#0e447a',
                     right: 8,
                     top: -5,
                     borderRadius: 50,
@@ -147,11 +147,11 @@ const MyDrawer = () => {
           options={{
             title: 'Đăng ký nghỉ phép',
             headerStyle: {
-              backgroundColor: '#887700',
+              backgroundColor: '#d68f19',
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#0e447a',
             drawerIcon: () => (
-              <Icon name="flash-off-outline" color="#f4511e" size={24} />
+              <Icon name="flash-off-outline" color="#0e447a" size={24} />
             ),
             headerRight: () => (
               <View style={{position: 'relative'}}>
@@ -166,12 +166,12 @@ const MyDrawer = () => {
                   style={{
                     position: 'absolute',
                     borderWidth: 1,
-                    borderColor: '#f4511e',
+                    borderColor: '#0e447a',
                     width: 18,
                     height: 18,
                     textAlign: 'center',
                     color: '#fff',
-                    backgroundColor: '#f4511e',
+                    backgroundColor: '#0e447a',
                     right: 15,
                     top: -5,
                     borderRadius: 50,
@@ -188,11 +188,11 @@ const MyDrawer = () => {
           options={{
             title: 'Bảng lương',
             headerStyle: {
-              backgroundColor: '#887700',
+              backgroundColor: '#d68f19',
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#0e447a',
             drawerIcon: () => (
-              <Icon name="cash-outline" color="#f4511e" size={24} />
+              <Icon name="cash-outline" color="#0e447a" size={24} />
             ),
             headerRight: () => (
               <View style={{position: 'relative'}}>
@@ -207,12 +207,12 @@ const MyDrawer = () => {
                   style={{
                     position: 'absolute',
                     borderWidth: 1,
-                    borderColor: '#f4511e',
+                    borderColor: '#0e447a',
                     width: 18,
                     height: 18,
                     textAlign: 'center',
                     color: '#fff',
-                    backgroundColor: '#f4511e',
+                    backgroundColor: '#0e447a',
                     right: 15,
                     top: -5,
                     borderRadius: 50,
@@ -229,13 +229,13 @@ const MyDrawer = () => {
           options={{
             title: 'Thông tin người dùng',
             headerStyle: {
-              backgroundColor: '#887700',
+              backgroundColor: '#d68f19',
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#0e447a',
             drawerIcon: () => (
               <Icon
                 name="information-circle-outline"
-                color="#f4511e"
+                color="#0e447a"
                 size={24}
               />
             ),
@@ -274,11 +274,11 @@ const MyDrawer = () => {
           options={{
             title: 'Cài đặt',
             headerStyle: {
-              backgroundColor: '#887700',
+              backgroundColor: '#d68f19',
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#0e447a',
             drawerIcon: () => (
-              <Icon name="settings-outline" color="#f4511e" size={24} />
+              <Icon name="settings-outline" color="#0e447a" size={24} />
             ),
             headerRight: () => (
               <View style={{position: 'relative'}}>
@@ -293,12 +293,12 @@ const MyDrawer = () => {
                   style={{
                     position: 'absolute',
                     borderWidth: 1,
-                    borderColor: '#f4511e',
+                    borderColor: '#0e447a',
                     width: 18,
                     height: 18,
                     textAlign: 'center',
                     color: '#fff',
-                    backgroundColor: '#f4511e',
+                    backgroundColor: '#0e447a',
                     right: 15,
                     top: -5,
                     borderRadius: 50,
@@ -321,10 +321,10 @@ const MyDrawer = () => {
         <View style={styles.modalBtn}>
           <Button
             title="Hủy"
-            color="#cf3030"
+            color="#d68f19"
             onPress={() => setModalVisible(false)}
           />
-          <Button title="Thoát" color="#8ab609" onPress={() => onLogout()} />
+          <Button title="Thoát" color="#ac2b36" onPress={() => onLogout()} />
         </View>
       </MyModal>
     </>
@@ -353,9 +353,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 10,
     backgroundColor: '#fff',
-    shadowColor: '#f4511e',
+    shadowColor: '#0e447a',
     shadowOffset: 1,
-    borderColor: '#f4511e',
+    borderColor: '#0e447a',
     borderWidth: 1,
     width: '60%',
     minHeight: 150,
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalHeader: {
-    backgroundColor: '#f4511e',
+    backgroundColor: '#0e447a',
     padding: 8,
   },
   modalHeaderText: {

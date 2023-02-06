@@ -23,7 +23,7 @@ export default function MyModal({children, modalVisible, setModalVisible, titleM
             <View style={styles.modalBtn}>
               <Button
                 title="Hủy"
-                color="#cf3030"
+                color="#ac2b36"
                 onPress={() => setModalVisible(false)}
               />
               <Button
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
       position: 'absolute',
       zIndex: 10,
       backgroundColor: '#fff',
-      shadowColor: '#f4511e',
+      shadowColor: '#d68f19',
       shadowOffset: 1,
-      borderColor: '#f4511e',
+      borderColor: '#d68f19',
       borderWidth: 1,
       width: '60%',
       minHeight: 150,
@@ -75,10 +75,10 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end',
     },
     modalHeader: {
-      backgroundColor: '#f4511e',
+      backgroundColor: '#d68f19',
       padding: 8,
     },
     modalHeaderText: {
-      color: '#fff',
+      color: '#000',
     },
   });
