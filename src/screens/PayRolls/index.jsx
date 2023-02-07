@@ -9,7 +9,7 @@ const PayRolls = () => {
   const timeNow = new Date();
   const [date, setDate] = useState(timeNow);
   const [show, setShow] = useState(false);
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [tableHeadLeft, setTableHead] = useState([
     'Họ và tên',
