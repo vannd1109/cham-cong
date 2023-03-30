@@ -60,6 +60,7 @@ function CheckInOut() {
       .then(async res => {
         try {
           const result = await res.json();
+          console.log(result);
           setData(result);
           if (res.status === 200) {
             let currentTimeIn = new Date(result[0]?.TimeStr);
@@ -82,6 +83,7 @@ function CheckInOut() {
   };
 
   const handleTimeChange = async day => {
+    console.log('ok');
     const {dateString} = day;
     const currentDate = Object.keys(markedDates)[0];
     if (dateString !== currentDate) {

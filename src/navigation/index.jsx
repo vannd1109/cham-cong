@@ -360,6 +360,16 @@ function MyTabs() {
       screenOptions={{
         tabBarActiveTintColor: '#003868',
       }}>
+        {/* <Tab.Screen
+        name="Login"
+        component={Login}
+        options={{
+          tabBarLabel: 'Trang chủ',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome name="home" color={color} size={size} />
+          ),
+        }}
+      /> */}
       <Tab.Screen
         name="Home"
         component={Home}
