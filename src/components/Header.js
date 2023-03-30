@@ -2,7 +2,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
-import {theme} from '../core/theme';
 
 export default function Header(props) {
   return <Text style={styles.header} {...props} />;
@@ -11,8 +10,9 @@ export default function Header(props) {
 const styles = StyleSheet.create({
   header: {
     fontSize: 21,
-    color: '#887700',
+    color: '#003868',
     fontWeight: 'bold',
     paddingVertical: 12,
+    textAlign: 'center',
   },
 });

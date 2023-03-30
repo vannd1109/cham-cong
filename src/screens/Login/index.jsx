@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, TextInput} from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useDispatch} from 'react-redux';
 import {login} from './../../actions/auth';
 import {theme} from '../../core/theme';
-import Background from '../../components/Background';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
-import TextInput from '../../components/TextInput';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Formik, Field, Form} from 'formik';
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState({value: '', error: ''});
@@ -84,17 +83,14 @@ const Login = ({navigation}) => {
         });
     }, 500);
   };
+
   return (
-    <Background>
+    <View style={styles.formLogin}>
       <Header>Sen Vàng Việt Nam</Header>
-      <Spinner
-        visible={isLoading}
-        textContent={'Chờ trong giây lát...'}
-        textStyle={styles.spinnerTextStyle}
-        indicatorStyler="red"
-      />
-      {!isLoading && (
-        <>
+      <Spinner visible={isLoading} textStyle={styles.spinnerTextStyle} />
+      <View style={styles.form}>
+        <View style={styles.formControl}>
+          <Text style={styles.labelInput}>Tên đăng nhập</Text>
           <TextInput
             label="Tên đăng nhập"
             returnKeyType="next"
@@ -102,10 +98,16 @@ const Login = ({navigation}) => {
             error={username.error}
             errorText={username.error}
             autoCapitalize="none"
-            autoCompleteType="email"
-            textContentType="emailAddress"
-            keyboardType="email-address"
+            autoCompleteType="username"
+            textContentType="username"
+            style={styles.textInput}
           />
+          {username.error && (
+            <Text style={styles.error}>{username.error}</Text>
+          )}
+        </View>
+        <View style={styles.formControl}>
+          <Text style={styles.labelInput}>Mật khẩu</Text>
           <TextInput
             label="Mật khẩu"
             returnKeyType="done"
@@ -113,68 +115,84 @@ const Login = ({navigation}) => {
             error={password.error}
             errorText={password.error}
             secureTextEntry
+            style={styles.textInput}
           />
-          <View style={styles.forgotPassword}>
-            <TouchableOpacity
-            // onPress={() => navigation.navigate('ResetPasswordScreen')}
-            >
-              <Text style={styles.forgot}>Quên mật khẩu?</Text>
-            </TouchableOpacity>
-          </View>
-          {isValid && (
-            <View style={styles.error}>
-              <Text style={styles.errorLabel}>
+          {password.error && (
+            <Text style={styles.error}>{password.error}</Text>
+          )}
+        </View>
+        <View style={styles.forgotPassword}>
+          <Text style={styles.forgot}>Quên mật khẩu</Text>
+        </View>
+        {isValid && (
+            <View style={styles.formError}>
+              <Text style={styles.error}>
                 Tên đăng nhập hoặc mật khẩu không đúng
               </Text>
             </View>
           )}
-
-          <Button
-            mode="contained"
-            disabled={!Boolean(username.value) || !Boolean(password.value)}
-            onPress={() => onLogin()}>
+        <View style={styles.formBtn}>
+          <Text style={styles.btnLogin} onPress={onLogin}>
             Đăng nhập
-          </Button>
-        </>
-      )}
-    </Background>
+          </Text>
+        </View>
+      </View>
+    </View>
   );
 };
 export default Login;
 const styles = StyleSheet.create({
-  forgotPassword: {
-    width: '100%',
-    alignItems: 'flex-end',
-    marginBottom: 24,
-  },
-  row: {
-    flexDirection: 'row',
-    marginTop: 4,
-  },
-  error: {
-    width: '100%',
-    justifyContent: 'center',
+  formLogin: {
     textAlign: 'center',
+    position: 'relative',
+    top: '25%',
+    padding: 40,
   },
-  errorLabel: {
+  form: {
     display: 'flex',
-    justifyContent: 'center',
+    gap: 8,
+  },
+  formControl: {
+    display: 'flex',
+    gap: 4,
+  },
+  labelInput: {},
+  textInput: {
+    borderColor: '#003868',
+    borderWidth: 1,
+    padding: 8,
+    borderRadius: 4,
+  },
+  formBtn: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  btnLogin: {
+    backgroundColor: '#003868',
+    width: 100,
+    color: '#fff',
     textAlign: 'center',
-    color: theme.colors.error,
-    marginBottom: 20,
-    fontSize: 13,
-    fontWeight: '600',
+    height: 50,
+    lineHeight: 50,
+    borderRadius: 4,
+  },
+  forgotPassword: {
+    display: 'flex',
+    alignItems: 'flex-end',
   },
   forgot: {
-    fontSize: 13,
-    color: theme.colors.secondary,
+    fontSize: 12,
+    textDecorationLine: 'underline',
   },
-  link: {
-    fontWeight: 'bold',
-    color: theme.colors.primary,
+  error: {
+    color: 'red',
+    fontSize: 12,
+    fontStyle: 'italic',
   },
-  spinnerTextStyle: {
-    fontSize: 14,
-    color: '#fff'
+  formError: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 8
   }
 });

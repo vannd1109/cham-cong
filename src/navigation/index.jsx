@@ -15,7 +15,10 @@ import {logout} from '../actions/auth';
 import CustomDrawerList from './CustomDrawerList';
 import {useState} from 'react';
 import MyModal from '../components/Modal';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 function Home() {
@@ -26,18 +29,26 @@ function Home() {
   );
 }
 
-function Profile() {
+function Feed() {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Thông tin người dùng</Text>
+      <Text>Feed!</Text>
     </View>
   );
 }
 
-function Settings() {
+function Profile() {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Thiết lập</Text>
+      <Text>Profile!</Text>
+    </View>
+  );
+}
+
+function Notifications() {
+  return (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>Notifications!</Text>
     </View>
   );
 }
@@ -68,7 +79,7 @@ const MyDrawer = () => {
   return (
     <>
       <Drawer.Navigator
-        initialRouteName="PayRoll"
+        initialRouteName="Home"
         screenOptions={{
           drawerStyle: {
             backgroundColor: '#fff',
@@ -80,13 +91,24 @@ const MyDrawer = () => {
           return (
             <DrawerContentScrollView {...props}>
               <CustomDrawerList {...props} setMyNavigation={setMyNavigation} />
-              <Button title="Thoát" color="#ac2b36" onPress={() => onModal()} />
+              <Button
+                title="Thoát"
+                color="#ac2b36"
+                onPress={() => onLogout()}
+              />
             </DrawerContentScrollView>
           );
         }}>
         <Drawer.Screen
           name="LogIn"
           component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="Home"
+          component={Home}
           options={{
             headerShown: false,
           }}
@@ -319,22 +341,73 @@ const MyDrawer = () => {
           <Text>Bạn có thực sự muốn đóng ứng dụng không?</Text>
         </View>
         <View style={styles.modalBtn}>
-          <Button
-            title="Hủy"
-            color="#d68f19"
-            onPress={() => setModalVisible(false)}
-          />
-          <Button title="Thoát" color="#ac2b36" onPress={() => onLogout()} />
+          <Text onPress={() => setModalVisible(false)} style={styles.btnCancel}>
+            Hủy
+          </Text>
+          <Text onPress={() => onLogout()} style={styles.btnClose}>
+            Thoát
+          </Text>
         </View>
       </MyModal>
     </>
   );
 };
 
+function MyTabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: '#003868',
+      }}>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarLabel: 'Trang chủ',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Feed"
+        component={Feed}
+        options={{
+          tabBarLabel: 'Bảng công',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome name="check-square" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={Notifications}
+        options={{
+          tabBarLabel: 'Lương',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome name={'money'} color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: 'Nghỉ phép',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome name={'flash'} color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 const NavigationProvider = () => {
   return (
     <NavigationContainer>
-      <MyDrawer />
+      <MyTabs />
     </NavigationContainer>
   );
 };
@@ -374,6 +447,26 @@ const styles = StyleSheet.create({
     width: '100%',
     gap: 8,
     justifyContent: 'flex-end',
+  },
+  btnCancel: {
+    textTransform: 'capitalize',
+    backgroundColor: '#0e447a',
+    color: '#fff',
+    minWidth: 60,
+    height: 40,
+    textAlign: 'center',
+    lineHeight: 40,
+    borderRadius: 4,
+  },
+  btnClose: {
+    textTransform: 'capitalize',
+    backgroundColor: '#c34343',
+    color: '#fff',
+    minWidth: 60,
+    height: 40,
+    textAlign: 'center',
+    lineHeight: 40,
+    borderRadius: 4,
   },
   modalHeader: {
     backgroundColor: '#0e447a',

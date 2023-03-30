@@ -24,12 +24,13 @@ const styles = StyleSheet.create({
     width: '100%',
     marginVertical: 10,
     paddingVertical: 2,
-    backgroundColor: '#887700',
+    backgroundColor: '#003868',
   },
   text: {
-    fontWeight: 'bold',
+    textTransform: 'capitalize',
     fontSize: 20,
     lineHeight: 30,
-    textTransform: 'uppercase'
+    color: '#fff',
+    borderRadius: 4,
   },
 });

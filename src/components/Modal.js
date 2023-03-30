@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { Text, StyleSheet, Button, View, Modal } from 'react-native';
+import { Text, StyleSheet, View, Modal } from 'react-native';
 
 
 export default function MyModal({children, modalVisible, setModalVisible, titleModal, onLogout}) {
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
       position: 'absolute',
       zIndex: 10,
       backgroundColor: '#fff',
-      shadowColor: '#d68f19',
+      shadowColor: '#003868',
       shadowOffset: 1,
-      borderColor: '#d68f19',
+      borderColor: '#003868',
       borderWidth: 1,
       width: '60%',
       minHeight: 150,
@@ -75,10 +75,10 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end',
     },
     modalHeader: {
-      backgroundColor: '#d68f19',
+      backgroundColor: '#003868',
       padding: 8,
     },
     modalHeaderText: {
-      color: '#000',
+      color: '#fff',
     },
   });

@@ -19,7 +19,7 @@ export default function CustomDrawerList({
   inactiveBackgroundColor,
   itemStyle,
   labelStyle,
-  setMyNavigation
+  setMyNavigation,
 }) {
   useEffect(() => {
     setMyNavigation(navigation);
