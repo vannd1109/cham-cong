@@ -264,7 +264,6 @@ const PayRolls = () => {
                       data={tableFooter}
                       style={styles.head}
                       widthArr={widthArrFooter}
-                      textStyle={styles.text}
                     />
                   </Table>
                 </View>

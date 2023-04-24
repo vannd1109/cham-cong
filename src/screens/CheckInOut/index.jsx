@@ -7,10 +7,10 @@ import {Calendar} from 'react-native-calendars';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const API_URL =
-  Platform.OS === "ios" ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
+  // Platform.OS === "ios" ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
 function CheckInOut() {
   const user = useSelector(state => state.user);
-  const userNumber = parseInt(user?.value);
+  const userNumber = parseInt(user.value);
   const timeNow = Date.now;
   const [currentDay, setCurrentDay] = useState(new Date(timeNow).getDate());
   const [currentMonth, setCurrentMonth] = useState(
@@ -22,30 +22,30 @@ function CheckInOut() {
   const [isLoading, setLoading] = useState(false);
   const [markedDates, setMarkedDates] = useState({});
 
-  useEffect(() => {
-    let currentTime = new Date(Date.now());
-    const convertTimeCurrent = moment(currentTime).format('YYYY-MM-DD');
+  // useEffect(() => {
+  //   let currentTime = new Date(Date.now());
+  //   const convertTimeCurrent = moment(currentTime).format('YYYY-MM-DD');
 
-    setCurrentDay(currentTime.getDate());
-    setCurrentMonth(currentTime.getMonth() + 1);
+  //   setCurrentDay(currentTime.getDate());
+  //   setCurrentMonth(currentTime.getMonth() + 1);
 
-    let currentMarkedDates = {};
+  //   let currentMarkedDates = {};
 
-    currentMarkedDates[`${convertTimeCurrent}`] = {
-      selected: true,
-      selectedColor: '#f4511e',
-    };
+  //   currentMarkedDates[`${convertTimeCurrent}`] = {
+  //     selected: true,
+  //     selectedColor: '#f4511e',
+  //   };
 
-    setMarkedDates(currentMarkedDates);
-    setLoading(true);
+  //   setMarkedDates(currentMarkedDates);
+  //   setLoading(true);
 
     
-    const timer = setInterval(() => {
-      fetchData(convertTimeCurrent, userNumber);
-      setLoading(false);
-      clearInterval(timer);
-    }, 100);
-  }, []);
+  //   const timer = setInterval(() => {
+  //     fetchData(convertTimeCurrent, userNumber);
+  //     setLoading(false);
+  //     clearInterval(timer);
+  //   }, 100);
+  // }, []);
 
   const fetchData = async (timeDate, userNumber) => {
     fetch(
@@ -60,7 +60,7 @@ function CheckInOut() {
       .then(async res => {
         try {
           const result = await res.json();
-          console.log(result);
+          // console.log(result);
           setData(result);
           if (res.status === 200) {
             let currentTimeIn = new Date(result[0]?.TimeStr);
@@ -83,8 +83,9 @@ function CheckInOut() {
   };
 
   const handleTimeChange = async day => {
-    console.log('ok');
     const {dateString} = day;
+
+    console.log(dateString);
     const currentDate = Object.keys(markedDates)[0];
     if (dateString !== currentDate) {
       let currentMarkedDates = {};
@@ -109,49 +110,49 @@ function CheckInOut() {
       }, 100);
     }
 
-    // const timer = setInterval( () => {
-    //   if (data) {
-    //     let currentTimeIn = new Date(data[0]?.TimeStr);
-    //     setTimeIn(
-    //       `${currentTimeIn.getHours() - 7}:${currentTimeIn.getMinutes()}`,
-    //     );
+    const timer = setInterval( () => {
+      if (data) {
+        let currentTimeIn = new Date(data[0]?.TimeStr);
+        setTimeIn(
+          `${currentTimeIn.getHours() - 7}:${currentTimeIn.getMinutes()}`,
+        );
 
-    //     let currentTimeOut = new Date(data[1]?.TimeStr);
-    //     setTimeOut(
-    //       `${currentTimeOut.getHours() - 7}:${currentTimeOut.getMinutes()}`,
-    //     );
+        let currentTimeOut = new Date(data[1]?.TimeStr);
+        setTimeOut(
+          `${currentTimeOut.getHours() - 7}:${currentTimeOut.getMinutes()}`,
+        );
 
-    //     // data.forEach(item => {
-    //     //   // if (item?.OriginType === 'O') {
-    //     //   //   let currentTime = new Date(item?.TimeStr);
-    //     //   //   setTimeIn(
-    //     //   //     `${currentTime.getHours() - 7}:${currentTime.getMinutes()}`,
-    //     //   //   );
-    //     //   // }
-    //     //   let currentTimeIn = new Date(item[0]?.TimeStr);
-    //     //     setTimeIn(
-    //     //       `${currentTimeIn.getHours() - 7}:${currentTimeIn.getMinutes()}`,
-    //     //     );
-    //     //   // if (item?.OriginType === 'I') {
-    //     //   //   let currentTime = new Date(item?.TimeStr);
-    //     //   //   setTimeOut(
-    //     //   //     `${currentTime.getHours() - 7}:${currentTime.getMinutes()}`,
-    //     //   //   );
-    //     //   // }
-    //     //   let currentTimeOut = new Date(item[1]?.TimeStr);
-    //     //     setTimeOut(
-    //     //       `${currentTimeOut.getHours() - 7}:${currentTimeOut.getMinutes()}`,
-    //     //     );
-    //     // });
-    //     setLoading(false);
-    //     clearInterval(timer);
-    //   } else {
-    //     setLoading(false);
-    //     clearInterval(timer);
-    //     // setTimeIn('');
-    //     // setTimeOut('');
-    //   }
-    // }, 50);
+        // data.forEach(item => {
+        //   // if (item?.OriginType === 'O') {
+        //   //   let currentTime = new Date(item?.TimeStr);
+        //   //   setTimeIn(
+        //   //     `${currentTime.getHours() - 7}:${currentTime.getMinutes()}`,
+        //   //   );
+        //   // }
+        //   let currentTimeIn = new Date(item[0]?.TimeStr);
+        //     setTimeIn(
+        //       `${currentTimeIn.getHours() - 7}:${currentTimeIn.getMinutes()}`,
+        //     );
+        //   // if (item?.OriginType === 'I') {
+        //   //   let currentTime = new Date(item?.TimeStr);
+        //   //   setTimeOut(
+        //   //     `${currentTime.getHours() - 7}:${currentTime.getMinutes()}`,
+        //   //   );
+        //   // }
+        //   let currentTimeOut = new Date(item[1]?.TimeStr);
+        //     setTimeOut(
+        //       `${currentTimeOut.getHours() - 7}:${currentTimeOut.getMinutes()}`,
+        //     );
+        // });
+        setLoading(false);
+        clearInterval(timer);
+      } else {
+        setLoading(false);
+        clearInterval(timer);
+        // setTimeIn('');
+        // setTimeOut('');
+      }
+    }, 50);
   };
 
   return (
@@ -183,7 +184,7 @@ function CheckInOut() {
         <Spinner
           visible={isLoading}
           textContent={'Đang tải dữ liệu...'}
-          textStyle={styles.spinnerTextStyle}
+          // textStyle={styles.spinnerTextStyle}
           indicatorStyler="red"
         />
 

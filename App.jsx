@@ -4,21 +4,16 @@
  *
  * @format
  */
-
-import NavigationProvider from './src/navigation';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Provider as StoreProvider} from 'react-redux';
-import store from './src/store.js';
+import { Text } from 'react-native';
+import {AuthProvider} from './src/context/AuthContext';
+import AppNav from './src/navigation/AppNav';
 
 const App = () => {
   return (
-    <StoreProvider store={store}>
-      <SafeAreaProvider style={{flex: 1}}>
-        <NavigationProvider />
-      </SafeAreaProvider>
-    </StoreProvider>
-  
-  )
+    <AuthProvider>
+        <AppNav />
+    </AuthProvider>
+  );
 };
 
 export default App;

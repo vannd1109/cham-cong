@@ -4,14 +4,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const logIn = async user => {
   const {username, password} = user;
 
-  if (username.value && password.value === '123456') {
-    AsyncStorage.setItem('user', JSON.stringify(user));
-    return {
-      status: 'success',
-      message: 'You are redirecting to home page',
-      user: username,
-    };
-  }
+  console.log(user);
+
+  // if (username.value && password.value === '123456') {
+  //   AsyncStorage.setItem('user', JSON.stringify(user));
+  //   return {
+  //     status: 'success',
+  //     message: 'You are redirecting to home page',
+  //     user: username,
+  //   };
+  // }
 };
 const logOut = async () => {
   AsyncStorage.clear();

@@ -1,416 +1,150 @@
-import {useDispatch} from 'react-redux';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View, Animated} from 'react-native';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-} from '@react-navigation/drawer';
-import CheckInOut from '../screens/CheckInOut/index';
-import TimeOffScreen from '../screens/TimeOff/index';
-import LoginScreen from '../screens/Login/index';
-import Icon from 'react-native-vector-icons/Ionicons';
-import PayRollScreen from '../screens/PayRolls/index';
 import {logout} from '../actions/auth';
-import CustomDrawerList from './CustomDrawerList';
-import {useState} from 'react';
-import MyModal from '../components/Modal';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import CheckInOut from '../screens/CheckInOut/index';
+import PayRollScreen from '../screens/PayRolls/index';
+import HomeScreen from '../screens/Home/index';
+import BookRiceScreen from '../screens/BookRice/index';
+import NotificationScreen from '../screens/Notification/index';
+import {useRef, useState} from 'react';
 
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
-function Home() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
+function MyTabs() {
+  const currentOpacity = useState(new Animated.Value(0))[0];
 
-function Feed() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Feed!</Text>
-    </View>
-  );
-}
+  function showMenu() {
+    Animated.timing(currentOpacity, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
 
-function Profile() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Profile!</Text>
-    </View>
-  );
-}
-
-function Notifications() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Notifications!</Text>
-    </View>
-  );
-}
-
-const MyDrawer = () => {
-  const dispatch = useDispatch();
-  const [myNavigation, setMyNavigation] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
-  const [titleModal, setTitleModal] = useState('Title Modal');
-
-  const onModal = () => {
-    setModalVisible(true);
-    setTitleModal('Thoát ứng dụng');
-  };
-  const onLogout = () => {
-    dispatch(logout()).then(response => {
-      if (response.status === 'success') {
-        setModalVisible(false);
-        myNavigation.navigate('LogIn');
-      }
-    });
+    console.log(currentOpacity);
   };
 
-  const onNotifications = () => {
-    alert('Thông báo');
+  function hiddenMenu(){
+    Animated.timing(currentOpacity, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+
+    console.log(currentOpacity);
   };
 
   return (
     <>
-      <Drawer.Navigator
+      <Tab.Navigator
         initialRouteName="Home"
         screenOptions={{
-          drawerStyle: {
-            backgroundColor: '#fff',
-            position: 'absolute',
-            top: -50,
-          },
-        }}
-        drawerContent={props => {
-          return (
-            <DrawerContentScrollView {...props}>
-              <CustomDrawerList {...props} setMyNavigation={setMyNavigation} />
-              <Button
-                title="Thoát"
-                color="#ac2b36"
-                onPress={() => onLogout()}
-              />
-            </DrawerContentScrollView>
-          );
+          tabBarActiveTintColor: '#003868',
+          tabBarInactiveTintColor: 'gray',
+          headerRight: () => (
+            <FontAwesome
+              name="bars"
+              style={{fontSize: 24, marginRight: 10}}
+              onPress={showMenu}
+            />
+          ),
         }}>
-        <Drawer.Screen
-          name="LogIn"
-          component={LoginScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Drawer.Screen
+        <Tab.Screen
           name="Home"
-          component={Home}
+          component={HomeScreen}
           options={{
-            headerShown: false,
+            tabBarLabel: 'Trang chủ',
+            tabBarIcon: ({color, size}) => (
+              <FontAwesome name="home" color={color} size={size} />
+            ),
           }}
         />
-        <Drawer.Screen
+        <Tab.Screen
           name="CheckInOut"
           component={CheckInOut}
           options={{
-            title: 'Chấm công',
-            headerStyle: {
-              backgroundColor: '#d68f19',
-            },
-            headerTintColor: '#0e447a',
-            drawerIcon: () => (
-              <Icon name="checkbox-outline" color="#0e447a" size={24} />
-            ),
-            headerRight: () => (
-              <View
-                style={{
-                  position: 'relative',
-                  width: 50,
-                  display: 'flex',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Icon
-                  name="notifications-outline"
-                  color="#fff"
-                  size={24}
-                  onPress={() => onNotifications()}
-                />
-                <Text
-                  style={{
-                    position: 'absolute',
-                    borderWidth: 1,
-                    borderColor: '#0e447a',
-                    width: 18,
-                    height: 18,
-                    textAlign: 'center',
-                    color: '#fff',
-                    backgroundColor: '#0e447a',
-                    right: 8,
-                    top: -5,
-                    borderRadius: 50,
-                    backgroundColor: 'red',
-                  }}
-                  onPress={() => onNotifications()}>
-                  3
-                </Text>
-              </View>
+            tabBarLabel: 'Bảng công',
+            tabBarIcon: ({color, size}) => (
+              <FontAwesome name="check-square" color={color} size={size} />
             ),
           }}
         />
-        <Drawer.Screen
-          name="TimeOff"
-          component={TimeOffScreen}
+        <Tab.Screen
+          name="Notification"
+          component={NotificationScreen}
           options={{
-            title: 'Đăng ký nghỉ phép',
-            headerStyle: {
-              backgroundColor: '#d68f19',
-            },
-            headerTintColor: '#0e447a',
-            drawerIcon: () => (
-              <Icon name="flash-off-outline" color="#0e447a" size={24} />
-            ),
-            headerRight: () => (
-              <View style={{position: 'relative'}}>
-                <Icon
-                  name="notifications-outline"
-                  color="#fff"
-                  size={24}
-                  style={{marginRight: 20}}
-                  onPress={() => alert('This is a button!')}
-                />
-                <Text
-                  style={{
-                    position: 'absolute',
-                    borderWidth: 1,
-                    borderColor: '#0e447a',
-                    width: 18,
-                    height: 18,
-                    textAlign: 'center',
-                    color: '#fff',
-                    backgroundColor: '#0e447a',
-                    right: 15,
-                    top: -5,
-                    borderRadius: 50,
-                  }}>
-                  3
-                </Text>
-              </View>
+            tabBarLabel: 'Thông báo',
+            tabBarIcon: ({color, size}) => (
+              <FontAwesome name="bell" color={color} size={size} />
             ),
           }}
         />
-        <Drawer.Screen
-          name="PayRoll"
+        <Tab.Screen
+          name="PayRolls"
           component={PayRollScreen}
           options={{
-            title: 'Bảng lương',
-            headerStyle: {
-              backgroundColor: '#d68f19',
-            },
-            headerTintColor: '#0e447a',
-            drawerIcon: () => (
-              <Icon name="cash-outline" color="#0e447a" size={24} />
-            ),
-            headerRight: () => (
-              <View style={{position: 'relative'}}>
-                <Icon
-                  name="notifications-outline"
-                  color="#fff"
-                  size={24}
-                  style={{marginRight: 20}}
-                  onPress={() => onNotifications()}
-                />
-                <Text
-                  style={{
-                    position: 'absolute',
-                    borderWidth: 1,
-                    borderColor: '#0e447a',
-                    width: 18,
-                    height: 18,
-                    textAlign: 'center',
-                    color: '#fff',
-                    backgroundColor: '#0e447a',
-                    right: 15,
-                    top: -5,
-                    borderRadius: 50,
-                  }}>
-                  3
-                </Text>
-              </View>
+            tabBarLabel: 'Lương',
+            tabBarIcon: ({color, size}) => (
+              <FontAwesome name={'money'} color={color} size={size} />
             ),
           }}
         />
-        <Drawer.Screen
-          name="Profile"
-          component={Profile}
+        <Tab.Screen
+          name="BookRice"
+          component={BookRiceScreen}
           options={{
-            title: 'Thông tin người dùng',
-            headerStyle: {
-              backgroundColor: '#d68f19',
-            },
-            headerTintColor: '#0e447a',
-            drawerIcon: () => (
-              <Icon
-                name="information-circle-outline"
-                color="#0e447a"
-                size={24}
-              />
-            ),
-            headerRight: () => (
-              <View style={{position: 'relative'}}>
-                <Icon
-                  name="notifications-outline"
-                  color="#fff"
-                  size={24}
-                  style={{marginRight: 20}}
-                  onPress={() => onNotifications()}
-                />
-                <Text
-                  style={{
-                    position: 'absolute',
-                    borderWidth: 1,
-                    borderColor: '#f4511e',
-                    width: 18,
-                    height: 18,
-                    textAlign: 'center',
-                    color: '#fff',
-                    backgroundColor: '#f4511e',
-                    right: 15,
-                    top: -5,
-                    borderRadius: 50,
-                  }}>
-                  3
-                </Text>
-              </View>
+            tabBarLabel: 'Đặt cơm',
+            tabBarIcon: ({color, size}) => (
+              <FontAwesome name={'calendar'} color={color} size={size} />
             ),
           }}
         />
-        <Drawer.Screen
-          name="Settings"
-          component={Settings}
-          options={{
-            title: 'Cài đặt',
-            headerStyle: {
-              backgroundColor: '#d68f19',
-            },
-            headerTintColor: '#0e447a',
-            drawerIcon: () => (
-              <Icon name="settings-outline" color="#0e447a" size={24} />
-            ),
-            headerRight: () => (
-              <View style={{position: 'relative'}}>
-                <Icon
-                  name="notifications-outline"
-                  color="#fff"
-                  size={24}
-                  style={{marginRight: 20}}
-                  onPress={() => onNotifications()}
-                />
-                <Text
-                  style={{
-                    position: 'absolute',
-                    borderWidth: 1,
-                    borderColor: '#0e447a',
-                    width: 18,
-                    height: 18,
-                    textAlign: 'center',
-                    color: '#fff',
-                    backgroundColor: '#0e447a',
-                    right: 15,
-                    top: -5,
-                    borderRadius: 50,
-                  }}>
-                  3
-                </Text>
-              </View>
-            ),
-          }}
-        />
-      </Drawer.Navigator>
-      <MyModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        titleModal={titleModal}
-        onLogout={onLogout}>
-        <View style={styles.modalBody}>
-          <Text>Bạn có thực sự muốn đóng ứng dụng không?</Text>
+      </Tab.Navigator>
+      {/* <Animated.View
+        style={{
+          position: "absolute",
+          backgroundColor: 'red',
+          height: '100%',
+          width: '100%',
+          right: 0,
+          display: 'flex',
+          gap: 2,
+          opacity: currentOpacity,
+        }}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            borderBottomWidth: 6,
+            borderBottomColor: '#c5c5c5',
+            padding: 10,
+            alignContent: 'center',
+          }}>
+          <View>
+            <FontAwesome name="user" style={{fontSize: 24}} />
+          </View>
+          <View>
+            <Text style={{fontWeight: 'bold', fontSize: 16}}>
+              Nguyễn Duy Văn
+            </Text>
+            <Text>03492 - Nhân viên</Text>
+          </View>
+          <View>
+            <FontAwesome
+              name="close"
+              style={{fontSize: 24}}
+              onPress={hiddenMenu}
+            />
+          </View>
         </View>
-        <View style={styles.modalBtn}>
-          <Text onPress={() => setModalVisible(false)} style={styles.btnCancel}>
-            Hủy
-          </Text>
-          <Text onPress={() => onLogout()} style={styles.btnClose}>
-            Thoát
-          </Text>
+        <View style={{padding: 10}}>
+          <Text>âsdsad</Text>
         </View>
-      </MyModal>
+      </Animated.View> */}
     </>
-  );
-};
-
-function MyTabs() {
-  return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        tabBarActiveTintColor: '#003868',
-      }}>
-        {/* <Tab.Screen
-        name="Login"
-        component={Login}
-        options={{
-          tabBarLabel: 'Trang chủ',
-          tabBarIcon: ({color, size}) => (
-            <FontAwesome name="home" color={color} size={size} />
-          ),
-        }}
-      /> */}
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarLabel: 'Trang chủ',
-          tabBarIcon: ({color, size}) => (
-            <FontAwesome name="home" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Feed"
-        component={Feed}
-        options={{
-          tabBarLabel: 'Bảng công',
-          tabBarIcon: ({color, size}) => (
-            <FontAwesome name="check-square" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Notifications"
-        component={Notifications}
-        options={{
-          tabBarLabel: 'Lương',
-          tabBarIcon: ({color, size}) => (
-            <FontAwesome name={'money'} color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarLabel: 'Nghỉ phép',
-          tabBarIcon: ({color, size}) => (
-            <FontAwesome name={'flash'} color={color} size={size} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
   );
 }
 
@@ -424,13 +158,14 @@ const NavigationProvider = () => {
 export default NavigationProvider;
 
 const styles = StyleSheet.create({
-  modal: {
-    backgroundColor: '#f1f1f18c',
+  menu: {
+    backgroundColor: '#fff',
+    position: 'absolute',
     height: '100%',
     width: '100%',
+    right: 0,
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    gap: 2,
   },
   modalContent: {
     position: 'absolute',
