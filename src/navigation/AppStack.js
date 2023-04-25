@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
@@ -10,10 +12,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ProfileScreen from '../screens/ProfileScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-
-import TabNavigator from './TabNavigator';
 import PayRollsScreen from '../screens/PayRolls';
 import CheckInOutScreen from '../screens/CheckInOut';
+import TimeOffScreen from '../screens/TimeOff';
+import TabNavigator from './TabNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -37,7 +39,7 @@ const AuthStack = () => {
         component={TabNavigator}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="home-outline" size={22} color={color} />
+            <FontAwesome name="home" size={20} color={color} />
           ),
         }}
       />
@@ -46,7 +48,7 @@ const AuthStack = () => {
         component={CheckInOutScreen}
         options={{
           drawerIcon: ({color}) => (
-            <FontAwesome name="calendar-check-o" size={22} color={color} />
+            <FontAwesome name="calendar-check-o" size={20} color={color} />
           ),
         }}
       />
@@ -55,16 +57,16 @@ const AuthStack = () => {
         component={PayRollsScreen}
         options={{
           drawerIcon: ({color}) => (
-            <FontAwesome name="money" size={22} color={color} />
+            <FontAwesome name="money" size={20} color={color} />
           ),
         }}
       />
       <Drawer.Screen
         name="Nghỉ phép"
-        component={PayRollsScreen}
+        component={TimeOffScreen}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="flash" size={22} color={color} />
+            <Ionicons name="flash" size={20} color={color} />
           ),
         }}
       />
@@ -73,7 +75,7 @@ const AuthStack = () => {
         component={PayRollsScreen}
         options={{
           drawerIcon: ({color}) => (
-            <MaterialIcons name="rice-bowl" size={22} color={color} />
+            <MaterialIcons name="rice-bowl" size={20} color={color} />
           ),
         }}
       />
@@ -82,7 +84,7 @@ const AuthStack = () => {
         component={ProfileScreen}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="person-outline" size={22} color={color} />
+            <Ionicons name="person-outline" size={20} color={color} />
           ),
         }}
       />
@@ -91,7 +93,7 @@ const AuthStack = () => {
         component={MessagesScreen}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
+            <Ionicons name="chatbox-ellipses-outline" size={20} color={color} />
           ),
         }}
       />
@@ -100,7 +102,7 @@ const AuthStack = () => {
         component={SettingsScreen}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="settings-outline" size={22} color={color} />
+            <Ionicons name="settings-outline" size={20} color={color} />
           ),
         }}
       />

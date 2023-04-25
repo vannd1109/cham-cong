@@ -1,14 +1,18 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable prettier/prettier */
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import {useEffect, useState, useContext } from 'react';
+import {useEffect, useState, useContext} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MonthPicker from 'react-native-month-year-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Table, Row, Rows} from 'react-native-table-component';
-import { AuthContext } from '../context/AuthContext';
+import {AuthContext} from '../context/AuthContext';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const PayRolls = () => {
-    const { userInfo } = useContext(AuthContext);
+const PayRolls = ({navigation}) => {
+  const {userInfo} = useContext(AuthContext);
   const timeNow = new Date();
   const [date, setDate] = useState(timeNow);
   const [show, setShow] = useState(false);
@@ -158,6 +162,23 @@ const PayRolls = () => {
 
   return (
     <View>
+      <View
+        style={{
+          height: 40,
+          backgroundColor: '#003868',
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingLeft: 10,
+          paddingRight: 10,
+        }}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Ionicons name="menu" style={{fontSize: 32, color: '#fff'}} />
+        </TouchableOpacity>
+        <Text style={{color: '#fff'}}>Bảng lương</Text>
+        <View style={{display: 'flex'}} />
+      </View>
       <View>
         <View style={styles.payrollOption}>
           <View style={styles.payrollMonth}>
@@ -180,7 +201,7 @@ const PayRolls = () => {
         </View>
         <View style={styles.payrollContent}>
           <ScrollView horizontal={true}>
-            <View style={{flexDirection: 'column', marginBottom: 20}}>
+            <View style={{flexDirection: 'column', marginBottom: 110}}>
               <View style={{flexDirection: 'row'}}>
                 <View>
                   <View>
@@ -340,7 +361,10 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
-  head: {height: 60, backgroundColor: '#f1f8ff'},
+  head: {
+    height: 60,
+    backgroundColor: '#f1f8ff',
+  },
   title: {flex: 1, backgroundColor: '#f6f8fa'},
   row: {height: 80},
   text: {textAlign: 'center'},

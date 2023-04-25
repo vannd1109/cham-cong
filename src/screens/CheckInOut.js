@@ -1,16 +1,23 @@
 /* eslint-disable prettier/prettier */
-import React,  {useContext, useState, useEffect } from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+/* eslint-disable no-shadow */
+/* eslint-disable radix */
+/* eslint-disable quotes */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
+import React, {useContext, useState} from 'react';
+import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import { AuthContext } from '../context/AuthContext';
+import {AuthContext} from '../context/AuthContext';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const API_URL =
-  Platform.OS === "ios" ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
+  Platform.OS === 'ios' ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
 
-const CheckInout = () => {
-    const {userInfo} = useContext(AuthContext);
-  const userNumber = parseInt(userInfo.id);
+const CheckInout = ({navigation}) => {
+  const {userInfo} = useContext(AuthContext);
+  const userNumber = parseInt(userInfo?.id);
   const timeNow = Date.now;
   const [currentDay, setCurrentDay] = useState(new Date(timeNow).getDate());
   const [currentMonth, setCurrentMonth] = useState(
@@ -21,7 +28,6 @@ const CheckInout = () => {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [markedDates, setMarkedDates] = useState({});
-
 
   const fetchData = async (timeDate, userNumber) => {
     fetch(
@@ -86,7 +92,7 @@ const CheckInout = () => {
       }, 100);
     }
 
-    const timer = setInterval( () => {
+    const timer = setInterval(() => {
       if (data) {
         let currentTimeIn = new Date(data[0]?.TimeStr);
         setTimeIn(
@@ -133,6 +139,23 @@ const CheckInout = () => {
 
   return (
     <View style={styles.center}>
+      <View
+        style={{
+          height: 40,
+          backgroundColor: '#003868',
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: "row",
+          alignItems: 'center',
+          paddingLeft: 10,
+          paddingRight: 10,
+        }}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Ionicons name="menu" style={{fontSize: 32, color: '#fff'}} />
+        </TouchableOpacity>
+        <Text style={{color: "#fff"}}>Bảng chấm công</Text>
+        <View style={{display: "flex"}} />
+      </View>
       <Calendar
         onDayPress={day => handleTimeChange(day)}
         markedDates={markedDates}
@@ -150,9 +173,9 @@ const CheckInout = () => {
           </View>
           <View style={{flex: 1}}>
             <Text style={styles.timer}>
-              {timeIn != 'NaN:NaN' && <Text>{timeIn}</Text>}
+              {timeIn !== 'NaN:NaN' && <Text>{timeIn}</Text>}
               <Text style={{margin: 10, display: 'flex'}}>-</Text>
-              {timeOut != 'NaN:NaN' && <Text>{timeOut}</Text>}
+              {timeOut !== 'NaN:NaN' && <Text>{timeOut}</Text>}
             </Text>
           </View>
         </View>

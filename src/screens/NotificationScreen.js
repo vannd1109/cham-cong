@@ -5,7 +5,7 @@ import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const MessagesScreen = ({navigation}) => {
+const NotificationScreen = ({navigation}) => {
   return (
     <View style={{display: 'flex', flexDirection: 'column'}}>
       <View
@@ -22,16 +22,14 @@ const MessagesScreen = ({navigation}) => {
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Feather name="menu" style={{fontSize: 20, color: '#fff'}} />
         </TouchableOpacity>
-        <Text style={{color: '#fff'}}>CÔNG TY TNHH MTV SEN VÀNG VIỆT NAM</Text>
-        <View style={{display: 'flex'}}>
-          <Feather name="edit" style={{fontSize: 20, color: '#fff'}} />
-        </View>
+        <Text style={{color: '#fff'}}>Thông báo</Text>
+        <View style={{display: 'flex'}} />
       </View>
       <View>
-        <Text>Tin nhắn</Text>
+        <Text>Ứng dụng</Text>
       </View>
     </View>
   );
 };
 
-export default MessagesScreen;
+export default NotificationScreen;

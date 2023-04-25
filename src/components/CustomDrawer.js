@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, {useContext} from 'react';
 import {
@@ -13,7 +14,6 @@ import {
 } from '@react-navigation/drawer';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { AuthContext } from '../context/AuthContext';
 
 const CustomDrawer = props => {
@@ -22,7 +22,7 @@ const CustomDrawer = props => {
     <View style={{flex: 1}}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{backgroundColor: '#8200d6'}}>
+        contentContainerStyle={{backgroundColor: '#003868'}}>
         <ImageBackground
           source={require('../assets/images/menu-bg.jpeg')}
           style={{padding: 20}}>

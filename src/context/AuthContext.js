@@ -1,10 +1,10 @@
 /* eslint-disable no-shadow */
 /* eslint-disable prettier/prettier */
-import React, { createContext, useState, useEffect } from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-import { BASE_URL } from "../config";
+import {BASE_URL} from '../config';
 
 export const AuthContext = createContext();
 
@@ -15,24 +15,29 @@ export const AuthProvider = ({children}) => {
 
   const login = ({username, password}) => {
     setIsLoading(true);
-    axios.post(`${BASE_URL}/api/auth/signin`, {
-        username,
-        password
-    })
-    .then(res => {
-        let userInfo = res.data;
-        setUserInfo(userInfo);
-        setUserToken(res.data.accessToken);
 
-        AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-        AsyncStorage.setItem('userToken', res.data.accessToken);
+    const timer = setTimeout(() => {
+      axios
+        .post(`${BASE_URL}/api/auth/signin`, {
+          username,
+          password,
+        })
+        .then(res => {
+          let userInfo = res.data;
+          setUserInfo(userInfo);
+          setUserToken(res.data.accessToken);
 
-        console.log('User Token: ' + res.data.accessToken);
-    })
-    .catch(e => {
-        console.log(`LOgin error ${e}`);
-    })
-    setIsLoading(false);
+          AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+          AsyncStorage.setItem('userToken', res.data.accessToken);
+
+          // console.log('User Token: ' + res.data.accessToken);
+        })
+        .catch(e => {
+          console.log(`LOgin error ${e}`);
+        });
+      setIsLoading(false);
+      clearTimeout(timer);
+    }, 1500);
   };
 
   const logout = () => {
@@ -45,28 +50,29 @@ export const AuthProvider = ({children}) => {
 
   const isLoggedIn = async () => {
     try {
-        let userInfo = await AsyncStorage.getItem('userInfo');
-        let userToken = await AsyncStorage.getItem('userToken');
-        userInfo = JSON.parse(userInfo);
+      let userInfo = await AsyncStorage.getItem('userInfo');
+      let userToken = await AsyncStorage.getItem('userToken');
+      userInfo = JSON.parse(userInfo);
 
-        if(userInfo) {
-            setUserToken(userToken);
-            setUserInfo(userInfo);
-        }
-
+      if (userInfo) {
         setUserToken(userToken);
-        setIsLoading(false);
+        setUserInfo(userInfo);
+      }
+
+      setUserToken(userToken);
+      setIsLoading(false);
     } catch (error) {
-        console.log(`isLogged in error ${error}`);
+      console.log(`isLogged in error ${error}`);
     }
-  }
+  };
 
   useEffect(() => {
     isLoggedIn();
-  },[]);
+  }, []);
 
   return (
-    <AuthContext.Provider value={{login, logout, isLoading, userToken, userInfo}}>
+    <AuthContext.Provider
+      value={{login, logout, isLoading, userToken, userInfo}}>
       {children}
     </AuthContext.Provider>
   );
