@@ -6,7 +6,7 @@ import {View, Text, StyleSheet, Platform} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-const API_URL =
+const API_URL = '';
   // Platform.OS === "ios" ? 'http://172.17.9.14:4001' : 'http://172.17.9.14:4001';
 function CheckInOut() {
   const user = useSelector(state => state.user);
@@ -60,7 +60,7 @@ function CheckInOut() {
       .then(async res => {
         try {
           const result = await res.json();
-          // console.log(result);
+          console.log(result);
           setData(result);
           if (res.status === 200) {
             let currentTimeIn = new Date(result[0]?.TimeStr);
@@ -86,6 +86,7 @@ function CheckInOut() {
     const {dateString} = day;
 
     console.log(dateString);
+    return;
     const currentDate = Object.keys(markedDates)[0];
     if (dateString !== currentDate) {
       let currentMarkedDates = {};

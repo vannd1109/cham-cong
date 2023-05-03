@@ -9,18 +9,18 @@ import {AuthContext} from '../context/AuthContext';
 import {Text} from 'react-native';
 
 const AppNav = () => {
-  const {isLoading, userToken} = useContext(AuthContext);
+  const { userToken} = useContext(AuthContext);
 
-  if (isLoading) {
-    return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="large" />
-        <Text style={{color: '#003868', fontSize: 12, fontStyle: 'italic'}}>
-          Đang đăng nhập
-        </Text>
-      </View>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+  //       <ActivityIndicator size="large" />
+  //       <Text style={{color: '#003868', fontSize: 12, fontStyle: 'italic'}}>
+  //         Đang đăng nhập
+  //       </Text>
+  //     </View>
+  //   );
+  // }
   return (
     <NavigationContainer>
       {userToken !== null ? <AppStack /> : <AuthStack />}

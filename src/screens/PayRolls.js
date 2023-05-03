@@ -174,7 +174,7 @@ const PayRolls = ({navigation}) => {
           paddingRight: 10,
         }}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Ionicons name="menu" style={{fontSize: 32, color: '#fff'}} />
+          <Ionicons name="menu" style={{fontSize: 24, color: '#fff'}} />
         </TouchableOpacity>
         <Text style={{color: '#fff'}}>Bảng lương</Text>
         <View style={{display: 'flex'}} />

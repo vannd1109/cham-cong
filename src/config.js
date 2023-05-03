@@ -1,2 +1,3 @@
+/* eslint-disable eol-last */
 /* eslint-disable prettier/prettier */
-export const BASE_URL= 'http://172.29.32.1:8080';
+export const BASE_URL = 'http://localhost:8080';

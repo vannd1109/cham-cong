@@ -16,6 +16,7 @@ import PayRollsScreen from '../screens/PayRolls';
 import CheckInOutScreen from '../screens/CheckInOut';
 import TimeOffScreen from '../screens/TimeOff';
 import TabNavigator from './TabNavigator';
+import BookRiceScreen from '../screens/BookRice';
 
 const Drawer = createDrawerNavigator();
 
@@ -72,7 +73,7 @@ const AuthStack = () => {
       />
       <Drawer.Screen
         name="Đặt cơm"
-        component={PayRollsScreen}
+        component={BookRiceScreen}
         options={{
           drawerIcon: ({color}) => (
             <MaterialIcons name="rice-bowl" size={20} color={color} />

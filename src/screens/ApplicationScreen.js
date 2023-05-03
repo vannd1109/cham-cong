@@ -6,7 +6,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import CheckInout from './CheckInOut';
 
 const ApplicationScreen = ({navigation}) => {
   const appList = [
