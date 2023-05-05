@@ -1,6 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { SafeAreaView, View, Text, TouchableOpacity,Image } from 'react-native';
+import {SafeAreaView, View, Text, TouchableOpacity, Image} from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -16,7 +17,6 @@ const OnboardingScreen = ({navigation}) => {
       <View style={{marginTop: 20}}>
         <Text
           style={{
-            fontFamily: 'Inter-Bold',
             fontWeight: 'bold',
             fontSize: 24,
             color: '#20315f',
@@ -29,7 +29,7 @@ const OnboardingScreen = ({navigation}) => {
           style={{
             width: 300,
             height: 300,
-            transform: [{rotate: '-45deg'}]
+            transform: [{rotate: '-45deg'}],
           }}
           source={require('../assets/images/payroll.jpg')}
         />
@@ -51,7 +51,6 @@ const OnboardingScreen = ({navigation}) => {
             fontSize: 18,
             textAlign: 'center',
             fontWeight: 'bold',
-            fontFamily: 'Roboto-MediumItalic',
           }}>
           Đăng nhập
         </Text>

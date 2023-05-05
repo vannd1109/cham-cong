@@ -1,13 +1,17 @@
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
-import {View, Text, TouchableOpacity} from 'react-native';
+import {useState} from 'react';
+import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import ProgressBar from 'react-native-progress/Bar';
 
 const ApplicationScreen = ({navigation}) => {
+  const [loading, setLoading] = useState(false);
   const appList = [
     {
       id: 'check_in',
@@ -35,8 +39,17 @@ const ApplicationScreen = ({navigation}) => {
     },
   ];
 
+  const handleChangeApp = app => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+      navigation.navigate(app.name);
+      clearTimeout(timer);
+    }, 2000);
+  };
+
   return (
-    <View style={{display: 'flex', flexDirection: 'column'}}>
+    <SafeAreaView style={{display: 'flex', flexDirection: 'column'}}>
       <View
         style={{
           height: 50,
@@ -58,33 +71,73 @@ const ApplicationScreen = ({navigation}) => {
       </View>
       <View
         style={{
-          padding: 10,
-          display: 'flex',
-          flexDirection: 'row',
-          width: '100%',
-          height: '100%',
+          position: 'relative',
         }}>
-        {appList.map(app => (
+        <View
+          style={{
+            padding: 8,
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            height: '100%',
+          }}>
+          {appList.map(app => (
+            <View
+              key={app.id}
+              style={{display: 'flex', alignItems: 'center', flex: 1, gap: 4}}>
+              <TouchableOpacity
+                onPress={() => handleChangeApp(app)}
+                style={{
+                  backgroundColor: `${app.bgColor}`,
+                  width: 40,
+                  height: 40,
+                  borderRadius: 8,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                {app.icon}
+              </TouchableOpacity>
+              <Text style={{fontSize: 12}}>{app.name}</Text>
+            </View>
+          ))}
+        </View>
+        {loading && (
           <View
-            key={app.id}
-            style={{display: 'flex', alignItems: 'center', flex: 1, gap: 4}}>
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              backgroundColor: '#00000112',
+            }}>
             <View
               style={{
-                backgroundColor: `${app.bgColor}`,
-                width: 40,
-                height: 40,
-                borderRadius: 8,
-                display: 'flex',
-                justifyContent: 'center',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: [{translateY: -50}, {translateX: -100}],
+                width: '50%',
                 alignItems: 'center',
+                gap: 4,
               }}>
-              <TouchableOpacity onPress={() => navigation.navigate(app.name)}>{app.icon}</TouchableOpacity>
+              <Text>Đang tải...</Text>
+              <ProgressBar
+                progress={5000}
+                indeterminate={true}
+                color={'#003868'}
+                height={10}
+                width={200}
+                borderRadius={8}
+                animating={true}
+                duration={2000}
+              />
             </View>
-            <Text style={{fontSize: 12}}>{app.name}</Text>
           </View>
-        ))}
+        )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

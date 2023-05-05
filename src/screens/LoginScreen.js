@@ -1,23 +1,20 @@
+/* eslint-disable no-bitwise */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, {useContext, useState} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-} from 'react-native';
-
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {SafeAreaView, View, Text, Image} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
 import {AuthContext} from '../context/AuthContext';
+import ProgressBar from 'react-native-progress/Bar';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
-  const {login} = useContext(AuthContext);
+  const {login, isLoading} = useContext(AuthContext);
   return (
     <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
       <View style={{paddingHorizontal: 25}}>
@@ -33,10 +30,9 @@ const LoginScreen = ({navigation}) => {
 
         <Text
           style={{
-            fontFamily: 'Roboto-Medium',
-            fontSize: 24,
-            fontWeight: '500',
-            color: '#333',
+            fontSize: 20,
+            fontWeight: '600',
+            color: '#003868',
             marginBottom: 20,
             marginTop: 20,
           }}>
@@ -46,8 +42,8 @@ const LoginScreen = ({navigation}) => {
         <InputField
           label={'ID'}
           icon={
-            <MaterialIcons
-              name="alternate-email"
+            <Feather
+              name="user"
               size={20}
               color="#666"
               style={{marginRight: 5}}
@@ -69,19 +65,68 @@ const LoginScreen = ({navigation}) => {
             />
           }
           inputType="password"
-          fieldButtonLabel={'Quên mật khẩu?'}
+          // fieldButtonLabel={'Quên mật khẩu?'}
           fieldButtonFunction={() => {}}
           value={password}
           onChangeText={text => setPassword(text)}
         />
+        <View style={{display: 'flex', alignItems: 'flex-end'}}>
+          <Text
+            style={{
+              marginBottom: 16,
+              fontSize: 12,
+              textDecorationLine: 'underline',
+              color: '#003868',
+            }}>
+            Quên mật khẩu
+          </Text>
+        </View>
 
         <CustomButton
           label={'Đăng nhập'}
+          disabled={username & password ? false : true}
+          bg={username && password ? '#003868' : '#a4b1bd'}
           onPress={() => {
             login({username, password});
           }}
         />
       </View>
+      {isLoading && (
+        <View
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            backgroundColor: '#00000555',
+          }}>
+          <View
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: [{translateY: -50}, {translateX: -100}],
+              width: '50%',
+              alignItems: 'center',
+              gap: 4,
+            }}>
+            <Text style={{color: '#fff', fontStyle: 'italic'}}>
+              Đang đăng nhập...
+            </Text>
+            <ProgressBar
+              progress={10000}
+              indeterminate={true}
+              color={'#fff'}
+              height={10}
+              width={200}
+              borderRadius={8}
+              animating={true}
+              duration={2000}
+            />
+          </View>
+        </View>
+      )}
     </SafeAreaView>
   );
 };

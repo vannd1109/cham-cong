@@ -211,7 +211,7 @@ const PayRolls = ({navigation}) => {
                         data={tableHeadLeft}
                         style={styles.head}
                         widthArr={widthArrHeaderLeft}
-                        // textStyle={styles.text}
+                        textStyle={styles.text}
                       />
                     </Table>
                   </View>
@@ -222,7 +222,7 @@ const PayRolls = ({navigation}) => {
                         data={tableHeadLeftFileds}
                         style={styles.head}
                         widthArr={widthArrHeaderLeftFileds}
-                        // textStyle={styles.text}
+                        textStyle={styles.text}
                       />
                     </Table>
                   </View>
@@ -235,7 +235,7 @@ const PayRolls = ({navigation}) => {
                         data={tableHeadRight}
                         style={styles.head}
                         widthArr={widthArrHeaderRight}
-                        // textStyle={styles.text}
+                        textStyle={styles.text}
                       />
                     </Table>
                   </View>

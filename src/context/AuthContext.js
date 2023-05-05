@@ -30,14 +30,16 @@ export const AuthProvider = ({children}) => {
           AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
           AsyncStorage.setItem('userToken', res.data.accessToken);
 
+          setIsLoading(false);
+
           // console.log('User Token: ' + res.data.accessToken);
         })
         .catch(e => {
           console.log(`LOgin error ${e}`);
         });
-      setIsLoading(false);
+      // setIsLoading(false);
       clearTimeout(timer);
-    }, 1500);
+    }, 2000);
   };
 
   const logout = () => {

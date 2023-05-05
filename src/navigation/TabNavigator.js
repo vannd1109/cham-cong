@@ -1,12 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
-import HomeScreen from '../screens/HomeScreen';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -17,26 +12,6 @@ import AlarmScreen from '../screens/AlarmScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
-
-const HomeStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{headerShown: false}}
-      />
-      {/* <Stack.Screen
-        name="GameDetails"
-        component={GameDetailsScreen}
-        options={({route}) => ({
-          title: route.params?.title,
-        })}
-      /> */}
-    </Stack.Navigator>
-  );
-};
 
 const TabNavigator = () => {
   return (

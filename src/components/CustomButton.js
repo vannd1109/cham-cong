@@ -1,12 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import {Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-export default function CustomButton({label, onPress}) {
+export default function CustomButton({label, onPress, disabled = false, bg}) {
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={disabled}
       style={{
-        backgroundColor: '#003868',
+        backgroundColor: `${bg}`,
         padding: 20,
         borderRadius: 10,
         marginBottom: 30,

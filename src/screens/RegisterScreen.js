@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -40,7 +41,6 @@ const RegisterScreen = ({navigation}) => {
 
         <Text
           style={{
-            fontFamily: 'Roboto-Medium',
             fontSize: 28,
             fontWeight: '500',
             color: '#333',

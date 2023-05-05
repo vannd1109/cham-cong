@@ -18,7 +18,11 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import Feather from 'react-native-vector-icons/Feather';
 import {useState, useEffect, useRef} from 'react';
 
 const arrTimeOff = [
@@ -117,56 +121,78 @@ const arrTimeOff = [
 
 const arrOverview = [
   {
-    name: "Nghỉ phép năm",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Nghỉ phép năm',
+    icon: <FontAwesome name="check" size={20} style={{color: '#32a858'}} />,
     number: 0,
+    bg: '#aae68c',
   },
   {
-    name: "Ngày phép còn lại",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Ngày phép còn lại',
+    icon: <FontAwesome name="star-o" size={20} style={{color: '#e0d55c'}} />,
     number: 7.5,
+    bg: '#e8e089',
   },
   {
-    name: "Nghỉ cá nhân",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Nghỉ cá nhân',
+    icon: (
+      <FontAwesome name="birthday-cake" size={20} style={{color: '#8f56db'}} />
+    ),
     number: 0,
+    bg: '#d4b6fa',
   },
   {
-    name: "Đi công tác",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Đi công tác',
+    icon: (
+      <MaterialCommunityIcons
+        name="airplane"
+        size={20}
+        style={{color: '#4ea9de'}}
+      />
+    ),
     number: 0,
+    bg: '#b9e2fa',
   },
   {
-    name: "Làm việc ngoài văn phòng",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Làm việc ngoài văn phòng',
+    icon: <FontAwesome5 name="building" size={20} style={{color: '#58d69f'}} />,
     number: 0,
+    bg: '#acfad8',
   },
   {
-    name: "Nghỉ không lương",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Nghỉ không lương',
+    icon: (
+      <MaterialIcons name="money-off" size={20} style={{color: '#d12c31'}} />
+    ),
     number: 0,
+    bg: '#faa2a5',
   },
   {
-    name: "Các loại khác",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Các loại khác',
+    icon: <Feather name="settings" size={20} style={{color: '#bfbdbb'}} />,
     number: 0,
+    bg: '#f2f2f2',
   },
   {
-    name: "Nghỉ phép năm theo giờ",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Nghỉ phép năm theo giờ',
+    icon: <Fontisto name="clock" size={20} style={{color: '#db7d39'}} />,
     number: 0,
+    bg: '#fad0b1',
   },
   {
-    name: "Nghỉ không lương theo giờ",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Nghỉ không lương theo giờ',
+    icon: (
+      <MaterialIcons name="money-off" size={20} style={{color: '#d12c31'}} />
+    ),
     number: 0,
+    bg: '#faa2a5',
   },
   {
-    name: "Làm việc ngoài văn phòng theo giờ",
-    icon : <FontAwesome name='star' size={24} style={{color: 'red'}} />,
+    name: 'Làm việc ngoài văn phòng theo giờ',
+    icon: <FontAwesome5 name="building" size={20} style={{color: '#58d69f'}} />,
     number: 0,
+    bg: '#acfad8',
   },
-]
+];
 
 const TotalScreen = () => {
   return (
@@ -442,7 +468,7 @@ const TimeOff = ({navigation}) => {
     }, 1000);
   };
 
-  const Tab = ({item, key}) => {
+  const Tab = ({item}) => {
     return (
       <View>
         <Text
@@ -508,7 +534,7 @@ const TimeOff = ({navigation}) => {
             display: 'flex',
             justifyContent: 'center',
             height: '90%',
-            backgroundColor: '#00000021',
+            backgroundColor: '#00000008',
           }}>
           <ActivityIndicator size="large" />
         </View>
@@ -619,7 +645,7 @@ const TimeOff = ({navigation}) => {
           onDismiss={() => setShowOverview(false)}
           animationType="slide"
           transparent={true}>
-          <View>
+          <View style={{display: 'flex', alignItems: 'center'}}>
             <TouchableOpacity
               style={{
                 backgroundColor: '#00000042',
@@ -636,9 +662,10 @@ const TimeOff = ({navigation}) => {
                 marginLeft: 16,
                 marginRight: 16,
                 overflow: 'scroll',
-                height: '100%',
+                height: '90%',
                 position: 'relative',
                 zIndex: 2,
+                width: '80%',
               }}>
               <View
                 style={{
@@ -664,9 +691,10 @@ const TimeOff = ({navigation}) => {
                   />
                 </TouchableOpacity>
               </View>
-              <ScrollView style={{padding: 16}}>
-                {arrOverview.map(itemOverview => (
+              <ScrollView style={{padding: 16, marginBottom: 16}}>
+                {arrOverview.map((itemOverview, idx) => (
                   <View
+                    key={idx}
                     style={{
                       display: 'flex',
                       flexDirection: 'row',
@@ -675,13 +703,30 @@ const TimeOff = ({navigation}) => {
                       borderBottomColor: '#003868',
                       borderBottomWidth: 1,
                       padding: 8,
+                      paddingBottom: 16,
                     }}>
-                    <View style={{backgroundColor: '#00000021', width: 40, height: 40, borderRadius: 50, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <View
+                      style={{
+                        backgroundColor: `${itemOverview?.bg}`,
+                        width: 40,
+                        height: 40,
+                        borderRadius: 50,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
                       {itemOverview.icon}
                     </View>
                     <View>
-                      <Text style={{color: '#000', fontWeight: '800', fontSize: 16}}>{itemOverview.number}</Text>
-                      <Text>{itemOverview.name}</Text>
+                      <Text
+                        style={{
+                          color: '#000',
+                          fontWeight: '800',
+                          fontSize: 16,
+                        }}>
+                        {itemOverview.number.toFixed(2)}
+                      </Text>
+                      <Text style={{fontSize: 12}}>{itemOverview.name}</Text>
                     </View>
                   </View>
                 ))}
