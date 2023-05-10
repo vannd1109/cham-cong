@@ -1,25 +1,21 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useContext} from 'react';
+import React, {useContext, useEffect } from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 import {AuthContext} from '../context/AuthContext';
-import {Text} from 'react-native';
+import { AppState } from 'react-native';
 
 const AppNav = () => {
-  const { userToken} = useContext(AuthContext);
+  const { userToken, logout } = useContext(AuthContext);
 
-  // if (isLoading) {
-  //   return (
-  //     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-  //       <ActivityIndicator size="large" />
-  //       <Text style={{color: '#003868', fontSize: 12, fontStyle: 'italic'}}>
-  //         Đang đăng nhập
-  //       </Text>
-  //     </View>
-  //   );
-  // }
+  useEffect(() => {
+    if(AppState.currentState !== 'active') {
+      logout();
+    }
+  },[]);
+
   return (
     <NavigationContainer>
       {userToken !== null ? <AppStack /> : <AuthStack />}

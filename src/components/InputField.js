@@ -31,14 +31,16 @@ export default function InputField({
           secureTextEntry={true}
           value={value}
           onChangeText={onChangeText}
+          placeholderTextColor="#003868"
         />
       ) : (
         <TextInput
           placeholder={label}
-          keyboardType={keyboardType}
           style={{flex: 1, paddingVertical: 0}}
           value={value}
           onChangeText={onChangeText}
+          placeholderTextColor="#003868"
+          secureTextEntry={false}
         />
       )}
       <TouchableOpacity onPress={fieldButtonFunction}>

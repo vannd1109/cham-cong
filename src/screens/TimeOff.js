@@ -14,6 +14,7 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
+  SafeAreaView
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -23,7 +24,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
-import {useState, useEffect, useRef} from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const arrTimeOff = [
   {
@@ -122,20 +123,20 @@ const arrTimeOff = [
 const arrOverview = [
   {
     name: 'Nghỉ phép năm',
-    icon: <FontAwesome name="check" size={20} style={{color: '#32a858'}} />,
+    icon: <FontAwesome name="check" size={20} style={{ color: '#32a858' }} />,
     number: 0,
     bg: '#aae68c',
   },
   {
     name: 'Ngày phép còn lại',
-    icon: <FontAwesome name="star-o" size={20} style={{color: '#e0d55c'}} />,
+    icon: <FontAwesome name="star-o" size={20} style={{ color: '#e0d55c' }} />,
     number: 7.5,
     bg: '#e8e089',
   },
   {
     name: 'Nghỉ cá nhân',
     icon: (
-      <FontAwesome name="birthday-cake" size={20} style={{color: '#8f56db'}} />
+      <FontAwesome name="birthday-cake" size={20} style={{ color: '#8f56db' }} />
     ),
     number: 0,
     bg: '#d4b6fa',
@@ -146,7 +147,7 @@ const arrOverview = [
       <MaterialCommunityIcons
         name="airplane"
         size={20}
-        style={{color: '#4ea9de'}}
+        style={{ color: '#4ea9de' }}
       />
     ),
     number: 0,
@@ -154,41 +155,41 @@ const arrOverview = [
   },
   {
     name: 'Làm việc ngoài văn phòng',
-    icon: <FontAwesome5 name="building" size={20} style={{color: '#58d69f'}} />,
+    icon: <FontAwesome5 name="building" size={20} style={{ color: '#58d69f' }} />,
     number: 0,
     bg: '#acfad8',
   },
   {
     name: 'Nghỉ không lương',
     icon: (
-      <MaterialIcons name="money-off" size={20} style={{color: '#d12c31'}} />
+      <MaterialIcons name="money-off" size={20} style={{ color: '#d12c31' }} />
     ),
     number: 0,
     bg: '#faa2a5',
   },
   {
     name: 'Các loại khác',
-    icon: <Feather name="settings" size={20} style={{color: '#bfbdbb'}} />,
+    icon: <Feather name="settings" size={20} style={{ color: '#bfbdbb' }} />,
     number: 0,
     bg: '#f2f2f2',
   },
   {
     name: 'Nghỉ phép năm theo giờ',
-    icon: <Fontisto name="clock" size={20} style={{color: '#db7d39'}} />,
+    icon: <Fontisto name="clock" size={20} style={{ color: '#db7d39' }} />,
     number: 0,
     bg: '#fad0b1',
   },
   {
     name: 'Nghỉ không lương theo giờ',
     icon: (
-      <MaterialIcons name="money-off" size={20} style={{color: '#d12c31'}} />
+      <MaterialIcons name="money-off" size={20} style={{ color: '#d12c31' }} />
     ),
     number: 0,
     bg: '#faa2a5',
   },
   {
     name: 'Làm việc ngoài văn phòng theo giờ',
-    icon: <FontAwesome5 name="building" size={20} style={{color: '#58d69f'}} />,
+    icon: <FontAwesome5 name="building" size={20} style={{ color: '#58d69f' }} />,
     number: 0,
     bg: '#acfad8',
   },
@@ -202,7 +203,7 @@ const TotalScreen = () => {
   );
 };
 
-const TurnScreen = ({setShow}) => {
+const TurnScreen = ({ setShow }) => {
   return (
     <View
       style={{
@@ -212,9 +213,9 @@ const TurnScreen = ({setShow}) => {
         padding: 8,
       }}>
       <Text>
-        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.{' '}
+        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
-          style={{color: '#003868', fontWeight: '800'}}
+          style={{ color: '#003868', fontWeight: '800' }}
           onPress={() => setShow(true)}>
           Tạo đề xuất?
         </Text>
@@ -223,7 +224,7 @@ const TurnScreen = ({setShow}) => {
   );
 };
 
-const ApprovalOverdueScreen = ({setShow}) => {
+const ApprovalOverdueScreen = ({ setShow }) => {
   return (
     <View
       style={{
@@ -232,10 +233,10 @@ const ApprovalOverdueScreen = ({setShow}) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text>
-        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.{' '}
+      <Text style={{fontSize: 12}}>
+        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
-          style={{color: '#003868', fontWeight: '800'}}
+          style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
           onPress={() => setShow(true)}>
           Tạo đề xuất?
         </Text>
@@ -244,7 +245,7 @@ const ApprovalOverdueScreen = ({setShow}) => {
   );
 };
 
-const PendingApprovalScreen = ({setShow}) => {
+const PendingApprovalScreen = ({ setShow }) => {
   return (
     <View
       style={{
@@ -253,10 +254,10 @@ const PendingApprovalScreen = ({setShow}) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text>
-        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.{' '}
+      <Text style={{fontSize: 12}}>
+        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
-          style={{color: '#003868', fontWeight: '800'}}
+          style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
           onPress={() => setShow(true)}>
           Tạo đề xuất?
         </Text>
@@ -265,7 +266,7 @@ const PendingApprovalScreen = ({setShow}) => {
   );
 };
 
-const ApprovedScreen = ({setShow}) => {
+const ApprovedScreen = ({ setShow }) => {
   return (
     <View
       style={{
@@ -274,10 +275,10 @@ const ApprovedScreen = ({setShow}) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text>
-        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.{' '}
+      <Text style={{fontSize: 12}}>
+        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
-          style={{color: '#003868', fontWeight: '800'}}
+          style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
           onPress={() => setShow(true)}>
           Tạo đề xuất?
         </Text>
@@ -286,7 +287,7 @@ const ApprovedScreen = ({setShow}) => {
   );
 };
 
-const DeniedScreen = ({setShow}) => {
+const DeniedScreen = ({ setShow }) => {
   return (
     <View
       style={{
@@ -295,10 +296,10 @@ const DeniedScreen = ({setShow}) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text>
-        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.{' '}
+      <Text style={{fontSize: 12}}>
+        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
-          style={{color: '#003868', fontWeight: '800'}}
+          style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
           onPress={() => setShow(true)}>
           Tạo đề xuất?
         </Text>
@@ -307,7 +308,7 @@ const DeniedScreen = ({setShow}) => {
   );
 };
 
-const CanceledScreen = ({setShow}) => {
+const CanceledScreen = ({ setShow }) => {
   return (
     <View
       style={{
@@ -316,10 +317,10 @@ const CanceledScreen = ({setShow}) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text>
-        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.{' '}
+      <Text style={{fontSize: 12}}>
+        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
-          style={{color: '#003868', fontWeight: '800'}}
+          style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
           onPress={() => setShow(true)}>
           Tạo đề xuất?
         </Text>
@@ -328,7 +329,7 @@ const CanceledScreen = ({setShow}) => {
   );
 };
 
-const KindOfWarningScreen = ({setShow}) => {
+const KindOfWarningScreen = ({ setShow }) => {
   return (
     <View
       style={{
@@ -337,10 +338,10 @@ const KindOfWarningScreen = ({setShow}) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text>
-        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.{' '}
+      <Text style={{fontSize: 12}}>
+        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
-          style={{color: '#003868', fontWeight: '800'}}
+          style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
           onPress={() => setShow(true)}>
           Tạo đề xuất?
         </Text>
@@ -349,7 +350,7 @@ const KindOfWarningScreen = ({setShow}) => {
   );
 };
 
-const VerifiedScreen = ({setShow}) => {
+const VerifiedScreen = ({ setShow }) => {
   return (
     <View
       style={{
@@ -358,10 +359,10 @@ const VerifiedScreen = ({setShow}) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text>
-        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.{' '}
+      <Text style={{fontSize: 12}}>
+        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
-          style={{color: '#003868', fontWeight: '800'}}
+          style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
           onPress={() => setShow(true)}>
           Tạo đề xuất?
         </Text>
@@ -370,7 +371,7 @@ const VerifiedScreen = ({setShow}) => {
   );
 };
 
-const WaitingForConfirmationScreen = ({setShow}) => {
+const WaitingForConfirmationScreen = ({ setShow }) => {
   return (
     <View
       style={{
@@ -379,10 +380,10 @@ const WaitingForConfirmationScreen = ({setShow}) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text>
-        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.{' '}
+      <Text style={{fontSize: 12}}>
+        Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
-          style={{color: '#003868', fontWeight: '800'}}
+          style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
           onPress={() => setShow(true)}>
           Tạo đề xuất?
         </Text>
@@ -391,13 +392,14 @@ const WaitingForConfirmationScreen = ({setShow}) => {
   );
 };
 
-const TimeOff = ({navigation}) => {
+const TimeOff = ({ navigation }) => {
   const [title, setTitle] = useState('Danh sách đề xuất');
   const [show, setShow] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
   const [tab, setTab] = useState(<TotalScreen />);
   const [currentTab, setCurrentTab] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [currentArrayTimeOff, setCurrentArrayTimeOff] = useState([...arrTimeOff]); 
   let timer = useRef().current;
 
   const tabs = {
@@ -468,7 +470,7 @@ const TimeOff = ({navigation}) => {
     }, 1000);
   };
 
-  const Tab = ({item}) => {
+  const Tab = ({ item }) => {
     return (
       <View>
         <Text
@@ -485,10 +487,10 @@ const TimeOff = ({navigation}) => {
     );
   };
 
-  const Tabs = ({data}) => {
+  const Tabs = ({ data }) => {
     return (
-      <View style={{width: '100%'}}>
-        <ScrollView horizontal style={{display: 'flex', flexDirection: 'row'}}>
+      <View style={{ width: '100%' }}>
+        <ScrollView horizontal style={{ display: 'flex', flexDirection: 'row' }}>
           {data.map(item => {
             return <Tab key={item.key} item={item} />;
           })}
@@ -497,8 +499,18 @@ const TimeOff = ({navigation}) => {
     );
   };
 
+  const handleSearch = (txtSearch) => {
+    const _arrTimeOff = [];
+    for (let i = 0; i < arrTimeOff.length; i++) {
+      if(arrTimeOff[i].name.includes(txtSearch)) {
+        _arrTimeOff.push(arrTimeOff[i]);
+      }
+    }
+    setCurrentArrayTimeOff(_arrTimeOff);
+  }
+
   return (
-    <View style={{display: 'flex', flexDirection: 'column'}}>
+    <SafeAreaView style={{ display: 'flex', flexDirection: 'column' }}>
       <View
         style={{
           height: 40,
@@ -511,18 +523,18 @@ const TimeOff = ({navigation}) => {
           paddingRight: 10,
         }}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Ionicons name="menu" style={{fontSize: 20, color: '#fff'}} />
+          <Ionicons name="menu" style={{ fontSize: 20, color: '#fff' }} />
         </TouchableOpacity>
-        <Text style={{color: '#fff'}}>{title}</Text>
-        <View style={{display: 'flex', flexDirection: 'row', gap: 8}}>
+        <Text style={{ color: '#fff' }}>{title}</Text>
+        <View style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
           <MaterialIcons
             name="bar-chart"
-            style={{fontSize: 20, color: '#fff'}}
+            style={{ fontSize: 20, color: '#fff' }}
             onPress={() => setShowOverview(true)}
           />
           <AntDesign
             name="pluscircleo"
-            style={{fontSize: 20, color: '#fff'}}
+            style={{ fontSize: 20, color: '#fff' }}
             onPress={() => setShow(true)}
           />
         </View>
@@ -539,7 +551,7 @@ const TimeOff = ({navigation}) => {
           <ActivityIndicator size="large" />
         </View>
       )}
-      {!loading && <View style={{padding: 8}}>{tab}</View>}
+      {!loading && <View style={{ padding: 8 }}>{tab}</View>}
 
       {show && (
         <Modal
@@ -547,7 +559,7 @@ const TimeOff = ({navigation}) => {
           onDismiss={() => setShow(false)}
           animationType="slide"
           transparent={true}>
-          <View>
+          <SafeAreaView>
             <TouchableOpacity
               style={{
                 backgroundColor: '#00000042',
@@ -555,6 +567,7 @@ const TimeOff = ({navigation}) => {
                 height: '100%',
                 position: 'absolute',
                 zIndex: 1,
+                bottom: -100,
               }}
               onPress={() => setShow(false)}
             />
@@ -588,7 +601,7 @@ const TimeOff = ({navigation}) => {
                 <TouchableOpacity onPress={() => setShow(false)}>
                   <Ionicons
                     name="close"
-                    style={{fontSize: 16, color: '#003868'}}
+                    style={{ fontSize: 16, color: '#003868' }}
                   />
                 </TouchableOpacity>
               </View>
@@ -604,12 +617,13 @@ const TimeOff = ({navigation}) => {
                 }}>
                 <Ionicons
                   name="search"
-                  style={{fontSize: 12, color: '#00000042'}}
+                  style={{ fontSize: 12, color: '#00000042' }}
                 />
-                <TextInput placeholder="Tìm nhanh" style={{fontSize: 13}} />
+                <TextInput placeholder="Tìm nhanh" style={{ fontSize: 13, fontStyle: 'italic', padding: 8 }} 
+                placeholderTextColor="#003868" onChangeText={text=> handleSearch(text)} />
               </View>
               <ScrollView>
-                {arrTimeOff.map(itemTimeOff => (
+                {currentArrayTimeOff.map(itemTimeOff => (
                   <View
                     key={itemTimeOff.id}
                     style={{
@@ -627,7 +641,7 @@ const TimeOff = ({navigation}) => {
                     </Text>
                     {itemTimeOff.items.map((item, idx) => (
                       <View key={idx}>
-                        <Text style={{fontSize: 10, color: 'gray'}}>
+                        <Text style={{ fontSize: 10, color: 'gray' }}>
                           {idx + 1}. {item}
                         </Text>
                       </View>
@@ -636,7 +650,7 @@ const TimeOff = ({navigation}) => {
                 ))}
               </ScrollView>
             </View>
-          </View>
+          </SafeAreaView>
         </Modal>
       )}
       {showOverview && (
@@ -645,7 +659,7 @@ const TimeOff = ({navigation}) => {
           onDismiss={() => setShowOverview(false)}
           animationType="slide"
           transparent={true}>
-          <View style={{display: 'flex', alignItems: 'center'}}>
+          <SafeAreaView style={{ display: 'flex', alignItems: 'center' }}>
             <TouchableOpacity
               style={{
                 backgroundColor: '#00000042',
@@ -653,6 +667,7 @@ const TimeOff = ({navigation}) => {
                 height: '100%',
                 position: 'absolute',
                 zIndex: 1,
+                bottom: -100,
               }}
               onPress={() => setShowOverview(false)}
             />
@@ -687,11 +702,11 @@ const TimeOff = ({navigation}) => {
                 <TouchableOpacity onPress={() => setShowOverview(false)}>
                   <Ionicons
                     name="close"
-                    style={{fontSize: 16, color: '#003868'}}
+                    style={{ fontSize: 16, color: '#003868' }}
                   />
                 </TouchableOpacity>
               </View>
-              <ScrollView style={{padding: 16, marginBottom: 16}}>
+              <ScrollView style={{ padding: 16, marginBottom: 16 }}>
                 {arrOverview.map((itemOverview, idx) => (
                   <View
                     key={idx}
@@ -726,16 +741,16 @@ const TimeOff = ({navigation}) => {
                         }}>
                         {itemOverview.number.toFixed(2)}
                       </Text>
-                      <Text style={{fontSize: 12}}>{itemOverview.name}</Text>
+                      <Text style={{ fontSize: 12 }}>{itemOverview.name}</Text>
                     </View>
                   </View>
                 ))}
               </ScrollView>
             </View>
-          </View>
+          </SafeAreaView>
         </Modal>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -2,17 +2,19 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable prettier/prettier */
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import {useEffect, useState, useContext} from 'react';
-import {TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, LogBox, SafeAreaView, Platform } from 'react-native';
+import { useState, useContext } from 'react';
+import { TouchableOpacity } from 'react-native';
 import MonthPicker from 'react-native-month-year-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Table, Row, Rows} from 'react-native-table-component';
-import {AuthContext} from '../context/AuthContext';
+import { Table, Row, Rows } from 'react-native-table-component';
+import { AuthContext } from '../context/AuthContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const PayRolls = ({navigation}) => {
-  const {userInfo} = useContext(AuthContext);
+LogBox.ignoreLogs(['Invalid prop textStyle of type array supplied to Cell', 'Failed prop type: Invalid prop `textStyle` of type `array` supplied to `Cell`, expected `object`.']);
+
+const PayRolls = ({ navigation }) => {
+  const { userInfo } = useContext(AuthContext);
   const timeNow = new Date();
   const [date, setDate] = useState(timeNow);
   const [show, setShow] = useState(false);
@@ -132,10 +134,6 @@ const PayRolls = ({navigation}) => {
     setShow(true);
   };
 
-  useEffect(() => {
-    setShow(false);
-  }, [show]);
-
   const onValueChange = (event, newDate) => {
     if (Boolean(newDate)) {
       setCurrentMonth(newDate.getMonth() + 1);
@@ -161,7 +159,7 @@ const PayRolls = ({navigation}) => {
   const widthArrFooter = [80, 50, 50, 50, 50, 50, 50, 50, 50, 50, 290];
 
   return (
-    <View>
+    <SafeAreaView>
       <View
         style={{
           height: 40,
@@ -174,10 +172,10 @@ const PayRolls = ({navigation}) => {
           paddingRight: 10,
         }}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Ionicons name="menu" style={{fontSize: 24, color: '#fff'}} />
+          <Ionicons name="menu" style={{ fontSize: 24, color: '#fff' }} />
         </TouchableOpacity>
-        <Text style={{color: '#fff'}}>Bảng lương</Text>
-        <View style={{display: 'flex'}} />
+        <Text style={{ color: '#fff' }}>Bảng lương</Text>
+        <View style={{ display: 'flex' }} />
       </View>
       <View>
         <View style={styles.payrollOption}>
@@ -201,12 +199,12 @@ const PayRolls = ({navigation}) => {
         </View>
         <View style={styles.payrollContent}>
           <ScrollView horizontal={true}>
-            <View style={{flexDirection: 'column', marginBottom: 110}}>
-              <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'column', marginBottom: 110 }}>
+              <View style={{ flexDirection: 'row' }}>
                 <View>
                   <View>
                     <Table
-                      borderStyle={{borderWidth: 1, borderColor: '#727171'}}>
+                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
                       <Row
                         data={tableHeadLeft}
                         style={styles.head}
@@ -217,7 +215,7 @@ const PayRolls = ({navigation}) => {
                   </View>
                   <View>
                     <Table
-                      borderStyle={{borderWidth: 1, borderColor: '#727171'}}>
+                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
                       <Row
                         data={tableHeadLeftFileds}
                         style={styles.head}
@@ -230,7 +228,7 @@ const PayRolls = ({navigation}) => {
                 <View>
                   <View>
                     <Table
-                      borderStyle={{borderWidth: 1, borderColor: '#727171'}}>
+                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
                       <Row
                         data={tableHeadRight}
                         style={styles.head}
@@ -241,7 +239,7 @@ const PayRolls = ({navigation}) => {
                   </View>
                   <View>
                     <Table
-                      borderStyle={{borderWidth: 1, borderColor: '#727171'}}>
+                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
                       <Row
                         data={tableHeadRightFileds}
                         style={styles.head}
@@ -252,14 +250,14 @@ const PayRolls = ({navigation}) => {
                   </View>
                 </View>
               </View>
-              <ScrollView style={{marginBottom: 200}}>
-                <View style={{flexDirection: 'row'}}>
+              <ScrollView style={{ marginBottom: 200 }}>
+                <View style={{ flexDirection: 'row' }}>
                   <View>
                     <Table
-                      borderStyle={{borderWidth: 1, borderColor: '#727171'}}>
+                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
                       <Rows
                         data={tableDataLeft}
-                        style={{height: 50}}
+                        style={styles.head}
                         widthArr={widthArr}
                         textStyle={styles.text}
                       />
@@ -267,10 +265,10 @@ const PayRolls = ({navigation}) => {
                   </View>
                   <View>
                     <Table
-                      borderStyle={{borderWidth: 1, borderColor: '#727171'}}>
+                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
                       <Rows
                         data={tableDataRight}
-                        style={{height: 50}}
+                        style={styles.head}
                         widthArr={widthArrHeaderRight}
                         textStyle={styles.text}
                       />
@@ -278,11 +276,12 @@ const PayRolls = ({navigation}) => {
                   </View>
                 </View>
                 <View>
-                  <Table borderStyle={{borderWidth: 1, borderColor: '#727171'}}>
+                  <Table borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
                     <Row
                       data={tableFooter}
                       style={styles.head}
                       widthArr={widthArrFooter}
+                      textStyle={styles.text}
                     />
                   </Table>
                 </View>
@@ -292,15 +291,17 @@ const PayRolls = ({navigation}) => {
         </View>
       </View>
       {show && (
-        <MonthPicker
-          onChange={onValueChange}
-          value={date}
-          locale="vi"
-          cancelButton="Đóng"
-          okButton="Chọn"
-        />
+        <View style={{ position: 'relative', top: Platform.OS === 'ios' ? -200 : '' }}>
+          <MonthPicker
+            onChange={onValueChange}
+            value={date}
+            locale="vi"
+            cancelButton="Đóng"
+            okButton="Chọn"
+          />
+        </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -365,7 +366,7 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: '#f1f8ff',
   },
-  title: {flex: 1, backgroundColor: '#f6f8fa'},
-  row: {height: 80},
-  text: {textAlign: 'center'},
+  title: { flex: 1, backgroundColor: '#f6f8fa' },
+  row: { height: 80 },
+  text: { textAlign: 'center' },
 });

@@ -2,7 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
 import {useContext} from 'react';
-import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
+import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import {AuthContext} from '../context/AuthContext';
 import {TextInput} from 'react-native-gesture-handler';
@@ -11,7 +11,7 @@ const ProfileScreen = ({navigation}) => {
   const {userInfo} = useContext(AuthContext);
   const SID = `0${userInfo?.id}`;
   return (
-    <View style={{display: 'flex', flexDirection: 'column'}}>
+    <SafeAreaView style={{display: 'flex', flexDirection: 'column'}}>
       <View
         style={{
           height: 50,
@@ -122,7 +122,7 @@ const ProfileScreen = ({navigation}) => {
           <Text style={{color: '#fff'}}>Cập nhật thông tin</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

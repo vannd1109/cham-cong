@@ -15,6 +15,7 @@ import {
   Platform,
   TouchableOpacity,
   ActivityIndicator,
+  SafeAreaView
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {AuthContext} from '../context/AuthContext';
@@ -22,8 +23,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const API_URL =
   Platform.OS === 'ios'
-    ? 'http://192.168.14.2:8080'
-    : 'http://192.168.14.2:8080';
+    ? 'http://172.20.254.70:8080'
+    : 'http://172.20.254.70:8080';
 
 const CheckInout = ({navigation}) => {
   const {userInfo} = useContext(AuthContext);
@@ -44,7 +45,7 @@ const CheckInout = ({navigation}) => {
     const year = date.getFullYear();
     const month =
       date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
-    const day = date.getDay() < 10 ? '0' + date.getDay() : date.getDay();
+    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     setCurrentDay(day);
     setCurrentMonth(month);
     const timeDate = `${year}-${month}-${day}`;
@@ -117,7 +118,7 @@ const CheckInout = ({navigation}) => {
   };
 
   return (
-    <View style={styles.center}>
+    <SafeAreaView style={styles.center}>
       <View
         style={{
           height: 40,
@@ -240,7 +241,7 @@ const CheckInout = ({navigation}) => {
           </View>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -283,7 +284,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 10,
     marginTop: 4,
-    padding: 8,
+    padding: 16,
   },
   contentItemLast: {
     flexDirection: 'row',
@@ -293,7 +294,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 10,
     marginTop: 4,
-    padding: 8,
+    padding: 16,
   },
   contentItemPoint: {
     backgroundColor: '#48a868',

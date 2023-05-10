@@ -16,7 +16,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState(null);
   const {login, isLoading} = useContext(AuthContext);
   return (
-    <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
+    <SafeAreaView style={{flex: 1}}>
       <View style={{paddingHorizontal: 25}}>
         <View style={{alignItems: 'center'}}>
           <Image
@@ -40,7 +40,7 @@ const LoginScreen = () => {
         </Text>
 
         <InputField
-          label={'ID'}
+          label={'SID'}
           icon={
             <Feather
               name="user"
@@ -49,9 +49,9 @@ const LoginScreen = () => {
               style={{marginRight: 5}}
             />
           }
-          keyboardType="email-address"
           value={username}
           onChangeText={text => setUsername(text)}
+          inputType="text"
         />
 
         <InputField
@@ -65,7 +65,6 @@ const LoginScreen = () => {
             />
           }
           inputType="password"
-          // fieldButtonLabel={'Quên mật khẩu?'}
           fieldButtonFunction={() => {}}
           value={password}
           onChangeText={text => setPassword(text)}

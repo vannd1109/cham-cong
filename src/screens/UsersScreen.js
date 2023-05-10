@@ -2,12 +2,12 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
 const UsersScreen = ({navigation}) => {
   return (
-    <View style={{display: 'flex', flexDirection: "column"}}>
+    <SafeAreaView style={{display: 'flex', flexDirection: "column"}}>
       <View
         style={{
           height: 50,
@@ -28,7 +28,7 @@ const UsersScreen = ({navigation}) => {
       <View>
         <Text>Tin nhắn</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
