@@ -123,20 +123,20 @@ const arrTimeOff = [
 const arrOverview = [
   {
     name: 'Nghỉ phép năm',
-    icon: <FontAwesome name="check" size={20} style={{ color: '#32a858' }} />,
+    icon: <FontAwesome name="check" size={24} style={{ color: '#32a858' }} />,
     number: 0,
     bg: '#aae68c',
   },
   {
     name: 'Ngày phép còn lại',
-    icon: <FontAwesome name="star-o" size={20} style={{ color: '#e0d55c' }} />,
+    icon: <FontAwesome name="star-o" size={24} style={{ color: '#e0d55c' }} />,
     number: 7.5,
     bg: '#e8e089',
   },
   {
     name: 'Nghỉ cá nhân',
     icon: (
-      <FontAwesome name="birthday-cake" size={20} style={{ color: '#8f56db' }} />
+      <FontAwesome name="birthday-cake" size={24} style={{ color: '#8f56db' }} />
     ),
     number: 0,
     bg: '#d4b6fa',
@@ -146,7 +146,7 @@ const arrOverview = [
     icon: (
       <MaterialCommunityIcons
         name="airplane"
-        size={20}
+        size={24}
         style={{ color: '#4ea9de' }}
       />
     ),
@@ -155,41 +155,41 @@ const arrOverview = [
   },
   {
     name: 'Làm việc ngoài văn phòng',
-    icon: <FontAwesome5 name="building" size={20} style={{ color: '#58d69f' }} />,
+    icon: <FontAwesome5 name="building" size={24} style={{ color: '#58d69f' }} />,
     number: 0,
     bg: '#acfad8',
   },
   {
     name: 'Nghỉ không lương',
     icon: (
-      <MaterialIcons name="money-off" size={20} style={{ color: '#d12c31' }} />
+      <MaterialIcons name="money-off" size={24} style={{ color: '#d12c31' }} />
     ),
     number: 0,
     bg: '#faa2a5',
   },
   {
     name: 'Các loại khác',
-    icon: <Feather name="settings" size={20} style={{ color: '#bfbdbb' }} />,
+    icon: <Feather name="settings" size={24} style={{ color: '#bfbdbb' }} />,
     number: 0,
     bg: '#f2f2f2',
   },
   {
     name: 'Nghỉ phép năm theo giờ',
-    icon: <Fontisto name="clock" size={20} style={{ color: '#db7d39' }} />,
+    icon: <Fontisto name="clock" size={24} style={{ color: '#db7d39' }} />,
     number: 0,
     bg: '#fad0b1',
   },
   {
     name: 'Nghỉ không lương theo giờ',
     icon: (
-      <MaterialIcons name="money-off" size={20} style={{ color: '#d12c31' }} />
+      <MaterialIcons name="money-off" size={24} style={{ color: '#d12c31' }} />
     ),
     number: 0,
     bg: '#faa2a5',
   },
   {
     name: 'Làm việc ngoài văn phòng theo giờ',
-    icon: <FontAwesome5 name="building" size={20} style={{ color: '#58d69f' }} />,
+    icon: <FontAwesome5 name="building" size={24} style={{ color: '#58d69f' }} />,
     number: 0,
     bg: '#acfad8',
   },
@@ -499,6 +499,11 @@ const TimeOff = ({ navigation }) => {
     );
   };
 
+  const handleShowSearch = () => {
+    setShow(false);
+    setCurrentArrayTimeOff([...arrTimeOff]);
+  }
+
   const handleSearch = (txtSearch) => {
     const _arrTimeOff = [];
     for (let i = 0; i < arrTimeOff.length; i++) {
@@ -523,18 +528,18 @@ const TimeOff = ({ navigation }) => {
           paddingRight: 10,
         }}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Ionicons name="menu" style={{ fontSize: 20, color: '#fff' }} />
+          <Ionicons name="menu" style={{ fontSize: 24, color: '#fff' }} />
         </TouchableOpacity>
         <Text style={{ color: '#fff' }}>{title}</Text>
         <View style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
           <MaterialIcons
             name="bar-chart"
-            style={{ fontSize: 20, color: '#fff' }}
+            style={{ fontSize: 24, color: '#fff' }}
             onPress={() => setShowOverview(true)}
           />
           <AntDesign
             name="pluscircleo"
-            style={{ fontSize: 20, color: '#fff' }}
+            style={{ fontSize: 24, color: '#fff' }}
             onPress={() => setShow(true)}
           />
         </View>
@@ -556,7 +561,7 @@ const TimeOff = ({ navigation }) => {
       {show && (
         <Modal
           visible={show}
-          onDismiss={() => setShow(false)}
+          onDismiss={handleShowSearch}
           animationType="slide"
           transparent={true}>
           <SafeAreaView>
@@ -569,7 +574,7 @@ const TimeOff = ({ navigation }) => {
                 zIndex: 1,
                 bottom: -100,
               }}
-              onPress={() => setShow(false)}
+              onPress={handleShowSearch}
             />
             <View
               style={{
@@ -577,7 +582,7 @@ const TimeOff = ({ navigation }) => {
                 marginLeft: 16,
                 marginRight: 16,
                 overflow: 'scroll',
-                height: '90%',
+                height: '95%',
                 position: 'relative',
                 zIndex: 2,
               }}>
@@ -601,7 +606,7 @@ const TimeOff = ({ navigation }) => {
                 <TouchableOpacity onPress={() => setShow(false)}>
                   <Ionicons
                     name="close"
-                    style={{ fontSize: 16, color: '#003868' }}
+                    style={{ fontSize: 24, color: '#003868' }}
                   />
                 </TouchableOpacity>
               </View>
@@ -619,7 +624,7 @@ const TimeOff = ({ navigation }) => {
                   name="search"
                   style={{ fontSize: 12, color: '#00000042' }}
                 />
-                <TextInput placeholder="Tìm nhanh" style={{ fontSize: 13, fontStyle: 'italic', padding: 8 }} 
+                <TextInput placeholder="Tìm nhanh" style={{ fontSize: 13, fontStyle: 'italic', padding: 12, flex: 1 }} 
                 placeholderTextColor="#003868" onChangeText={text=> handleSearch(text)} />
               </View>
               <ScrollView>
@@ -702,7 +707,7 @@ const TimeOff = ({ navigation }) => {
                 <TouchableOpacity onPress={() => setShowOverview(false)}>
                   <Ionicons
                     name="close"
-                    style={{ fontSize: 16, color: '#003868' }}
+                    style={{ fontSize: 24, color: '#003868' }}
                   />
                 </TouchableOpacity>
               </View>
