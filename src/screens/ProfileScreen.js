@@ -2,7 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
 import * as React from 'react';
-import {useState, useContext} from 'react';
+import { useState, useContext } from 'react';
 import {
   StyleSheet,
   View,
@@ -15,24 +15,22 @@ import {
   Modal,
   Platform,
 } from 'react-native';
-import {useTheme} from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {AuthContext} from '../context/AuthContext';
-import {TextInput} from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
-import BottomSheet from 'reanimated-bottom-sheet';
+import { AuthContext } from '../context/AuthContext';
+import { TextInput } from 'react-native-gesture-handler';
 
-const ProfileScreen = ({navigation}) => {
-  const {colors} = useTheme();
-  // const bs = createRef();
-  // const fall = new Animated.Value(1);
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
+const ProfileScreen = ({ navigation }) => {
+  const { colors } = useTheme();
+  const [showChooseImageOrCamera, setShowChooseImageOrCamera] = useState(false);
   const [show, setShow] = useState(false);
   const [titleModal, setTitleModal] = useState(null);
   const [values, setValues] = useState(null);
-  const {userInfo} = useContext(AuthContext);
+  const { userInfo } = useContext(AuthContext);
   const [image, setImage] = useState(
     'https://data-gcdn.basecdn.net/avatar/sys7115/08/92/d1/89/23/d684814d59f43e63dad5aa1abd55759e/0.lamhoang03450_7115.jpg?ts=1670553549',
   );
@@ -105,34 +103,31 @@ const ProfileScreen = ({navigation}) => {
     });
   };
 
-  const renderContent = () => {
-    <View
-      style={{
-        backgroundColor: 'white',
-        padding: 16,
-        height: 450,
-      }}
-    >
-      <Text>Swipe down to close</Text>
-    </View>
-  };
+  const handleShowImage = () => {
+    setShow(false);
+    setShowChooseImageOrCamera(true);
+  }
 
-  const renderHeader = () => {
-    return (
-      <View style={styles.header}>
-        <View style={styles.panelHeader}>
-          <View style={styles.panelHandle}></View>
-        </View>
-      </View>
-    );
-  };
+  const handleCloseShowChooseImageOrCamera = () => {
+    setShow(true);
+    setShowChooseImageOrCamera(false);
+  }
 
-  const sheetRef = React.useRef(null);
+  const takePhotoFromCamera = () => {
+    try {
+      launchCamera();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const choosePhotoFromLibarary = () => {
+
+  }
 
   return (
-    <>
     <SafeAreaView>
-      <SafeAreaView style={{display: 'flex', flexDirection: 'column'}}>
+      <SafeAreaView style={{ display: 'flex', flexDirection: 'column' }}>
         <View
           style={{
             height: '8%',
@@ -145,12 +140,12 @@ const ProfileScreen = ({navigation}) => {
             paddingRight: 10,
           }}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Feather name="menu" style={{fontSize: 20, color: '#fff'}} />
+            <Feather name="menu" style={{ fontSize: 20, color: '#fff' }} />
           </TouchableOpacity>
-          <Text style={{color: '#fff'}}>
+          <Text style={{ color: '#fff' }}>
             {userInfo?.fullname} - 0{userInfo?.id} - {userInfo?.department}
           </Text>
-          <View style={{display: 'flex'}} />
+          <View style={{ display: 'flex' }} />
         </View>
         <ScrollView
           style={{
@@ -159,7 +154,7 @@ const ProfileScreen = ({navigation}) => {
             padding: 16,
           }}>
           {/* Avatar */}
-          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Image
               source={require('../assets/images/user-profile.jpg')}
               style={{
@@ -180,7 +175,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               SID:
             </Text>
             <TextInput
@@ -209,7 +204,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               Họ và tên:
             </Text>
             <TextInput
@@ -238,7 +233,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               Bộ phận:
             </Text>
             <TextInput
@@ -267,7 +262,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               Lương CB :
             </Text>
             <TextInput
@@ -298,7 +293,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               Hỗ trợ đi lại :
             </Text>
             <TextInput
@@ -329,7 +324,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               Hỗ trợ nhà ở :
             </Text>
             <TextInput
@@ -360,7 +355,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               Tiền điện thoại :
             </Text>
             <TextInput
@@ -391,7 +386,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               Hỗ trợ trượt giá :
             </Text>
             <TextInput
@@ -422,7 +417,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               BHXH :
             </Text>
             <TextInput
@@ -440,7 +435,7 @@ const ProfileScreen = ({navigation}) => {
               selectTextOnFocus={false}
               value={Number(userInfo?.bhxh / 100 || 8 / 100).toLocaleString(
                 undefined,
-                {style: 'percent', minimumFractionDigits: 1},
+                { style: 'percent', minimumFractionDigits: 1 },
               )}
             />
           </View>
@@ -454,7 +449,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               BHYT :
             </Text>
             <TextInput
@@ -472,7 +467,7 @@ const ProfileScreen = ({navigation}) => {
               selectTextOnFocus={false}
               value={Number(userInfo?.bhyt / 100 || 1.5 / 100).toLocaleString(
                 undefined,
-                {style: 'percent', minimumFractionDigits: 1},
+                { style: 'percent', minimumFractionDigits: 1 },
               )}
             />
           </View>
@@ -486,7 +481,7 @@ const ProfileScreen = ({navigation}) => {
               height: 50,
               flex: 1,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               BHTN :
             </Text>
             <TextInput
@@ -504,7 +499,7 @@ const ProfileScreen = ({navigation}) => {
               selectTextOnFocus={false}
               value={Number(userInfo?.bhtn / 100 || 1 / 100).toLocaleString(
                 undefined,
-                {style: 'percent', minimumFractionDigits: 1},
+                { style: 'percent', minimumFractionDigits: 1 },
               )}
             />
           </View>
@@ -519,7 +514,7 @@ const ProfileScreen = ({navigation}) => {
               flex: 1,
               marginBottom: 12,
             }}>
-            <Text style={{fontSize: 12, fontWeight: '600', minWidth: 95}}>
+            <Text style={{ fontSize: 12, fontWeight: '600', minWidth: 95 }}>
               KPCĐ :
             </Text>
             <TextInput
@@ -537,7 +532,7 @@ const ProfileScreen = ({navigation}) => {
               selectTextOnFocus={false}
               value={Number(userInfo?.kpcd / 100 || 1 / 100).toLocaleString(
                 undefined,
-                {style: 'percent', minimumFractionDigits: 1},
+                { style: 'percent', minimumFractionDigits: 1 },
               )}
             />
           </View>
@@ -552,13 +547,13 @@ const ProfileScreen = ({navigation}) => {
           }}>
           <TouchableOpacity
             onPress={() => handleShowModal('pwd')}
-            style={{backgroundColor: '#003868', padding: 12, borderRadius: 4}}>
-            <Text style={{color: '#fff', fontSize: 14}}>Cập nhật mật khẩu</Text>
+            style={{ backgroundColor: '#003868', padding: 12, borderRadius: 4 }}>
+            <Text style={{ color: '#fff', fontSize: 14 }}>Cập nhật mật khẩu</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleShowModal('info')}
-            style={{backgroundColor: '#0ea5e9', padding: 12, borderRadius: 4}}>
-            <Text style={{color: '#fff', fontSize: 14}}>
+            style={{ backgroundColor: '#0ea5e9', padding: 12, borderRadius: 4 }}>
+            <Text style={{ color: '#fff', fontSize: 14 }}>
               Chỉnh sửa thông tin
             </Text>
           </TouchableOpacity>
@@ -570,459 +565,585 @@ const ProfileScreen = ({navigation}) => {
           onDismiss={() => setShow(false)}
           animationType="slide"
           transparent={true}>
-          <View style={{display: 'flex', alignItems: 'center'}}>
+          <>
+            <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: '#00000042',
+                  width: '100%',
+                  height: '100%',
+                  position: 'absolute',
+                  zIndex: 1,
+                }}
+                onPress={() => setShow(false)}
+              />
+              <View
+                style={{
+                  backgroundColor: '#fff',
+                  marginLeft: 16,
+                  marginRight: 16,
+                  overflow: 'scroll',
+                  position: 'absolute',
+                  zIndex: 2,
+                  width: '80%',
+                  borderRadius: 8,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    padding: 8,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    backgroundColor: '#e5e1e1',
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      textTransform: 'uppercase',
+                      fontWeight: '600',
+                    }}>
+                    {titleModal}
+                  </Text>
+                  <TouchableOpacity onPress={handleCancel}>
+                    <Ionicons
+                      name="close"
+                      style={{ fontSize: 20, color: '#003868' }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <ScrollView style={{ padding: 16, marginBottom: 16 }}>
+                  {values === 'pwd' && (
+                    <>
+                      <View style={{ display: 'flex', gap: 4 }}>
+                        {/* Current Password */}
+                        <View
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: 8,
+                            height: 40,
+                            flex: 1,
+                          }}>
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontWeight: '600',
+                              minWidth: 110,
+                            }}>
+                            Mật khẩu hiện tại:
+                          </Text>
+                          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                            <TextInput
+                              style={{
+                                borderColor: '#00000222',
+                                borderWidth: 1,
+                                padding: 10,
+                                flex: 1,
+                                borderRadius: 2,
+                                fontSize: 12,
+                                paddingLeft: 8,
+                                color: '#003868',
+                                borderRadius: 4,
+                              }}
+                              value={pwd?.currentPwd?.val}
+                              secureTextEntry={pwd?.currentPwd?.security}
+                              onChangeText={text =>
+                                setPwd({
+                                  currentPwd: {
+                                    val: text,
+                                    security: true,
+                                  },
+                                  newPwd: {
+                                    val: pwd.newPwd.val,
+                                    security: true,
+                                  },
+                                  retypePwd: {
+                                    val: pwd.retypePwd.val,
+                                    security: true,
+                                  },
+                                })
+                              }
+                            />
+                            {pwd.currentPwd.val && (
+                              <TouchableOpacity onPress={() => setPwd({
+                                currentPwd: {
+                                  val: pwd.currentPwd.val,
+                                  security: !pwd.currentPwd.security,
+                                },
+                                newPwd: {
+                                  val: pwd.newPwd.val,
+                                  security: pwd.newPwd.security,
+                                },
+                                retypePwd: {
+                                  val: pwd.retypePwd.val,
+                                  security: pwd.retypePwd.security,
+                                },
+                              })}>
+                                <Feather name={`${pwd.currentPwd.security ? 'eye-off' : 'eye'}`} size={20} />
+                              </TouchableOpacity>
+                            )}
+
+                          </View>
+                        </View>
+                        {/* Current Password */}
+                        <View
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: 8,
+                            height: 40,
+                            flex: 1,
+                          }}>
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontWeight: '600',
+                              minWidth: 110,
+                            }}>
+                            Mật khẩu mới:
+                          </Text>
+                          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                            <TextInput
+                              style={{
+                                borderColor: '#00000222',
+                                borderWidth: 1,
+                                padding: 10,
+                                flex: 1,
+                                borderRadius: 2,
+                                fontSize: 12,
+                                paddingLeft: 8,
+                                color: '#003868',
+                                borderRadius: 4,
+                              }}
+                              value={pwd?.newPwd?.val}
+                              secureTextEntry={pwd?.newPwd?.security}
+                              onChangeText={text =>
+                                setPwd({
+                                  currentPwd: {
+                                    val: pwd.currentPwd.val,
+                                    security: true,
+                                  },
+                                  newPwd: {
+                                    val: text,
+                                    security: true,
+                                  },
+                                  retypePwd: {
+                                    val: pwd?.retypePwd.val,
+                                    security: true,
+                                  },
+                                })
+                              }
+                            />
+                            {pwd.newPwd.val && (
+                              <TouchableOpacity onPress={() => setPwd({
+                                currentPwd: {
+                                  val: pwd.currentPwd.val,
+                                  security: pwd.currentPwd.security,
+                                },
+                                newPwd: {
+                                  val: pwd.newPwd.val,
+                                  security: !pwd.newPwd.security,
+                                },
+                                retypePwd: {
+                                  val: pwd.retypePwd.val,
+                                  security: pwd.retypePwd.security,
+                                },
+                              })}>
+                                <Feather name={`${pwd.newPwd.security ? 'eye-off' : 'eye'}`} size={20} />
+                              </TouchableOpacity>
+                            )}
+                          </View>
+                        </View>
+                        {/* Retype Password */}
+                        <View
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: 8,
+                            height: 40,
+                            flex: 1,
+                          }}>
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontWeight: '600',
+                              minWidth: 110,
+                            }}>
+                            Nhập lại mật khẩu:
+                          </Text>
+                          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                            <TextInput
+                              style={{
+                                borderColor: '#00000222',
+                                borderWidth: 1,
+                                padding: 10,
+                                flex: 1,
+                                borderRadius: 2,
+                                fontSize: 12,
+                                paddingLeft: 8,
+                                color: '#003868',
+                              }}
+                              value={pwd?.retypePwd?.val}
+                              secureTextEntry={pwd?.retypePwd?.security}
+                              onChangeText={text =>
+                                setPwd({
+                                  currentPwd: {
+                                    val: pwd.currentPwd.val,
+                                    security: true,
+                                  },
+                                  newPwd: {
+                                    val: pwd.newPwd.val,
+                                    security: true,
+                                  },
+                                  retypePwd: {
+                                    val: text,
+                                    security: true,
+                                  },
+                                })
+                              }
+                            />
+                            {pwd.retypePwd.val && (
+                              <TouchableOpacity onPress={() => setPwd({
+                                currentPwd: {
+                                  val: pwd.currentPwd.val,
+                                  security: pwd.currentPwd.security,
+                                },
+                                newPwd: {
+                                  val: pwd.newPwd.val,
+                                  security: pwd.newPwd.security,
+                                },
+                                retypePwd: {
+                                  val: pwd.retypePwd.val,
+                                  security: !pwd.retypePwd.security,
+                                },
+                              })}>
+                                <Feather name={`${pwd.retypePwd.security ? 'eye-off' : 'eye'}`} size={20} />
+                              </TouchableOpacity>
+                            )}
+                          </View>
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          gap: 16,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginTop: 8,
+                        }}>
+                        <TouchableOpacity
+                          onPress={handleSavePass}
+                          style={{
+                            backgroundColor: '#059669',
+                            padding: 12,
+                            borderRadius: 4,
+                            paddingLeft: 20,
+                            paddingRight: 20,
+                          }}>
+                          <Text style={{ color: '#fff' }}>Cập nhật</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={handleCancel}
+                          style={{
+                            backgroundColor: '#e11d48',
+                            padding: 12,
+                            borderRadius: 4,
+                            paddingLeft: 20,
+                            paddingRight: 20,
+                          }}>
+                          <Text style={{ color: '#fff' }}>Hủy bỏ</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </>
+                  )}
+                  {values === 'info' && (
+                    <>
+                      <View style={{ alignItems: 'center' }}>
+                        <TouchableOpacity onPress={handleShowImage}>
+                          {/* Avatar */}
+                          <View
+                            style={{
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              height: 100,
+                              width: 100,
+                              borderRadius: 15,
+                            }}>
+                            <ImageBackground
+                              source={{
+                                uri: image,
+                              }}
+                              style={{
+                                height: 100,
+                                width: 100,
+                              }}
+                              imageStyle={{ borderRadius: 15 }}>
+                              <View
+                                style={{
+                                  flex: 1,
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                }}>
+                                <Icon
+                                  name="camera"
+                                  size={35}
+                                  color="#fff"
+                                  style={{
+                                    opacity: 0.7,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    borderWidth: 1,
+                                    borderColor: '#fff',
+                                    borderRadius: 10,
+                                  }}
+                                />
+                              </View>
+                            </ImageBackground>
+                          </View>
+                        </TouchableOpacity>
+                        {/* Fullname */}
+                        <View
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: 8,
+                            height: 50,
+                            flex: 1,
+                          }}>
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontWeight: '600',
+                              minWidth: 70,
+                            }}>
+                            Tên hiển thị:
+                          </Text>
+                          <TextInput
+                            style={{
+                              borderColor: '#00000222',
+                              borderWidth: 1,
+                              padding: 10,
+                              flex: 1,
+                              borderRadius: 2,
+                              fontSize: 12,
+                              paddingLeft: 8,
+                              color: '#003868',
+                            }}
+                            value={info.fullname}
+                            onChangeText={text =>
+                              setPwd({
+                                fullname: text,
+                                avatar: info.avatar,
+                                birthday: info.birthday,
+                              })
+                            }
+                          />
+                        </View>
+                        {/* Birthday */}
+                        <View
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: 8,
+                            height: 50,
+                          }}>
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontWeight: '600',
+                              minWidth: 70,
+                            }}>
+                            Ngày sinh:
+                          </Text>
+                          <View
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                              gap: 8,
+                              flex: 1,
+                            }}>
+                            <TextInput
+                              style={{
+                                borderColor: '#00000222',
+                                borderWidth: 1,
+                                padding: 10,
+                                borderRadius: 2,
+                                fontSize: 12,
+                                paddingLeft: 8,
+                                color: '#003868',
+                                flex: 1,
+                              }}
+                              value={info?.birthday?.day}
+                              placeholder={'Ngày'}
+                              placeholderTextColor={'#666666'}
+                              keyboardType={'numeric'}
+                              onChangeText={text =>
+                                setInfo({
+                                  fullname: info.fullname,
+                                  avatar: info.avatar,
+                                  birthday: {
+                                    day: text,
+                                    month: info.birthday.month,
+                                    year: info.birthday.year,
+                                  },
+                                })
+                              }
+                            />
+                            <TextInput
+                              style={{
+                                borderColor: '#00000222',
+                                borderWidth: 1,
+                                padding: 10,
+                                borderRadius: 2,
+                                fontSize: 12,
+                                paddingLeft: 8,
+                                color: '#003868',
+                                flex: 1,
+                              }}
+                              value={info?.birthday?.month}
+                              placeholder={'Tháng'}
+                              keyboardType={'numeric'}
+                              placeholderTextColor={'#666666'}
+                              onChangeText={text =>
+                                setInfo({
+                                  fullname: info.fullname,
+                                  avatar: info.avatar,
+                                  birthday: {
+                                    day: info.birthday.day,
+                                    month: text,
+                                    year: info.birthday.year,
+                                  },
+                                })
+                              }
+                            />
+                            <TextInput
+                              style={{
+                                borderColor: '#00000222',
+                                borderWidth: 1,
+                                padding: 10,
+                                borderRadius: 2,
+                                fontSize: 12,
+                                paddingLeft: 8,
+                                color: '#003868',
+                                flex: 1,
+                              }}
+                              value={info?.birthday?.year}
+                              placeholder={'Năm'}
+                              keyboardType={'numeric'}
+                              placeholderTextColor={'#666666'}
+                              onChangeText={text =>
+                                setInfo({
+                                  fullname: info.fullname,
+                                  avatar: info.avatar,
+                                  birthday: {
+                                    day: info.birthday.day,
+                                    month: info.birthday.month,
+                                    year: text,
+                                  },
+                                })
+                              }
+                            />
+                          </View>
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          gap: 16,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginTop: 8,
+                        }}>
+                        <TouchableOpacity
+                          onPress={handleSaveInfo}
+                          style={{
+                            backgroundColor: '#059669',
+                            padding: 12,
+                            borderRadius: 4,
+                            paddingLeft: 20,
+                            paddingRight: 20,
+                          }}>
+                          <Text style={{ color: '#fff' }}>Cập nhật</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={handleCancel}
+                          style={{
+                            backgroundColor: '#e11d48',
+                            padding: 12,
+                            borderRadius: 4,
+                            paddingLeft: 20,
+                            paddingRight: 20,
+                          }}>
+                          <Text style={{ color: '#fff' }}>Hủy bỏ</Text>
+                        </TouchableOpacity>
+
+                      </View>
+                    </>
+                  )}
+                </ScrollView>
+              </View>
+            </View>
+          </>
+        </Modal>
+      )}
+      {showChooseImageOrCamera && (
+        <Modal
+          visible={showChooseImageOrCamera}
+          onDismiss={handleCloseShowChooseImageOrCamera}
+          animationType="slide"
+          transparent={true}>
+          <View style={{ width: '100%', height: '100%', justifyContent: 'flex-end' }}>
             <TouchableOpacity
               style={{
                 backgroundColor: '#00000042',
                 width: '100%',
                 height: '100%',
-                position: 'relative',
+                position: 'absolute',
                 zIndex: 1,
               }}
-              onPress={() => setShow(false)}
+              onPress={handleCloseShowChooseImageOrCamera}
             />
             <View
               style={{
                 backgroundColor: '#fff',
-                marginLeft: 16,
-                marginRight: 16,
                 overflow: 'scroll',
                 position: 'absolute',
                 zIndex: 2,
-                width: '80%',
+                width: '100%',
+                borderRadius: 8,
+                padding: 16,
+                paddingBottom: 32,
               }}>
-              <View
-                style={{
-                  display: 'flex',
-                  padding: 8,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  backgroundColor: '#e5e1e1',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    textTransform: 'uppercase',
-                    fontWeight: '600',
-                  }}>
-                  {titleModal}
-                </Text>
-                <TouchableOpacity onPress={handleCancel}>
-                  <Ionicons
-                    name="close"
-                    style={{fontSize: 16, color: '#003868'}}
-                  />
-                </TouchableOpacity>
+              <View style={{ display: 'flex', gap: 16 }}>
+                <View style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Tải ảnh đại diện</Text>
+                  <Text style={{ color: '#666666', fontSize: 12 }}>Chọn ảnh của bạn</Text>
+                </View>
+                <View style={{ display: 'flex', gap: 8 }}>
+                  <TouchableOpacity onPress={takePhotoFromCamera} style={{ backgroundColor: '#f97316', display: 'flex', alignItems: 'center', padding: 16, borderRadius: 8 }}>
+                    <Text style={{ color: '#fff', fontSize: 17 }}>Chụp ảnh</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={choosePhotoFromLibarary} style={{ backgroundColor: '#f97316', display: 'flex', alignItems: 'center', padding: 16, borderRadius: 8 }}>
+                    <Text style={{ color: '#fff', fontSize: 17 }}>Chọn ảnh từ thư viện</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={handleCloseShowChooseImageOrCamera} style={{ backgroundColor: '#f97316', display: 'flex', alignItems: 'center', padding: 16, borderRadius: 8 }}>
+                    <Text style={{ color: '#fff', fontSize: 17 }}>Huỷ bỏ</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <ScrollView style={{padding: 16, marginBottom: 16}}>
-                {values === 'pwd' && (
-                  <>
-                    <View>
-                      {/* Current Password */}
-                      <View
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          gap: 8,
-                          height: 50,
-                          flex: 1,
-                        }}>
-                        <Text
-                          style={{
-                            fontSize: 12,
-                            fontWeight: '600',
-                            minWidth: 100,
-                          }}>
-                          Mật khẩu hiện tại:
-                        </Text>
-                        <TextInput
-                          style={{
-                            borderColor: '#00000222',
-                            borderWidth: 1,
-                            padding: 4,
-                            flex: 1,
-                            borderRadius: 2,
-                            fontSize: 12,
-                            paddingLeft: 8,
-                            color: '#003868',
-                          }}
-                          value={pwd?.currentPwd?.val}
-                          secureTextEntry={pwd?.currentPwd?.security}
-                          onChangeText={text =>
-                            setPwd({
-                              currentPwd: {
-                                val: text,
-                                security: true,
-                              },
-                              newPwd: {
-                                val: pwd.newPwd.val,
-                                security: true,
-                              },
-                              retypePwd: {
-                                val: pwd.retypePwd.val,
-                                security: true,
-                              },
-                            })
-                          }
-                        />
-                      </View>
-                      {/* Current Password */}
-                      <View
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          gap: 8,
-                          height: 50,
-                          flex: 1,
-                        }}>
-                        <Text
-                          style={{
-                            fontSize: 12,
-                            fontWeight: '600',
-                            minWidth: 100,
-                          }}>
-                          Mật khẩu mới:
-                        </Text>
-                        <TextInput
-                          style={{
-                            borderColor: '#00000222',
-                            borderWidth: 1,
-                            padding: 4,
-                            flex: 1,
-                            borderRadius: 2,
-                            fontSize: 12,
-                            paddingLeft: 8,
-                            color: '#003868',
-                          }}
-                          value={pwd?.newPwd?.val}
-                          secureTextEntry={pwd?.currentPwd?.security}
-                          onChangeText={text =>
-                            setPwd({
-                              currentPwd: {
-                                val: pwd.currentPwd.val,
-                                security: true,
-                              },
-                              newPwd: {
-                                val: text,
-                                security: true,
-                              },
-                              retypePwd: {
-                                val: pwd?.retypePwd.val,
-                                security: true,
-                              },
-                            })
-                          }
-                        />
-                      </View>
-                      {/* Current Password */}
-                      <View
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          gap: 8,
-                          height: 50,
-                          flex: 1,
-                        }}>
-                        <Text
-                          style={{
-                            fontSize: 12,
-                            fontWeight: '600',
-                            minWidth: 100,
-                          }}>
-                          Nhập lại mật khẩu:
-                        </Text>
-                        <TextInput
-                          style={{
-                            borderColor: '#00000222',
-                            borderWidth: 1,
-                            padding: 4,
-                            flex: 1,
-                            borderRadius: 2,
-                            fontSize: 12,
-                            paddingLeft: 8,
-                            color: '#003868',
-                          }}
-                          value={pwd?.retypePwd?.val}
-                          secureTextEntry={pwd?.currentPwd?.security}
-                          onChangeText={text =>
-                            setPwd({
-                              currentPwd: {
-                                val: pwd.currentPwd.val,
-                                security: true,
-                              },
-                              newPwd: {
-                                val: pwd.newPwd.val,
-                                security: true,
-                              },
-                              retypePwd: {
-                                val: text,
-                                security: true,
-                              },
-                            })
-                          }
-                        />
-                      </View>
-                    </View>
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: 16,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginTop: 8,
-                      }}>
-                      <TouchableOpacity
-                        onPress={handleSavePass}
-                        style={{
-                          backgroundColor: '#059669',
-                          padding: 8,
-                          borderRadius: 4,
-                        }}>
-                        <Text style={{color: '#fff'}}>Lưu lại</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={handleCancel}
-                        style={{
-                          backgroundColor: '#e11d48',
-                          padding: 8,
-                          borderRadius: 4,
-                        }}>
-                        <Text style={{color: '#fff'}}>Hủy bỏ</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </>
-                )}
-                {values === 'info' && (
-                  <>
-                    <View style={{alignItems: 'center'}}>
-                      <TouchableOpacity>
-                        {/* Avatar */}
-                        <View
-                          style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: 100,
-                            width: 100,
-                            borderRadius: 15,
-                          }}>
-                          <ImageBackground
-                            source={{
-                              uri: image,
-                            }}
-                            style={{
-                              height: 100,
-                              width: 100,
-                            }}
-                            imageStyle={{borderRadius: 15}}>
-                            <View
-                              style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                              }}>
-                              <Icon
-                                name="camera"
-                                size={35}
-                                color="#fff"
-                                style={{
-                                  opacity: 0.7,
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  borderWidth: 1,
-                                  borderColor: '#fff',
-                                  borderRadius: 10,
-                                }}
-                              />
-                            </View>
-                          </ImageBackground>
-                        </View>
-                      </TouchableOpacity>
-                      {/* Fullname */}
-                      <View
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          gap: 8,
-                          height: 50,
-                          flex: 1,
-                        }}>
-                        <Text
-                          style={{
-                            fontSize: 12,
-                            fontWeight: '600',
-                            minWidth: 70,
-                          }}>
-                          Tên hiển thị:
-                        </Text>
-                        <TextInput
-                          style={{
-                            borderColor: '#00000222',
-                            borderWidth: 1,
-                            padding: 4,
-                            flex: 1,
-                            borderRadius: 2,
-                            fontSize: 12,
-                            paddingLeft: 8,
-                            color: '#003868',
-                          }}
-                          value={info.fullname}
-                          onChangeText={text =>
-                            setPwd({
-                              fullname: text,
-                              avatar: info.avatar,
-                              birthday: info.birthday,
-                            })
-                          }
-                        />
-                      </View>
-                      {/* Birthday */}
-                      <View
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          gap: 8,
-                          height: 50,
-                        }}>
-                        <Text
-                          style={{
-                            fontSize: 12,
-                            fontWeight: '600',
-                            minWidth: 70,
-                          }}>
-                          Ngày sinh:
-                        </Text>
-                        <View
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: 8,
-                            flex: 1,
-                          }}>
-                          <TextInput
-                            style={{
-                              borderColor: '#00000222',
-                              borderWidth: 1,
-                              padding: 4,
-                              borderRadius: 2,
-                              fontSize: 12,
-                              paddingLeft: 8,
-                              color: '#003868',
-                              flex: 1,
-                            }}
-                            value={info?.birthday?.day}
-                            placeholder={'Ngày'}
-                            keyboardType={'numeric'}
-                            onChangeText={text =>
-                              setInfo({
-                                fullname: info.fullname,
-                                avatar: info.avatar,
-                                birthday: {
-                                  day: text,
-                                  month: info.birthday.month,
-                                  year: info.birthday.year,
-                                },
-                              })
-                            }
-                          />
-                          <TextInput
-                            style={{
-                              borderColor: '#00000222',
-                              borderWidth: 1,
-                              padding: 4,
-                              borderRadius: 2,
-                              fontSize: 12,
-                              paddingLeft: 8,
-                              color: '#003868',
-                              flex: 1,
-                            }}
-                            value={info?.birthday?.month}
-                            placeholder={'Tháng'}
-                            keyboardType={'numeric'}
-                            onChangeText={text =>
-                              setInfo({
-                                fullname: info.fullname,
-                                avatar: info.avatar,
-                                birthday: {
-                                  day: info.birthday.day,
-                                  month: text,
-                                  year: info.birthday.year,
-                                },
-                              })
-                            }
-                          />
-                          <TextInput
-                            style={{
-                              borderColor: '#00000222',
-                              borderWidth: 1,
-                              padding: 4,
-                              borderRadius: 2,
-                              fontSize: 12,
-                              paddingLeft: 8,
-                              color: '#003868',
-                              flex: 1,
-                            }}
-                            value={info?.birthday?.year}
-                            placeholder={'Năm'}
-                            keyboardType={'numeric'}
-                            onChangeText={text =>
-                              setInfo({
-                                fullname: info.fullname,
-                                avatar: info.avatar,
-                                birthday: {
-                                  day: info.birthday.day,
-                                  month: info.birthday.month,
-                                  year: text,
-                                },
-                              })
-                            }
-                          />
-                        </View>
-                      </View>
-                    </View>
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: 16,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginTop: 8,
-                      }}>
-                      <TouchableOpacity
-                        onPress={handleSaveInfo}
-                        style={{
-                          backgroundColor: '#059669',
-                          padding: 8,
-                          borderRadius: 4,
-                        }}>
-                        <Text style={{color: '#fff'}}>Cập nhật</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={handleCancel}
-                        style={{
-                          backgroundColor: '#e11d48',
-                          padding: 8,
-                          borderRadius: 4,
-                        }}>
-                        <Text style={{color: '#fff'}}>Hủy bỏ</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </>
-                )}
-              </ScrollView>
             </View>
           </View>
         </Modal>
       )}
     </SafeAreaView>
-    </>
   );
 };
 
@@ -1045,7 +1166,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#FFFFFF',
     shadowColor: '#333333',
-    shadowOffset: {width: -1, height: -3},
+    shadowOffset: { width: -1, height: -3 },
     shadowRadius: 2,
     shadowOpacity: 0.4,
     paddingTop: 20,
