@@ -18,7 +18,7 @@ export const AuthProvider = ({children}) => {
 
     const timer = setTimeout(() => {
       axios
-        .post('http://172.20.254.70:8080/api/login', {
+        .post('http://192.168.14.2:8080/api/login', {
           username,
           password,
         })
@@ -32,7 +32,7 @@ export const AuthProvider = ({children}) => {
 
           setIsLoading(false);
 
-          // console.log('User Token: ' + res.data.accessToken);
+          console.log('User Token: ' + res.data.accessToken);
         })
         .catch(e => {
           console.log(`LOgin error ${e}`);

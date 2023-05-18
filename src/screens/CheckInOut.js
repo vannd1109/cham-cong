@@ -23,8 +23,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const API_URL =
   Platform.OS === 'ios'
-    ? 'http://172.20.254.70:8080'
-    : 'http://172.20.254.70:8080';
+    ? 'http://172.17.9.14:8080'
+    : 'http://172.17.9.14:8080';
 
 const CheckInout = ({navigation}) => {
   const {userInfo} = useContext(AuthContext);

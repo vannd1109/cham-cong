@@ -55,7 +55,7 @@ const CustomDrawer = props => {
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
         <TouchableOpacity onPress={() => {logout()}} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Ionicons name="exit-outline" size={22} />
+            <Ionicons name="exit-outline" size={22} color={'#dc2626'} />
             <Text
               style={{
                 fontSize: 15,
