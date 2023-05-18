@@ -17,6 +17,7 @@ import CheckInOutScreen from '../screens/CheckInOut';
 import TimeOffScreen from '../screens/TimeOff';
 import TabNavigator from './TabNavigator';
 import BookRiceScreen from '../screens/BookRice';
+import StatisticsScreen from '../screens/Statistics';
 
 const Drawer = createDrawerNavigator();
 
@@ -38,8 +39,8 @@ const AuthStack = () => {
         name="Home"
         component={TabNavigator}
         options={{
-          drawerIcon: ({color}) => (
-            <FontAwesome name="home" size={20} color={color} />
+          drawerIcon: () => (
+            <Ionicons name="home-outline" size={20} color={'#4ade80'}  />
           ),
         }}
       />
@@ -47,8 +48,8 @@ const AuthStack = () => {
         name="Chấm công"
         component={CheckInOutScreen}
         options={{
-          drawerIcon: ({color}) => (
-            <FontAwesome name="calendar-check-o" size={20} color={color} />
+          drawerIcon: () => (
+            <FontAwesome name="calendar-check-o" size={20} color={'#7c3aed'} />
           ),
         }}
       />
@@ -56,8 +57,8 @@ const AuthStack = () => {
         name="Bảng lương"
         component={PayRollsScreen}
         options={{
-          drawerIcon: ({color}) => (
-            <FontAwesome name="money" size={20} color={color} />
+          drawerIcon: () => (
+            <FontAwesome name="money" size={20} color={'#ea580c'} />
           ),
         }}
       />
@@ -65,8 +66,8 @@ const AuthStack = () => {
         name="Nghỉ phép"
         component={TimeOffScreen}
         options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="flash" size={20} color={color} />
+          drawerIcon: () => (
+            <Ionicons name="flash" size={20} color={'#dc2626'} />
           ),
         }}
       />
@@ -74,8 +75,17 @@ const AuthStack = () => {
         name="Đặt cơm"
         component={BookRiceScreen}
         options={{
-          drawerIcon: ({color}) => (
-            <MaterialIcons name="rice-bowl" size={20} color={color} />
+          drawerIcon: () => (
+            <MaterialIcons name="rice-bowl" size={20} color={'#10b981'} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Thống kê chấm công"
+        component={StatisticsScreen}
+        options={{
+          drawerIcon: () => (
+            <Ionicons name="bar-chart-outline" size={20} color={'#f59e0b'} />
           ),
         }}
       />
@@ -83,8 +93,8 @@ const AuthStack = () => {
         name="Thông tin cá nhân"
         component={ProfileScreen}
         options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="person-outline" size={20} color={color} />
+          drawerIcon: () => (
+            <Ionicons name="person-outline" size={20} color={'#2563eb'} />
           ),
         }}
       />
@@ -92,8 +102,8 @@ const AuthStack = () => {
         name="Tin nhắn"
         component={MessagesScreen}
         options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="chatbox-ellipses-outline" size={20} color={color} />
+          drawerIcon: () => (
+            <Ionicons name="chatbox-ellipses-outline" size={20} color={'#38bdf8'} />
           ),
         }}
       />
@@ -101,8 +111,8 @@ const AuthStack = () => {
         name="Cài đặt"
         component={SettingsScreen}
         options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="settings-outline" size={20} color={color} />
+          drawerIcon: () => (
+            <Ionicons name="settings-outline" size={20} color={'#a3a3a3'} />
           ),
         }}
       />

@@ -37,6 +37,12 @@ const ApplicationScreen = ({navigation}) => {
       icon: <MaterialIcons name="rice-bowl" size={20} color="#fff" />,
       bgColor: '#e1a22f',
     },
+    {
+      id: 'statistics',
+      name: 'Thống kê chấm công',
+      icon: <Ionicons name="bar-chart-outline" size={20} color="#fff" />,
+      bgColor: '#2563eb',
+    },
   ];
 
   const handleChangeApp = app => {
@@ -80,17 +86,20 @@ const ApplicationScreen = ({navigation}) => {
             flexDirection: 'row',
             width: '100%',
             height: '100%',
+            flexWrap: 'wrap',
+            gap: 8,
+            justifyContent: 'space-between',
           }}>
-          {appList.map(app => (
+          {appList.map((app, idx) => (
             <View
-              key={app.id}
-              style={{display: 'flex', alignItems: 'center', flex: 1, gap: 4}}>
+              key={idx}
+              style={{alignItems: 'center', gap: 4, width: 80}}>
               <TouchableOpacity
                 onPress={() => handleChangeApp(app)}
                 style={{
                   backgroundColor: `${app.bgColor}`,
-                  width: 40,
-                  height: 40,
+                  width: 60,
+                  height: 60,
                   borderRadius: 8,
                   display: 'flex',
                   justifyContent: 'center',
@@ -98,7 +107,7 @@ const ApplicationScreen = ({navigation}) => {
                 }}>
                 {app.icon}
               </TouchableOpacity>
-              <Text style={{fontSize: 12}}>{app.name}</Text>
+              <Text style={{fontSize: 12, textAlign: 'center'}}>{app.name}</Text>
             </View>
           ))}
         </View>
