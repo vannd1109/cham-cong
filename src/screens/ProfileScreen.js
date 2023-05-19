@@ -23,6 +23,7 @@ import { AuthContext } from '../context/AuthContext';
 import { TextInput } from 'react-native-gesture-handler';
 
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import ImageCropPicker from 'react-native-image-crop-picker';
 
 const ProfileScreen = ({ navigation }) => {
   const { colors } = useTheme();
@@ -114,15 +115,37 @@ const ProfileScreen = ({ navigation }) => {
   }
 
   const takePhotoFromCamera = () => {
-    try {
-      launchCamera();
-    } catch (error) {
-      console.log(error);
-    }
+    ImageCropPicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      setShowChooseImageOrCamera(false);
+      setShow(true);
+      setImage(image.path);
+      setInfo({
+        avatar: image.path,
+        fullname: info.fullname,
+        birthday: info.birthday
+      })
+    })
   }
 
   const choosePhotoFromLibarary = () => {
-
+    ImageCropPicker.openPicker({
+      width: 300,
+      height: 400,
+      ropping: true,
+    }).then(image => {
+      setShowChooseImageOrCamera(false);
+      setShow(true);
+      setImage(image.path);
+      setInfo({
+        avatar: image.path,
+        fullname: info.fullname,
+        birthday: info.birthday
+      })
+    })
   }
 
   return (
