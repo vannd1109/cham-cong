@@ -2,14 +2,13 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useContext, useState } from 'react';
-import { SafeAreaView, View, Text, Image } from 'react-native';
+import { SafeAreaView, View, Text, Image, ActivityIndicator } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
 import { AuthContext } from '../context/AuthContext';
-import ProgressBar from 'react-native-progress/Bar';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState(null);
@@ -36,8 +35,9 @@ const LoginScreen = () => {
               color: '#003868',
               marginBottom: 20,
               marginTop: 20,
+              textAlign: 'center',
             }}>
-            Đăng nhập
+            Sen Vàng Việt Nam
           </Text>
 
           <InputField
@@ -84,7 +84,7 @@ const LoginScreen = () => {
 
           <CustomButton
             label={'Đăng nhập'}
-            disabled={username & password ? false : true}
+            // disabled={username & password ? false : true}
             bg={username && password ? '#003868' : '#a4b1bd'}
             onPress={() => {
               login({ username, password });
@@ -111,19 +111,13 @@ const LoginScreen = () => {
               alignItems: 'center',
               gap: 4,
             }}>
-            <Text style={{ color: '#fff', fontStyle: 'italic' }}>
-              Đang đăng nhập...
-            </Text>
-            <ProgressBar
-              progress={10000}
-              indeterminate={true}
-              color={'#fff'}
-              height={10}
-              width={200}
-              borderRadius={8}
-              animating={true}
-              duration={2000}
-            />
+            <View
+                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <ActivityIndicator size="large" color={'#fff'} />
+                <Text style={{color: '#FFF', fontSize: 12, fontStyle: 'italic'}}>
+                  Đang đăng nhập...
+                </Text>
+              </View>
           </View>
         </View>
       )}

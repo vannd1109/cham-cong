@@ -6,7 +6,7 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   View,
@@ -17,27 +17,28 @@ import {
   ActivityIndicator,
   SafeAreaView
 } from 'react-native';
-import {Calendar, LocaleConfig} from 'react-native-calendars';
-import {AuthContext} from '../context/AuthContext';
+import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { AuthContext } from '../context/AuthContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const API_URL =
   Platform.OS === 'ios'
     ? 'http://172.17.9.14:8080'
     : 'http://172.17.9.14:8080';
 
-    LocaleConfig.locales[""].dayNamesShort[0] = "CN";
-    LocaleConfig.locales[""].dayNamesShort[1] = "T2";
-    LocaleConfig.locales[""].dayNamesShort[2] = "T3";
-    LocaleConfig.locales[""].dayNamesShort[3] = "T4";
-    LocaleConfig.locales[""].dayNamesShort[4] = "T5";
-    LocaleConfig.locales[""].dayNamesShort[5] = "T6";
-    LocaleConfig.locales[""].dayNamesShort[6] = "T7";
+LocaleConfig.locales[""].dayNamesShort[0] = "CN";
+LocaleConfig.locales[""].dayNamesShort[1] = "T2";
+LocaleConfig.locales[""].dayNamesShort[2] = "T3";
+LocaleConfig.locales[""].dayNamesShort[3] = "T4";
+LocaleConfig.locales[""].dayNamesShort[4] = "T5";
+LocaleConfig.locales[""].dayNamesShort[5] = "T6";
+LocaleConfig.locales[""].dayNamesShort[6] = "T7";
 
-    LocaleConfig.locales[""].monthNamesShort[0] = "Tháng 1, ";
+LocaleConfig.locales[""].monthNamesShort[0] = "Tháng 1, ";
 
-const CheckInout = ({navigation}) => {
-  const {userInfo} = useContext(AuthContext);
+const CheckInout = ({ navigation }) => {
+  const { userInfo } = useContext(AuthContext);
   const userNumber = parseInt(userInfo?.id);
   const timeNow = Date.now();
   const [currentDay, setCurrentDay] = useState(new Date(timeNow).getDate());
@@ -72,7 +73,7 @@ const CheckInout = ({navigation}) => {
     axios
       .get(`${API_URL}/api/check-in-out/${userNumber}/${timeDate}`)
       .then(function (res) {
-        const {checkIn, checkOut} = res.data;
+        const { checkIn, checkOut } = res.data;
         setTimeIn(checkIn || '');
         setTimeOut(checkOut || '');
       })
@@ -90,7 +91,7 @@ const CheckInout = ({navigation}) => {
   }, []);
 
   const handleTimeChange = async day => {
-    const {dateString} = day;
+    const { dateString } = day;
     const currentDate = Object.keys(markedDates)[0];
     if (dateString !== currentDate) {
       let currentMarkedDates = {};
@@ -110,7 +111,7 @@ const CheckInout = ({navigation}) => {
       axios
         .get(`${API_URL}/api/check-in-out/${userNumber}/${dateString}`)
         .then(function (res) {
-          const {checkIn, checkOut} = res.data;
+          const { checkIn, checkOut } = res.data;
           setTimeIn(checkIn || '');
           setTimeOut(checkOut || '');
         })
@@ -128,130 +129,137 @@ const CheckInout = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.center}>
-      <View
-        style={{
-          height: 40,
-          backgroundColor: '#003868',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingLeft: 10,
-          paddingRight: 10,
-        }}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Ionicons name="menu" style={{fontSize: 32, color: '#fff'}} />
-        </TouchableOpacity>
-        <Text style={{color: '#fff'}}>Bảng chấm công</Text>
-        <View style={{display: 'flex'}} />
-      </View>
-      <Calendar
-        onDayPress={day => handleTimeChange(day)}
-        markedDates={markedDates}
-      />
-      <View style={{flex: 1}}>
-        <View style={styles.container}>
-          <View style={{flex: 1}}>
-            <Text style={styles.day}>
-              {currentDay}/{currentMonth}
-            </Text>
-          </View>
-          <View style={{flex: 1}}>
-            <Text style={styles.line1}></Text>
-          </View>
-          <View style={{flex: 1}}>
-            <Text style={styles.timer}>
-              {timeIn && <Text>{timeIn}</Text>}
-              <Text style={{margin: 10, display: 'flex'}}>-</Text>
-              {timeOut && <Text>{timeOut}</Text>}
-            </Text>
-          </View>
+    <>
+      <SafeAreaView style={styles.center}>
+        <View
+          style={{
+            height: 40,
+            backgroundColor: '#003868',
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingLeft: 10,
+            paddingRight: 10,
+          }}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Ionicons name="menu" style={{ fontSize: 32, color: '#fff' }} />
+          </TouchableOpacity>
+          <Text style={{ color: '#fff' }}>Bảng chấm công</Text>
+          <View style={{ display: 'flex' }} />
         </View>
-
-        {isLoading && (
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator size="large" />
-            <Text style={{color: '#003868', fontSize: 12, fontStyle: 'italic'}}>
-              Đang tải dữ liệu...
-            </Text>
+        <Calendar
+          onDayPress={day => handleTimeChange(day)}
+          markedDates={markedDates}
+        />
+        <View style={{ flex: 1 }}>
+          <View style={styles.container}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.day}>
+                {currentDay}/{currentMonth}
+              </Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.line1}></Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.timer}>
+                {timeIn && <Text>{timeIn}</Text>}
+                <Text style={{ margin: 10, display: 'flex' }}>-</Text>
+                {timeOut && <Text>{timeOut}</Text>}
+              </Text>
+            </View>
           </View>
-        )}
 
-        {!isLoading && (
-          <View style={styles.content}>
-            {timeIn && (
-              <View style={styles.contentItem}>
-                <Text style={styles.contentItemPoint}></Text>
-                <View>
-                  <Text style={{fontWeight: 'bold'}}>{timeIn}</Text>
-                  <Text style={{color: 'gray', fontSize: 12}}>
-                    Client: X1_G_70.251 - IP: 171.224.240.197 - Văn phòng: Trụ
-                    sở chính
+          {isLoading && (
+            <View
+              style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <ActivityIndicator size="large" />
+              <Text style={{ color: '#003868', fontSize: 12, fontStyle: 'italic' }}>
+                Đang tải dữ liệu...
+              </Text>
+            </View>
+          )}
+
+          {!isLoading && (
+            <View style={styles.content}>
+              {timeIn && (
+                <View style={styles.contentItem}>
+                  <Text style={styles.contentItemPoint}></Text>
+                  <View>
+                    <Text style={{ fontWeight: 'bold' }}>{timeIn}</Text>
+                    <Text style={{ color: 'gray', fontSize: 12 }}>
+                      Client: X1_G_70.251 - IP: 171.224.240.197 - Văn phòng: Trụ
+                      sở chính
+                    </Text>
+                  </View>
+                </View>
+              )}
+
+              {timeOut && timeIn === '' && (
+                <View style={styles.contentItem}>
+                  <Text
+                    style={{ fontWeight: 'bold', fontSize: 12, color: '#f4511e' }}>
+                    Không có giờ vào
                   </Text>
                 </View>
-              </View>
-            )}
+              )}
 
-            {timeOut && timeIn === '' && (
-              <View style={styles.contentItem}>
-                <Text
-                  style={{fontWeight: 'bold', fontSize: 12, color: '#f4511e'}}>
-                  Không có giờ vào
-                </Text>
-              </View>
-            )}
-
-            {timeOut && (
-              <View style={styles.contentItemLast}>
-                <Text style={styles.contentItemPoint}></Text>
-                <View>
-                  <Text style={{fontWeight: 'bold'}}>{timeOut}</Text>
-                  <Text style={{color: 'gray', fontSize: 12}}>
-                    Client: X1_G_70.251 - IP: 171.224.240.197 - Văn phòng: Trụ
-                    sở chính
-                  </Text>
+              {timeOut && (
+                <View style={styles.contentItemLast}>
+                  <Text style={styles.contentItemPoint}></Text>
+                  <View>
+                    <Text style={{ fontWeight: 'bold' }}>{timeOut}</Text>
+                    <Text style={{ color: 'gray', fontSize: 12 }}>
+                      Client: X1_G_70.251 - IP: 171.224.240.197 - Văn phòng: Trụ
+                      sở chính
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            )}
-            {timeIn && timeOut === '' && (
-              <View style={styles.contentItemLast}>
-                <View
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
+              )}
+              {timeIn && timeOut === '' && (
+                <View style={styles.contentItemLast}>
+                  <View
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 12,
+                        color: '#f4511e',
+                      }}>
+                      Không có giờ ra
+                    </Text>
+                  </View>
+                </View>
+              )}
+              {timeIn === '' && timeOut === '' && (
+                <View style={{ width: '100%' }}>
                   <Text
                     style={{
+                      textAlign: 'center',
                       fontWeight: 'bold',
+                      color: '#e12424',
                       fontSize: 12,
-                      color: '#f4511e',
+                      fontStyle: 'italic',
                     }}>
-                    Không có giờ ra
+                    Không có dữ liệu
                   </Text>
                 </View>
-              </View>
-            )}
-            {timeIn === '' && timeOut === '' && (
-              <View style={{width: '100%'}}>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    color: '#e12424',
-                    fontSize: 12,
-                    fontStyle: 'italic',
-                  }}>
-                  Không có dữ liệu
-                </Text>
-              </View>
-            )}
-          </View>
-        )}
-      </View>
-    </SafeAreaView>
+              )}
+            </View>
+          )}
+        </View>
+      </SafeAreaView>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Home')}
+        style={{ position: 'absolute', width: 56, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8, zIndex: 999, backgroundColor: '#22c55e', bottom: 24, right: 20 }}>
+        <FontAwesome name="home" size={24} color={'#fff'} />
+      </TouchableOpacity>
+    </>
   );
 };
 

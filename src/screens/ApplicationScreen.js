@@ -3,12 +3,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
 import {useState} from 'react';
-import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
+import {View, Text, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import ProgressBar from 'react-native-progress/Bar';
 
 const ApplicationScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -131,17 +130,13 @@ const ApplicationScreen = ({navigation}) => {
                 alignItems: 'center',
                 gap: 4,
               }}>
-              <Text>Đang tải...</Text>
-              <ProgressBar
-                progress={5000}
-                indeterminate={true}
-                color={'#003868'}
-                height={10}
-                width={200}
-                borderRadius={8}
-                animating={true}
-                duration={2000}
-              />
+              <View
+                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <ActivityIndicator size="large" />
+                <Text style={{color: '#003868', fontSize: 12, fontStyle: 'italic'}}>
+                  Đang tải ...
+                </Text>
+              </View>
             </View>
           </View>
         )}

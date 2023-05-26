@@ -270,94 +270,100 @@ const BookRiceScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#fff' }}>
-      <View
-        style={{
-          height: 50,
-          backgroundColor: '#003868',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingLeft: 10,
-          paddingRight: 10,
-        }}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Feather name="menu" style={{ fontSize: 20, color: '#fff' }} />
-        </TouchableOpacity>
-        <Text style={{ color: '#fff' }}>Đặt cơm từ {moment(startDate).format("DD/MM")} đến {moment(endDate).format("DD/MM/YYYY")}</Text>
-        <TouchableOpacity style={{ display: 'flex' }} onPress={() => setShowSaved(true)} disabled={isClosed ? true : false}>
-          <Feather name='save' color='#fff' size={24} />
-        </TouchableOpacity>
-      </View>
-      <View style={{ display: 'flex', gap: 16 }}>
-        <View style={{ display: 'flex', justifyContent: 'center', gap: 8, alignItems: 'center', backgroundColor: '#fff', padding: 8 }}>
-          <Text style={{ fontSize: 12, fontStyle: 'italic' }}>Hạn cuối là {moment(closeDate).format("HH")} giờ, thứ {new Date(closeDate).getDay() + 1} ngày {moment(closeDate).format("DD/MM/YYYY")}</Text>
-          <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#d12c31' }}>
-            {days >= 0 && (
-              <Text>{days < 10 ? '0' + days : days} ngày : </Text>
-            )}
-            {days >= 0 && hours >= 0 && (
-              <Text>{hours < 10 ? '0' + hours : hours} giờ : </Text>
-            )}
-            {days >= 0 && hours >= 0 && minutes >= 0 && (
-              <Text>{minutes < 10 ? '0' + minutes : minutes} phút : </Text>
-            )}
-            {days >= 0 && hours >= 0 && minutes >= 0 && seconds >= 0 && (
-              <Text>{seconds < 10 ? '0' + seconds : seconds} giây</Text>
-            )}
-          </Text>
+    <>
+      <SafeAreaView style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#fff' }}>
+        <View
+          style={{
+            height: 50,
+            backgroundColor: '#003868',
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingLeft: 10,
+            paddingRight: 10,
+          }}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Feather name="menu" style={{ fontSize: 20, color: '#fff' }} />
+          </TouchableOpacity>
+          <Text style={{ color: '#fff' }}>Đặt cơm từ {moment(startDate).format("DD/MM")} đến {moment(endDate).format("DD/MM/YYYY")}</Text>
+          <TouchableOpacity style={{ display: 'flex' }} onPress={() => setShowSaved(true)} disabled={isClosed ? true : false}>
+            <Feather name='save' color='#fff' size={24} />
+          </TouchableOpacity>
         </View>
-        <View style={{ display: 'flex', flexDirection: 'row', gap: 16, flexWrap: 'wrap', borderBottomWidth: 0.5, borderBottomColor: '#bfbdbb', paddingBottom: 16, justifyContent: 'center', alignItems: 'center' }}>
-          {menu?.map((item, idx) => (
-            <TouchableOpacity key={idx} onPress={() => handleChange(idx)} 
-            disabled={loading ? true : false}>
-              <View style={{ display: 'flex', justifyContent: 'center', borderRadius: 4, backgroundColor: `${currentDay === menu?.[idx]?.id ? '#b9e2fa' : '#f2f2f2'}`, alignItems: 'center', gap: 8, width: 60, borderBottomColor: '#003868', borderWidth: .5, height: 60 }}>
-                < Text style={{ fontWeight: 'bold', fontSize: 12 }}>{item.label}</Text>
-                <View>
-                  <FontAwesome
-                    name={`${(selectedDishList[idx].items[currentTab].menu.length > 1) || (selectedDishList[idx].items[currentTab].menu.some(item => item.code === 'D' || item.code === 'E')) ? 'calendar-check-o' : 'calendar-o'}`}
-                    size={24} color={`${(selectedDishList[idx].items[currentTab].menu.length > 1) || (selectedDishList[idx].items[currentTab].menu.some(item => item.code === 'D' || item.code === 'E')) ? '#12978f' : '#003868'}`}
-                  />
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
-        {!loading && (
-          <>
-            <View style={{ paddingBottom: 0, marginBottom: 0, gap: 8, borderBottomColor: '#003868', padding: 4, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              {currentDay === menu?.[idx]?.id && (
-                menu?.[idx]?.items.map((item, index) => {
-                  return (
-                    <TouchableOpacity
-                     key={item.id} 
-                     style={{ backgroundColor: `${item.id === menu?.[idx].items[currentTab].id ? '#003868' : '#fff'}`, 
-                     padding: 12, flex: 1, alignItems: 'center' }} onPress={() => handleChangeTab(index)}>
-                      <View key={item.id}>
-                        <Text style={{ color: `${item.id === menu?.[idx].items[currentTab].id ? '#fff' : '#003868'}` }}>{item.label}</Text>
-                      </View>
-                    </TouchableOpacity>
-                  )
-                })
+        <ScrollView style={{ display: 'flex', gap: 8 }}>
+          <View style={{ display: 'flex', justifyContent: 'center', gap: 8, alignItems: 'center', backgroundColor: '#fff', padding: 8 }}>
+            <Text style={{ fontSize: 12, fontStyle: 'italic' }}>Hạn cuối là {moment(closeDate).format("HH")} giờ, thứ {new Date(closeDate).getDay() + 1} ngày {moment(closeDate).format("DD/MM/YYYY")}</Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#d12c31' }}>
+              {days >= 0 && (
+                <Text>{days < 10 ? '0' + days : days} ngày : </Text>
               )}
-            </View>
-            <View>
-              <View style={{ flexDirection: 'column' }}>
-                {selectedDishList[idx].items[currentTab].menu.length > '' && (
-                  <View style={{ display: 'flex', flexDirection: 'row', gap: 8, alignItems: 'center', padding: 16 }}>
-                    <Text style={{ fontSize: 14, fontWeight: 'bold', paddingLeft: 8, color: '#003868' }}>Món chính:</Text>
-                    <View style={{ backgroundColor: '#eab308', padding: 8, gap: 8, display: 'flex', flex: 1, flexDirection: 'column' }}>
+              {days >= 0 && hours >= 0 && (
+                <Text>{hours < 10 ? '0' + hours : hours} giờ : </Text>
+              )}
+              {days >= 0 && hours >= 0 && minutes >= 0 && (
+                <Text>{minutes < 10 ? '0' + minutes : minutes} phút : </Text>
+              )}
+              {days >= 0 && hours >= 0 && minutes >= 0 && seconds >= 0 && (
+                <Text>{seconds < 10 ? '0' + seconds : seconds} giây</Text>
+              )}
+            </Text>
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', gap: 12, flexWrap: 'wrap', borderBottomWidth: 0.5, borderBottomColor: '#bfbdbb', paddingBottom: 16, justifyContent: 'center', alignItems: 'center' }}>
+            {menu?.map((item, idx) => (
+              <TouchableOpacity key={idx} onPress={() => handleChange(idx)}
+                disabled={loading ? true : false}>
+                <View style={{ display: 'flex', justifyContent: 'center', borderRadius: 4, backgroundColor: `${currentDay === menu?.[idx]?.id ? '#b9e2fa' : '#f2f2f2'}`, alignItems: 'center', gap: 8, borderBottomColor: '#003868', borderWidth: .5, width: 60, height: 60 }}>
+                  < Text style={{ fontWeight: 'bold', fontSize: 10 }}>{item.label}</Text>
+                  <View>
+                    <FontAwesome
+                      name={`${(selectedDishList[idx].items[currentTab].menu.length > 1) || (selectedDishList[idx].items[currentTab].menu.some(item => item.code === 'D' || item.code === 'E')) ? 'calendar-check-o' : 'calendar-o'}`}
+                      size={20} color={`${(selectedDishList[idx].items[currentTab].menu.length > 1) || (selectedDishList[idx].items[currentTab].menu.some(item => item.code === 'D' || item.code === 'E')) ? '#12978f' : '#003868'}`}
+                    />
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+          {!loading && (
+            <View style={{ display: 'flex', gap: 8 }}>
+              <View style={{ paddingBottom: 0, marginBottom: 0, gap: 8, borderBottomColor: '#003868', padding: 4, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                {currentDay === menu?.[idx]?.id && (
+                  menu?.[idx]?.items.map((item, index) => {
+                    return (
+                      <TouchableOpacity
+                        key={item.id}
+                        style={{
+                          backgroundColor: `${item.id === menu?.[idx].items[currentTab].id ? '#003868' : '#fff'}`,
+                          borderWidth: 0.5,
+                          borderColor: '#003868',
+                          borderRadius: 4,
+                          padding: 16, flex: 1, alignItems: 'center'
+                        }} onPress={() => handleChangeTab(index)}>
+                        <View key={item.id}>
+                          <Text style={{ color: `${item.id === menu?.[idx].items[currentTab].id ? '#fff' : '#003868'}` }}>{item.label}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    )
+                  })
+                )}
+              </View>
+              <View style={{ display: 'flex', gap: 8 }}>
+                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 4, gap: 12 }}>
+                  <Text style={{ fontSize: 12, fontWeight: 'bold', paddingLeft: 8, color: '#003868' }}>Món chính:</Text>
+                  {selectedDishList[idx].items[currentTab].menu.length > '' && (
+                    <View style={{ backgroundColor: '#eab308', padding: 4, gap: 4, display: 'flex', flexDirection: 'column' }}>
                       {selectedDishList[idx].items[currentTab].menu.map((item, index) => (
                         item.value.split(',').map((food, idx) => (
-                          <Text key={idx} style={{ textTransform: 'capitalize', fontWeight: 'bold', fontSize: 14, color: '#003868' }}>{food}</Text>
+                          <Text key={idx} style={{ textTransform: 'capitalize', fontWeight: 'bold', fontSize: 12, color: '#003868' }}>{index + 1 + idx} : {food}</Text>
                         ))
                       ))}
                     </View>
-                  </View>
-                )}
-                <ScrollView style={{ display: 'flex', padding: 4, minHeight: 180, maxHeight: 260, marginBottom: 16 }}>
-                  <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 20, padding: 8, justifyContent: 'space-around' }}>
+                  )}
+                </View>
+
+                <ScrollView>
+                  <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 8, padding: 4, justifyContent: 'space-around' }}>
                     {menu?.[idx]?.items[currentTab]?.menu['main-dishes']?.items.map((item, index) =>
                       item?.value && (
                         <TouchableOpacity
@@ -369,16 +375,16 @@ const BookRiceScreen = ({ navigation }) => {
                           key={item.id}
                           style={{
                             display: 'flex', padding: 8, flex: 1, borderBottomWidth: 1,
-                            borderRightWidth: 1, borderBottomColor: '#bfbdbb', minWidth: 160, maxWidth: 220, minHeight: 80,
+                            borderRightWidth: 1, borderBottomColor: '#bfbdbb', minWidth: 160, maxWidth: 220, minHeight: 60,
                             overflow: 'scroll',
                             backgroundColor: `${selectedDishList[idx].items[currentTab].menu.some(i => i.code === item.label) ? '#22c55e' : '#f2f2f2'}`
                           }}
                           onPress={() => handleChooseFood(item)}>
-                          <Text style={{ textDecorationLine: 'underline', fontWeight: 'bold' }}>Món {item.label}{`${item.vegetarianDish ? ' (CHAY)' : ''}`}</Text>
+                          <Text style={{ textDecorationLine: 'underline', fontSize: 12, fontWeight: 'bold' }}>Món {item.label}{`${item.vegetarianDish ? ' (CHAY)' : ''}`}</Text>
                           <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 4, overflow: 'hidden' }}>
                             <View style={{ display: 'flex', justifyContent: 'center', gap: 4, }}>
                               {item?.value?.split(',')?.map((foodItem, index) => (
-                                <Text key={index} style={{ fontSize: 12, textTransform: 'capitalize', borderBottomWidth: 1, borderBottomColor: '#003868' }}>{foodItem}</Text>
+                                <Text key={index} style={{ fontSize: 10, textTransform: 'capitalize', borderBottomWidth: 1, borderBottomColor: '#003868' }}>{foodItem}</Text>
                               ))}
                             </View>
                           </View>
@@ -388,58 +394,63 @@ const BookRiceScreen = ({ navigation }) => {
                 </ScrollView>
                 {menu?.[idx]?.items[currentTab]?.menu['stir-fried-meal'].value && (
                   <View style={{ display: 'flex', flexDirection: 'row', gap: 8, padding: 8, alignItems: 'center', backgroundColor: '#bfbdbb' }}>
-                    <Text style={{ width: 120, fontSize: 14, fontWeight: 'bold', padding: 4, color: '#003868' }}>Món xào:</Text>
-                    <Text style={{ textTransform: 'uppercase', textTransform: 'uppercase', fontWeight: 'bold', fontSize: 14 }}>{menu?.[idx]?.items[currentTab]?.menu['stir-fried-meal'].value}</Text>
+                    <Text style={{ width: 120, fontSize: 12, fontWeight: 'bold', padding: 4, color: '#003868' }}>Món xào:</Text>
+                    <Text style={{ textTransform: 'uppercase', textTransform: 'uppercase', fontWeight: 'bold', fontSize: 12 }}>{menu?.[idx]?.items[currentTab]?.menu['stir-fried-meal'].value}</Text>
                   </View>
                 )}
                 {menu?.[idx]?.items[currentTab]?.menu['soup'].value && (
                   <View style={{ display: 'flex', flexDirection: 'row', gap: 8, alignItems: 'center', padding: 8 }}>
-                    <Text style={{ width: 120, fontSize: 14, fontWeight: 'bold', padding: 4, color: '#003868' }}>Món canh:</Text>
-                    <Text style={{ textTransform: 'uppercase', fontWeight: 'bold', fontSize: 14 }}>{menu?.[idx]?.items[currentTab]?.menu['soup'].value}</Text>
+                    <Text style={{ width: 120, fontSize: 12, fontWeight: 'bold', padding: 4, color: '#003868' }}>Món canh:</Text>
+                    <Text style={{ textTransform: 'uppercase', fontWeight: 'bold', fontSize: 12 }}>{menu?.[idx]?.items[currentTab]?.menu['soup'].value}</Text>
                   </View>
                 )}
                 {menu?.[idx]?.items[currentTab]?.menu['dessert'].value && (
                   <View style={{ display: 'flex', flexDirection: 'row', gap: 8, padding: 8, alignItems: 'center', backgroundColor: '#bfbdbb' }}>
-                    <Text style={{ width: 120, fontSize: 14, fontWeight: 'bold', padding: 4, color: '#003868' }}>Tráng miệng: </Text>
-                    <Text style={{ textTransform: 'uppercase', fontWeight: 'bold', fontSize: 14 }}>{menu?.[idx]?.items[currentTab]?.menu['dessert'].value}</Text>
+                    <Text style={{ width: 120, fontSize: 12, fontWeight: 'bold', padding: 4, color: '#003868' }}>Tráng miệng: </Text>
+                    <Text style={{ textTransform: 'uppercase', fontWeight: 'bold', fontSize: 12 }}>{menu?.[idx]?.items[currentTab]?.menu['dessert'].value}</Text>
                   </View>
                 )}
               </View>
             </View>
-          </>
-        )}
-        {loading && (
-          <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8 }}>
-            <Text style={{ color: '#003868', fontStyle: 'italic' }}>
-              Đang tải dữ liệu...
-            </Text>
-            <ProgressBar
-              progress={10000}
-              indeterminate={true}
-              color={'#003868'}
-              height={10}
-              width={200}
-              borderRadius={8}
-              animating={true}
-              duration={2000}
-            />
-          </View>
-        )}
-      </View>
-      <Dialog visible={showSaved} onDismiss={() => setShowSaved(false)}>
-        <Dialog.Title style={{ fontSize: 16, textAlign: 'center' }}>Bạn có muốn lưu lại lựa chọn của mình?</Dialog.Title>
-        <Dialog.Content>
-          <View style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
-            <Button onPress={() => setShowSaved(false)} uppercase={true} textColor='#fff' buttonColor='#d12c31' style={{ width: '50%', padding: 4 }}>
-              Huỷ
-            </Button>
-            <Button onPress={handleSaveFood} uppercase={true} textColor='#fff' buttonColor='#003868' style={{ width: '50%', padding: 4 }}>
-              Đồng ý
-            </Button>
-          </View>
-        </Dialog.Content>
-      </Dialog>
-    </SafeAreaView>
+          )}
+          {loading && (
+            <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8 }}>
+              <Text style={{ color: '#003868', fontStyle: 'italic' }}>
+                Đang tải dữ liệu...
+              </Text>
+              <ProgressBar
+                progress={10000}
+                indeterminate={true}
+                color={'#003868'}
+                height={10}
+                width={200}
+                borderRadius={8}
+                animating={true}
+                duration={2000}
+              />
+            </View>
+          )}
+        </ScrollView>
+        <Dialog visible={showSaved} onDismiss={() => setShowSaved(false)}>
+          <Dialog.Title style={{ fontSize: 16, textAlign: 'center' }}>Bạn có muốn lưu lại lựa chọn của mình?</Dialog.Title>
+          <Dialog.Content>
+            <View style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
+              <Button onPress={() => setShowSaved(false)} uppercase={true} textColor='#fff' buttonColor='#d12c31' style={{ width: '50%', padding: 4 }}>
+                Huỷ
+              </Button>
+              <Button onPress={handleSaveFood} uppercase={true} textColor='#fff' buttonColor='#003868' style={{ width: '50%', padding: 4 }}>
+                Đồng ý
+              </Button>
+            </View>
+          </Dialog.Content>
+        </Dialog>
+      </SafeAreaView>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Home')}
+        style={{ position: 'absolute', width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8, zIndex: 999, backgroundColor: '#22c55e', bottom: 24, right: 20 }}>
+        <FontAwesome name="home" size={24} color={'#fff'} />
+      </TouchableOpacity>
+    </>
   );
 };
 

@@ -19,6 +19,7 @@ export default function CustomButton({label, onPress, disabled = false, bg}) {
           fontWeight: '700',
           fontSize: 16,
           color: '#fff',
+          textTransform: 'uppercase',
         }}>
         {label}
       </Text>

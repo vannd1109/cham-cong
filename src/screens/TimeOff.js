@@ -233,7 +233,7 @@ const ApprovalOverdueScreen = ({ setShow }) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text style={{fontSize: 12}}>
+      <Text style={{ fontSize: 12 }}>
         Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
           style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
@@ -254,7 +254,7 @@ const PendingApprovalScreen = ({ setShow }) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text style={{fontSize: 12}}>
+      <Text style={{ fontSize: 12 }}>
         Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
           style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
@@ -275,7 +275,7 @@ const ApprovedScreen = ({ setShow }) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text style={{fontSize: 12}}>
+      <Text style={{ fontSize: 12 }}>
         Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
           style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
@@ -296,7 +296,7 @@ const DeniedScreen = ({ setShow }) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text style={{fontSize: 12}}>
+      <Text style={{ fontSize: 12 }}>
         Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
           style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
@@ -317,7 +317,7 @@ const CanceledScreen = ({ setShow }) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text style={{fontSize: 12}}>
+      <Text style={{ fontSize: 12 }}>
         Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
           style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
@@ -338,7 +338,7 @@ const KindOfWarningScreen = ({ setShow }) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text style={{fontSize: 12}}>
+      <Text style={{ fontSize: 12 }}>
         Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
           style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
@@ -359,7 +359,7 @@ const VerifiedScreen = ({ setShow }) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text style={{fontSize: 12}}>
+      <Text style={{ fontSize: 12 }}>
         Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
           style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
@@ -380,7 +380,7 @@ const WaitingForConfirmationScreen = ({ setShow }) => {
         alignItems: 'center',
         padding: 8,
       }}>
-      <Text style={{fontSize: 12}}>
+      <Text style={{ fontSize: 12 }}>
         Bạn chưa tạo bất kỳ đề xuất nghỉ phép nào.
         <Text
           style={{ color: '#003868', textDecorationLine: 'underline', fontWeight: '800' }}
@@ -399,7 +399,7 @@ const TimeOff = ({ navigation }) => {
   const [tab, setTab] = useState(<TotalScreen />);
   const [currentTab, setCurrentTab] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [currentArrayTimeOff, setCurrentArrayTimeOff] = useState([...arrTimeOff]); 
+  const [currentArrayTimeOff, setCurrentArrayTimeOff] = useState([...arrTimeOff]);
   let timer = useRef().current;
 
   const tabs = {
@@ -507,7 +507,7 @@ const TimeOff = ({ navigation }) => {
   const handleSearch = (txtSearch) => {
     const _arrTimeOff = [];
     for (let i = 0; i < arrTimeOff.length; i++) {
-      if(arrTimeOff[i].name.includes(txtSearch)) {
+      if (arrTimeOff[i].name.includes(txtSearch)) {
         _arrTimeOff.push(arrTimeOff[i]);
       }
     }
@@ -515,247 +515,224 @@ const TimeOff = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={{ display: 'flex', flexDirection: 'column' }}>
-      <View
-        style={{
-          height: 40,
-          backgroundColor: '#003868',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingLeft: 10,
-          paddingRight: 10,
-        }}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Ionicons name="menu" style={{ fontSize: 24, color: '#fff' }} />
-        </TouchableOpacity>
-        <Text style={{ color: '#fff' }}>{title}</Text>
-        <View style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
-          <MaterialIcons
-            name="bar-chart"
-            style={{ fontSize: 24, color: '#fff' }}
-            onPress={() => setShowOverview(true)}
-          />
-          <AntDesign
-            name="pluscircleo"
-            style={{ fontSize: 24, color: '#fff' }}
-            onPress={() => setShow(true)}
-          />
-        </View>
-      </View>
-      <Tabs data={data} />
-      {loading && (
+    <>
+      <SafeAreaView style={{ display: 'flex', flexDirection: 'column' }}>
         <View
           style={{
+            height: 40,
+            backgroundColor: '#003868',
             display: 'flex',
-            justifyContent: 'center',
-            height: '90%',
-            backgroundColor: '#00000008',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingLeft: 10,
+            paddingRight: 10,
           }}>
-          <ActivityIndicator size="large" />
-        </View>
-      )}
-      {!loading && <View style={{ padding: 8 }}>{tab}</View>}
-
-      {show && (
-        <Modal
-          visible={show}
-          onDismiss={handleShowSearch}
-          animationType="slide"
-          transparent={true}>
-          <SafeAreaView>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#00000042',
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                zIndex: 1,
-                bottom: -100,
-              }}
-              onPress={handleShowSearch}
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Ionicons name="menu" style={{ fontSize: 24, color: '#fff' }} />
+          </TouchableOpacity>
+          <Text style={{ color: '#fff' }}>{title}</Text>
+          <View style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
+            <MaterialIcons
+              name="bar-chart"
+              style={{ fontSize: 24, color: '#fff' }}
+              onPress={() => setShowOverview(true)}
             />
-            <View
-              style={{
-                backgroundColor: '#fff',
-                marginLeft: 16,
-                marginRight: 16,
-                overflow: 'scroll',
-                height: '95%',
-                position: 'relative',
-                zIndex: 2,
-              }}>
-              <View
-                style={{
-                  display: 'flex',
-                  padding: 8,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  backgroundColor: '#e5e1e1',
-                }}>
-                <Text
+            <AntDesign
+              name="pluscircleo"
+              style={{ fontSize: 24, color: '#fff' }}
+              onPress={() => setShow(true)}
+            />
+          </View>
+        </View>
+        <Tabs data={data} />
+        {loading && (
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              height: '90%',
+              backgroundColor: '#00000008',
+            }}>
+            <ActivityIndicator size="large" />
+          </View>
+        )}
+        {!loading && <View style={{ padding: 8 }}>{tab}</View>}
+
+        {show && (
+          <Modal
+            visible={show}
+            onDismiss={handleShowSearch}
+            animationType="slide"
+            transparent={true}>
+            <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ width: '100%', height: '100%', backgroundColor: '#00000042', }}>
+                <TouchableOpacity style={{ width: '100%', height: '100%' }} onPress={() => setShow(false)} />
+              </View>
+              <SafeAreaView style={{ position: 'absolute', width: '80%', backgroundColor: '#FFF' }}>
+                <View
                   style={{
-                    fontSize: 12,
-                    textTransform: 'uppercase',
-                    fontWeight: '600',
+                    display: 'flex',
+                    padding: 8,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    backgroundColor: '#e5e1e1',
                   }}>
-                  Tìm nhóm đề xuất
-                </Text>
-                <TouchableOpacity onPress={() => setShow(false)}>
-                  <Ionicons
-                    name="close"
-                    style={{ fontSize: 24, color: '#003868' }}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingLeft: 8,
-                  borderBottomColor: '#003868',
-                  borderBottomWidth: 1,
-                  height: 40,
-                }}>
-                <Ionicons
-                  name="search"
-                  style={{ fontSize: 12, color: '#00000042' }}
-                />
-                <TextInput placeholder="Tìm nhanh" style={{ fontSize: 13, fontStyle: 'italic', padding: 12, flex: 1 }} 
-                placeholderTextColor="#003868" onChangeText={text=> handleSearch(text)} />
-              </View>
-              <ScrollView>
-                {currentArrayTimeOff.map(itemTimeOff => (
-                  <View
-                    key={itemTimeOff.id}
+                  <Text
                     style={{
-                      borderBottomColor: '#00000042',
-                      padding: 8,
-                      borderBottomWidth: 0.5,
+                      fontSize: 12,
+                      textTransform: 'uppercase',
+                      fontWeight: '600',
                     }}>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        color: '#003868',
-                        fontWeight: '600',
-                      }}>
-                      {itemTimeOff.name}
-                    </Text>
-                    {itemTimeOff.items.map((item, idx) => (
-                      <View key={idx}>
-                        <Text style={{ fontSize: 10, color: 'gray' }}>
-                          {idx + 1}. {item}
+                    Tìm nhóm đề xuất
+                  </Text>
+                  <TouchableOpacity onPress={() => setShow(false)}>
+                    <Ionicons
+                      name="close"
+                      style={{ fontSize: 24, color: '#003868' }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingLeft: 8,
+                    borderBottomColor: '#003868',
+                    borderBottomWidth: 1,
+                    height: 40,
+                  }}>
+                  <Ionicons
+                    name="search"
+                    style={{ fontSize: 12, color: '#00000042' }}
+                  />
+                  <TextInput placeholder="Tìm nhanh" style={{ fontSize: 13, fontStyle: 'italic', padding: 12, flex: 1 }}
+                    placeholderTextColor="#003868" onChangeText={text => handleSearch(text)} />
+                </View>
+                <View style={{ maxHeight: 500, minHeight: 500 }}>
+                  <ScrollView>
+                    {currentArrayTimeOff.map(itemTimeOff => (
+                      <View
+                        key={itemTimeOff.id}
+                        style={{
+                          borderBottomColor: '#00000042',
+                          padding: 8,
+                          borderBottomWidth: 0.5,
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            color: '#003868',
+                            fontWeight: '600',
+                          }}>
+                          {itemTimeOff.name}
                         </Text>
+                        {itemTimeOff.items.map((item, idx) => (
+                          <View key={idx}>
+                            <Text style={{ fontSize: 10, color: 'gray' }}>
+                              {idx + 1}. {item}
+                            </Text>
+                          </View>
+                        ))}
                       </View>
                     ))}
-                  </View>
-                ))}
-              </ScrollView>
+                  </ScrollView>
+                </View>
+              </SafeAreaView>
             </View>
-          </SafeAreaView>
-        </Modal>
-      )}
-      {showOverview && (
-        <Modal
-          visible={showOverview}
-          onDismiss={() => setShowOverview(false)}
-          animationType="slide"
-          transparent={true}>
-          <SafeAreaView style={{ display: 'flex', alignItems: 'center' }}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#00000042',
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                zIndex: 1,
-                bottom: -100,
-              }}
-              onPress={() => setShowOverview(false)}
-            />
-            <View
-              style={{
-                backgroundColor: '#fff',
-                marginLeft: 16,
-                marginRight: 16,
-                overflow: 'scroll',
-                height: '90%',
-                position: 'relative',
-                zIndex: 2,
-                width: '80%',
-              }}>
-              <View
-                style={{
-                  display: 'flex',
-                  padding: 8,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  backgroundColor: '#e5e1e1',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    textTransform: 'uppercase',
-                    fontWeight: '600',
-                  }}>
-                  Thống kê nghỉ phép
-                </Text>
-                <TouchableOpacity onPress={() => setShowOverview(false)}>
-                  <Ionicons
-                    name="close"
-                    style={{ fontSize: 24, color: '#003868' }}
-                  />
-                </TouchableOpacity>
+          </Modal>
+        )}
+        {showOverview && (
+          <Modal
+            visible={showOverview}
+            onDismiss={() => setShowOverview(false)}
+            animationType="slide"
+            transparent={true}
+          >
+            <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ width: '100%', height: '100%', backgroundColor: '#00000042', }}>
+                <TouchableOpacity style={{ width: '100%', height: '100%' }} onPress={() => setShowOverview(false)} />
               </View>
-              <ScrollView style={{ padding: 16, marginBottom: 16 }}>
-                {arrOverview.map((itemOverview, idx) => (
-                  <View
-                    key={idx}
+              <SafeAreaView style={{ position: 'absolute', width: '80%', backgroundColor: '#FFF' }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    padding: 8,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    backgroundColor: '#e5e1e1',
+                  }}>
+                  <Text
                     style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 16,
-                      borderBottomColor: '#003868',
-                      borderBottomWidth: 1,
-                      padding: 8,
-                      paddingBottom: 16,
+                      fontSize: 12,
+                      textTransform: 'uppercase',
+                      fontWeight: '600',
                     }}>
-                    <View
-                      style={{
-                        backgroundColor: `${itemOverview?.bg}`,
-                        width: 40,
-                        height: 40,
-                        borderRadius: 50,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
-                      {itemOverview.icon}
-                    </View>
-                    <View>
-                      <Text
+                    Thống kê nghỉ phép
+                  </Text>
+                  <TouchableOpacity onPress={() => setShowOverview(false)}>
+                    <Ionicons
+                      name="close"
+                      style={{ fontSize: 24, color: '#003868' }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={{ maxHeight: 500 }}>
+                  <ScrollView style={{ padding: 16, marginBottom: 16 }}>
+                    {arrOverview.map((itemOverview, idx) => (
+                      <View
+                        key={idx}
                         style={{
-                          color: '#000',
-                          fontWeight: '800',
-                          fontSize: 16,
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 16,
+                          borderBottomColor: '#003868',
+                          borderBottomWidth: 1,
+                          padding: 8,
+                          paddingBottom: 16,
                         }}>
-                        {itemOverview.number.toFixed(2)}
-                      </Text>
-                      <Text style={{ fontSize: 12 }}>{itemOverview.name}</Text>
-                    </View>
-                  </View>
-                ))}
-              </ScrollView>
+                        <View
+                          style={{
+                            backgroundColor: `${itemOverview?.bg}`,
+                            width: 40,
+                            height: 40,
+                            borderRadius: 50,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          {itemOverview.icon}
+                        </View>
+                        <View>
+                          <Text
+                            style={{
+                              color: '#000',
+                              fontWeight: '800',
+                              fontSize: 16,
+                            }}>
+                            {itemOverview.number.toFixed(2)}
+                          </Text>
+                          <Text style={{ fontSize: 12 }}>{itemOverview.name}</Text>
+                        </View>
+                      </View>
+                    ))}
+                  </ScrollView>
+                </View>
+              </SafeAreaView>
             </View>
-          </SafeAreaView>
-        </Modal>
-      )}
-    </SafeAreaView>
+          </Modal>
+        )}
+      </SafeAreaView>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Home')}
+        style={{ position: 'absolute', width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8, zIndex: 999, backgroundColor: '#22c55e', bottom: 24, right: 20 }}>
+        <FontAwesome name="home" size={24} color={'#fff'} />
+      </TouchableOpacity>
+    </>
   );
 };
 

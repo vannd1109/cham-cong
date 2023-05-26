@@ -3,13 +3,14 @@
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable prettier/prettier */
 import { View, Text, StyleSheet, ScrollView, LogBox, SafeAreaView, Platform } from 'react-native';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
-import MonthPicker from 'react-native-month-year-picker';
+import MonthPicker, { RNMothPicker } from 'react-native-month-year-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Table, Row, Rows } from 'react-native-table-component';
 import { AuthContext } from '../context/AuthContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 LogBox.ignoreLogs(['Invalid prop textStyle of type array supplied to Cell', 'Failed prop type: Invalid prop `textStyle` of type `array` supplied to `Cell`, expected `object`.']);
 
@@ -26,6 +27,7 @@ const PayRolls = ({ navigation }) => {
     '',
     '',
   ]);
+
   const [tableHeadRight, setTableRight] = useState([
     'Số giờ chuẩn trong tháng',
     '208',
@@ -60,7 +62,7 @@ const PayRolls = ({ navigation }) => {
     '-',
     'Liên hệ HCNS để biết giờ phép chính xác',
   ]);
-  const [tableDataLeft, setTableData] = useState([
+  const [tableDataLeft] = useState([
     ['26/12/2022', 'Hai', '-', '-', '-', '-', '-', '-', '-', '-'],
     ['27/12/2022', 'Ba', '', '', '', '', '', '', '', ''],
     ['28/12/2022', 'Tư', '', '', '', '', '', '', '', ''],
@@ -159,149 +161,147 @@ const PayRolls = ({ navigation }) => {
   const widthArrFooter = [80, 50, 50, 50, 50, 50, 50, 50, 50, 50, 290];
 
   return (
-    <SafeAreaView>
-      <View
-        style={{
-          height: 40,
-          backgroundColor: '#003868',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingLeft: 10,
-          paddingRight: 10,
-        }}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Ionicons name="menu" style={{ fontSize: 24, color: '#fff' }} />
-        </TouchableOpacity>
-        <Text style={{ color: '#fff' }}>Bảng lương</Text>
-        <View style={{ display: 'flex' }} />
-      </View>
-      <View>
-        <View style={styles.payrollOption}>
-          <View style={styles.payrollMonth}>
-            <Text onPress={showPicker} style={styles.payrollMonthText}>
-              Tháng {currentMonth}/{currentYear}
-            </Text>
-          </View>
-          <View style={styles.payrollBtnBox}>
-            <TouchableOpacity onPress={showPicker} style={styles.payrollBtn}>
-              <Text style={styles.payrollBtnLabel}>Chọn tháng</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={_onReload} style={styles.payrollBtn}>
-              <Icon name="reload" size={20} />
-            </TouchableOpacity>
-          </View>
+    <>
+      <SafeAreaView>
+        <View
+          style={{
+            height: 40,
+            backgroundColor: '#003868',
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingLeft: 10,
+            paddingRight: 10,
+          }}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Ionicons name="menu" style={{ fontSize: 24, color: '#fff' }} />
+          </TouchableOpacity>
+          <Text style={{ color: '#fff' }}>Bảng lương</Text>
+          <View style={{ display: 'flex' }} />
         </View>
-        <View style={styles.payrollHeader}>
-          <Text>Bộ phận: {userInfo?.department}</Text>
-          <Text>MSNV: 0{userInfo?.id}</Text>
-        </View>
-        <View style={styles.payrollContent}>
-          <ScrollView horizontal={true}>
-            <View style={{ flexDirection: 'column', marginBottom: 110 }}>
-              <View style={{ flexDirection: 'row' }}>
-                <View>
-                  <View>
-                    <Table
-                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
-                      <Row
-                        data={tableHeadLeft}
-                        style={styles.head}
-                        widthArr={widthArrHeaderLeft}
-                        textStyle={styles.text}
-                      />
-                    </Table>
-                  </View>
-                  <View>
-                    <Table
-                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
-                      <Row
-                        data={tableHeadLeftFileds}
-                        style={styles.head}
-                        widthArr={widthArrHeaderLeftFileds}
-                        textStyle={styles.text}
-                      />
-                    </Table>
-                  </View>
-                </View>
-                <View>
-                  <View>
-                    <Table
-                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
-                      <Row
-                        data={tableHeadRight}
-                        style={styles.head}
-                        widthArr={widthArrHeaderRight}
-                        textStyle={styles.text}
-                      />
-                    </Table>
-                  </View>
-                  <View>
-                    <Table
-                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
-                      <Row
-                        data={tableHeadRightFileds}
-                        style={styles.head}
-                        widthArr={widthArrHeaderRight}
-                        textStyle={styles.text}
-                      />
-                    </Table>
-                  </View>
-                </View>
-              </View>
-              <ScrollView style={{ marginBottom: 200 }}>
+        <View>
+          <View style={styles.payrollOption}>
+            <View style={styles.payrollMonth}>
+              <Text onPress={showPicker} style={styles.payrollMonthText}>
+                Tháng {currentMonth}/{currentYear}
+              </Text>
+            </View>
+            <View style={styles.payrollBtnBox}>
+              <TouchableOpacity onPress={showPicker} style={styles.payrollBtn}>
+                <Text style={styles.payrollBtnLabel}>Chọn tháng</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={_onReload} style={styles.payrollBtn}>
+                <Icon name="reload" size={20} color={'#fff'} />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.payrollHeader}>
+            <Text>Bộ phận: {userInfo?.department}</Text>
+            <Text>MSNV: 0{userInfo?.id}</Text>
+          </View>
+          <View style={styles.payrollContent}>
+            <ScrollView horizontal={true}>
+              <View style={{ flexDirection: 'column', marginBottom: 110 }}>
                 <View style={{ flexDirection: 'row' }}>
                   <View>
-                    <Table
-                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
-                      <Rows
-                        data={tableDataLeft}
-                        style={styles.head}
-                        widthArr={widthArr}
-                        textStyle={styles.text}
-                      />
-                    </Table>
+                    <View>
+                      <Table
+                        borderStyle={{ borderWidth: 1, borderColor: '#727171' }}
+                      >
+                        <Row
+                          data={tableHeadLeft}
+                          style={styles.head}
+                          widthArr={widthArrHeaderLeft}
+                        />
+                      </Table>
+                    </View>
+                    <View>
+                      <Table
+                        borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
+                        <Row
+                          data={tableHeadLeftFileds}
+                          style={styles.head}
+                          widthArr={widthArrHeaderLeftFileds}
+                        />
+                      </Table>
+                    </View>
                   </View>
                   <View>
-                    <Table
-                      borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
-                      <Rows
-                        data={tableDataRight}
+                    <View>
+                      <Table
+                        borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
+                        <Row
+                          data={tableHeadRight}
+                          style={styles.head}
+                          widthArr={widthArrHeaderRight}
+                        />
+                      </Table>
+                    </View>
+                    <View>
+                      <Table
+                        borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
+                        <Row
+                          data={tableHeadRightFileds}
+                          style={styles.head}
+                          widthArr={widthArrHeaderRight}
+                        />
+                      </Table>
+                    </View>
+                  </View>
+                </View>
+                <ScrollView style={{ marginBottom: 200 }}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <View>
+                      <Table
+                        borderStyle={{ borderWidth: 1, borderColor: '#727171' }}
+                        style={{ backgroundColor: 'red', display: 'flex', flexDirection: 'row' }}
+                      >
+                        <Rows
+                          data={tableDataLeft}
+                          style={styles.head}
+                          widthArr={widthArr}
+                        />
+                        <Rows
+                          data={tableDataRight}
+                          style={styles.head}
+                          widthArr={widthArrHeaderRight}
+                        />
+                      </Table>
+                    </View>
+                  </View>
+                  <View>
+                    <Table borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
+                      <Row
+                        data={tableFooter}
                         style={styles.head}
-                        widthArr={widthArrHeaderRight}
-                        textStyle={styles.text}
+                        widthArr={widthArrFooter}
                       />
                     </Table>
                   </View>
-                </View>
-                <View>
-                  <Table borderStyle={{ borderWidth: 1, borderColor: '#727171' }}>
-                    <Row
-                      data={tableFooter}
-                      style={styles.head}
-                      widthArr={widthArrFooter}
-                      textStyle={styles.text}
-                    />
-                  </Table>
-                </View>
-              </ScrollView>
-            </View>
-          </ScrollView>
+                </ScrollView>
+              </View>
+            </ScrollView>
+          </View>
         </View>
-      </View>
-      {show && (
-        <View style={{ position: 'relative', top: Platform.OS === 'ios' ? -200 : '' }}>
-          <MonthPicker
-            onChange={onValueChange}
-            value={date}
-            locale="vi"
-            cancelButton="Đóng"
-            okButton="Chọn"
-          />
-        </View>
-      )}
-    </SafeAreaView>
+        {show && (
+          <View style={{ position: 'relative', top: Platform.OS === 'ios' ? -200 : '' }}>
+            <MonthPicker
+              onChange={onValueChange}
+              value={date}
+              locale="vi"
+              cancelButton="Đóng"
+              okButton="Chọn"
+            />
+          </View>
+        )}
+      </SafeAreaView>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Home')}
+        style={{ position: 'absolute', width: 56, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8, zIndex: 999, backgroundColor: '#22c55e', bottom: 24, right: 20 }}>
+        <FontAwesome name="home" size={24} color={'#fff'} />
+      </TouchableOpacity>
+    </>
   );
 };
 
@@ -346,6 +346,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingTop: 8,
     paddingBottom: 8,
+    color: '#fff'
   },
   payrollMonth: {
     display: 'flex',
@@ -365,6 +366,7 @@ const styles = StyleSheet.create({
   head: {
     height: 60,
     backgroundColor: '#f1f8ff',
+    fontSize: 12,
   },
   title: { flex: 1, backgroundColor: '#f6f8fa' },
   row: { height: 80 },

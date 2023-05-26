@@ -42,6 +42,7 @@ const AuthStack = () => {
           drawerIcon: () => (
             <Ionicons name="home-outline" size={20} color={'#4ade80'}  />
           ),
+          drawerItemStyle: { height: 0 }
         }}
       />
       <Drawer.Screen
@@ -51,6 +52,7 @@ const AuthStack = () => {
           drawerIcon: () => (
             <FontAwesome name="calendar-check-o" size={20} color={'#7c3aed'} />
           ),
+          drawerItemStyle: { height: 0 }
         }}
       />
       <Drawer.Screen
@@ -60,6 +62,7 @@ const AuthStack = () => {
           drawerIcon: () => (
             <FontAwesome name="money" size={20} color={'#ea580c'} />
           ),
+          drawerItemStyle: { height: 0 }
         }}
       />
       <Drawer.Screen
@@ -69,6 +72,7 @@ const AuthStack = () => {
           drawerIcon: () => (
             <Ionicons name="flash" size={20} color={'#dc2626'} />
           ),
+          drawerItemStyle: { height: 0 }
         }}
       />
       <Drawer.Screen
@@ -78,6 +82,7 @@ const AuthStack = () => {
           drawerIcon: () => (
             <MaterialIcons name="rice-bowl" size={20} color={'#10b981'} />
           ),
+          drawerItemStyle: { height: 0 }
         }}
       />
       <Drawer.Screen
@@ -87,6 +92,7 @@ const AuthStack = () => {
           drawerIcon: () => (
             <Ionicons name="bar-chart-outline" size={20} color={'#f59e0b'} />
           ),
+          drawerItemStyle: { height: 0 }
         }}
       />
       <Drawer.Screen
@@ -96,6 +102,7 @@ const AuthStack = () => {
           drawerIcon: () => (
             <Ionicons name="person-outline" size={20} color={'#2563eb'} />
           ),
+          drawerItemStyle: { height: 0 }
         }}
       />
       <Drawer.Screen
@@ -105,6 +112,7 @@ const AuthStack = () => {
           drawerIcon: () => (
             <Ionicons name="chatbox-ellipses-outline" size={20} color={'#38bdf8'} />
           ),
+          drawerItemStyle: { height: 0 }
         }}
       />
       <Drawer.Screen
@@ -114,6 +122,7 @@ const AuthStack = () => {
           drawerIcon: () => (
             <Ionicons name="settings-outline" size={20} color={'#a3a3a3'} />
           ),
+          drawerItemStyle: { height: 0 }
         }}
       />
     </Drawer.Navigator>
