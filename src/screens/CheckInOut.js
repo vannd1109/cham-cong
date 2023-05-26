@@ -17,7 +17,7 @@ import {
   ActivityIndicator,
   SafeAreaView
 } from 'react-native';
-import {Calendar} from 'react-native-calendars';
+import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {AuthContext} from '../context/AuthContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -25,6 +25,16 @@ const API_URL =
   Platform.OS === 'ios'
     ? 'http://172.17.9.14:8080'
     : 'http://172.17.9.14:8080';
+
+    LocaleConfig.locales[""].dayNamesShort[0] = "CN";
+    LocaleConfig.locales[""].dayNamesShort[1] = "T2";
+    LocaleConfig.locales[""].dayNamesShort[2] = "T3";
+    LocaleConfig.locales[""].dayNamesShort[3] = "T4";
+    LocaleConfig.locales[""].dayNamesShort[4] = "T5";
+    LocaleConfig.locales[""].dayNamesShort[5] = "T6";
+    LocaleConfig.locales[""].dayNamesShort[6] = "T7";
+
+    LocaleConfig.locales[""].monthNamesShort[0] = "Tháng 1, ";
 
 const CheckInout = ({navigation}) => {
   const {userInfo} = useContext(AuthContext);
