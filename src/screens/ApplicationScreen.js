@@ -8,37 +8,40 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import "../assets/i18n/i18n";
+import { useTranslation } from "react-i18next";
 
 const ApplicationScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
   const appList = [
     {
       id: 'check_in',
-      name: 'Chấm công',
+      name: t('timekeeping'),
       icon: <FontAwesome name="calendar-check-o" size={20} color="#fff" />,
       bgColor: '#30a1bb',
     },
     {
       id: 'payrolls',
-      name: 'Bảng lương',
+      name: t('payroll'),
       icon: <FontAwesome name="money" size={20} color="#fff" />,
       bgColor: '#2e892e',
     },
     {
       id: 'time_off',
-      name: 'Nghỉ phép',
+      name: t('time_off'),
       icon: <Ionicons name="flash" size={20} color="#fff" />,
       bgColor: '#dd3f3f',
     },
     {
       id: 'book_rice',
-      name: 'Đặt cơm',
+      name: t('book_rice'),
       icon: <MaterialIcons name="rice-bowl" size={20} color="#fff" />,
       bgColor: '#e1a22f',
     },
     {
       id: 'statistics',
-      name: 'Thống kê chấm công',
+      name: t('timekeeping_statistics'),
       icon: <Ionicons name="bar-chart-outline" size={20} color="#fff" />,
       bgColor: '#2563eb',
     },
@@ -69,9 +72,8 @@ const ApplicationScreen = ({navigation}) => {
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Feather name="menu" style={{fontSize: 20, color: '#fff'}} />
         </TouchableOpacity>
-        <Text style={{color: '#fff'}}>Ứng dụng</Text>
+        <Text style={{color: '#fff'}}>{t('application')}</Text>
         <View style={{display: 'flex'}}>
-          <Feather name="settings" style={{fontSize: 20, color: '#fff'}} />
         </View>
       </View>
       <View

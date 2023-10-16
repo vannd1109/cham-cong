@@ -1,0 +1,17 @@
+{
+    "translation": {
+      "language":"Language",
+      "current_version": "Current version",
+      "account_management" : "Account management",
+      "change_color": "Change color",
+      "dark_mode": "Dark mode",
+      "use_another_account": "Use another account",
+      "exit": "Exit",
+      "timekeeping": "Timekeeping",
+      "payroll": "Payroll",
+      "time_off": "Time off",
+      "book_rice": "Book rice",
+      "timekeeping_statistics": "Timekeeping statistics",
+      "application": "Application"
+    }
+  }

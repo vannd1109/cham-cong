@@ -5,15 +5,17 @@ import React, { useContext, useState } from 'react';
 import { SafeAreaView, View, Text, Image, ActivityIndicator } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
 import { AuthContext } from '../context/AuthContext';
+import "../assets/i18n/i18n";
+import { useTranslation } from "react-i18next";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const { login, isLoading } = useContext(AuthContext);
+  const { t, i18n } = useTranslation();
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
