@@ -9,12 +9,7 @@ import { Button, Dialog } from 'react-native-paper';
 import ProgressBar from 'react-native-progress/Bar';
 import axios from 'axios';
 import moment from 'moment';
-
-<<<<<<< HEAD
 const API_URL = 'http://172.17.9.14:8080';
-=======
-const API_URL = 'http://localhost:8080';
->>>>>>> 09ff1d592d8005234977424af57c30d4e0c0e3cb
 
 const BookRiceScreen = ({ navigation }) => {
   const [currentDay, setCurrentDay] = useState('mon');
