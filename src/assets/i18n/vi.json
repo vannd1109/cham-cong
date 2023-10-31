@@ -1,0 +1,17 @@
+{
+    "translation": {
+      "language":"Ngôn ngữ",
+      "current_version": "Phiên bản hiện tại",
+      "account_management": "Quản lý tài khoản",
+      "change_color": "Thay đổi màu sắc",
+      "dark_mode": "Chế độ sáng tối",
+      "use_another_account": "Sử dụng tài khoản khác",
+      "exit": "Thoát",
+      "timekeeping": "Chấm công",
+      "payroll": "Bảng lương",
+      "time_off": "Nghỉ phép",
+      "book_rice": "Đặt cơm",
+      "timekeeping_statistics": "Thống kê chấm công",
+      "application": "Ứng dụng"
+    }
+  }

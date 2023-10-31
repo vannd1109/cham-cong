@@ -12,13 +12,26 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+<<<<<<< HEAD
 import InputField from '../components/InputField';
 import {AuthContext} from '../context/AuthContext';
+=======
+import CustomButton from '../components/CustomButton';
+import InputField from '../components/InputField';
+import { AuthContext } from '../context/AuthContext';
+import "../assets/i18n/i18n";
+import { useTranslation } from "react-i18next";
+>>>>>>> 09ff1d592d8005234977424af57c30d4e0c0e3cb
 
 const LoginScreen = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+<<<<<<< HEAD
   const {login, isLoading} = useContext(AuthContext);
+=======
+  const { login, isLoading } = useContext(AuthContext);
+  const { t, i18n } = useTranslation();
+>>>>>>> 09ff1d592d8005234977424af57c30d4e0c0e3cb
   return (
     <>
       <SafeAreaView style={{flex: 1}}>
