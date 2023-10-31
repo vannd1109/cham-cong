@@ -18,11 +18,7 @@ export const AuthProvider = ({children}) => {
 
     const timer = setTimeout(() => {
       axios
-<<<<<<< HEAD
         .post('http://172.17.9.14:8080/api/login', {
-=======
-        .post('http://localhost:8080/api/login', {
->>>>>>> 09ff1d592d8005234977424af57c30d4e0c0e3cb
           username,
           password,
         })
