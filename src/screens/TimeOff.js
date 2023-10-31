@@ -502,7 +502,7 @@ const TimeOff = ({ navigation }) => {
   const handleShowSearch = () => {
     setShow(false);
     setCurrentArrayTimeOff([...arrTimeOff]);
-  }
+  };
 
   const handleSearch = (txtSearch) => {
     const _arrTimeOff = [];
@@ -512,7 +512,7 @@ const TimeOff = ({ navigation }) => {
       }
     }
     setCurrentArrayTimeOff(_arrTimeOff);
-  }
+  };
 
   return (
     <>

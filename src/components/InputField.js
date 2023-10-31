@@ -17,8 +17,8 @@ export default function InputField({
         flexDirection: 'row',
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
-        marginBottom: 10,
-        padding: 8,
+        marginBottom: 4,
+        padding: 4,
         justifyContent: 'center',
         alignItems: 'center',
       }}>

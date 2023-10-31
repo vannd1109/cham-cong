@@ -18,12 +18,13 @@ export const AuthProvider = ({children}) => {
 
     const timer = setTimeout(() => {
       axios
-        .post('http://172.20.254.70:8080/api/login', {
+        .post('http://172.17.9.14:8080/api/login', {
           username,
           password,
         })
         .then(res => {
           let userInfo = res.data;
+          console.log(userInfo);
           setUserInfo(userInfo);
           setUserToken(res.data.accessToken);
 

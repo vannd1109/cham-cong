@@ -5,7 +5,7 @@
 import { View, Text, StyleSheet, ScrollView, LogBox, SafeAreaView, Platform } from 'react-native';
 import { useState, useContext, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
-import MonthPicker, { RNMothPicker } from 'react-native-month-year-picker';
+import MonthPicker from 'react-native-month-year-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Table, Row, Rows } from 'react-native-table-component';
 import { AuthContext } from '../context/AuthContext';

@@ -10,7 +10,7 @@ import ProgressBar from 'react-native-progress/Bar';
 import axios from 'axios';
 import moment from 'moment';
 
-const API_URL = 'http://172.20.254.70:8080';
+const API_URL = 'http://172.17.9.14:8080';
 
 const BookRiceScreen = ({ navigation }) => {
   const [currentDay, setCurrentDay] = useState('mon');
@@ -175,6 +175,7 @@ const BookRiceScreen = ({ navigation }) => {
     axios
       .get(`${API_URL}/api/book-rice`)
       .then(function (res) {
+        console.log(res.data);
         let result = res.data;
         result = result.filter(item => item.status === true);
         setStartDate(result[0].startDate);
@@ -186,7 +187,7 @@ const BookRiceScreen = ({ navigation }) => {
       .catch(function (error) {
         // handle error
         console.log(error);
-      })
+      });
   }, []);
 
   const timer = setInterval(function () {
@@ -220,16 +221,16 @@ const BookRiceScreen = ({ navigation }) => {
     setIdx(idx);
     setCurrentDay(menu?.[idx].id);
     setCurrentTab(0);
-  }
+  };
 
   const handleChangeTab = (index) => {
     setCurrentTab(index);
-  }
+  };
 
   const handleSaveFood = () => {
     console.log(selectedDishList[idx].items[currentTab]);
     setShowSaved(false);
-  }
+  };
 
   const handleChooseFood = (item) => {
     const foodItem = {};
