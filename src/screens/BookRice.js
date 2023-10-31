@@ -319,7 +319,7 @@ const BookRiceScreen = ({ navigation }) => {
               <TouchableOpacity key={idx} onPress={() => handleChange(idx)}
                 disabled={loading ? true : false}>
                 <View style={{ display: 'flex', justifyContent: 'center', borderRadius: 4, backgroundColor: `${currentDay === menu?.[idx]?.id ? '#b9e2fa' : '#f2f2f2'}`, alignItems: 'center', gap: 8, borderBottomColor: '#003868', borderWidth: .5, width: 60, height: 60 }}>
-                  < Text style={{ fontWeight: 'bold', fontSize: 10 }}>{item.label}</Text>
+                  <Text style={{ fontWeight: 'bold', fontSize: 10 }}>{item.label}</Text>
                   <View>
                     <FontAwesome
                       name={`${(selectedDishList[idx].items[currentTab].menu.length > 1) || (selectedDishList[idx].items[currentTab].menu.some(item => item.code === 'D' || item.code === 'E')) ? 'calendar-check-o' : 'calendar-o'}`}
