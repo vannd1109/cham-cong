@@ -12,7 +12,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'hello_world' do
+target 'vgl_hrm' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -34,7 +34,7 @@ target 'hello_world' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'hello_worldTests' do
+  target 'vgl_hrmTests' do
     inherit! :complete
     # Pods for testing
   end

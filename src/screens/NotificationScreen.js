@@ -3,8 +3,10 @@
 /* eslint-disable prettier/prettier */
 import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import { useTranslation } from "react-i18next";
 
 const NotificationScreen = ({navigation}) => {
+  const { t } = useTranslation();
   return (
     <SafeAreaView style={{display: 'flex', flexDirection: 'column'}}>
       <View
@@ -21,7 +23,7 @@ const NotificationScreen = ({navigation}) => {
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Feather name="menu" style={{fontSize: 20, color: '#fff'}} />
         </TouchableOpacity>
-        <Text style={{color: '#fff'}}>Thông báo</Text>
+        <Text style={{color: '#fff'}}>{t('notifications')}</Text>
         <View style={{display: 'flex'}} />
       </View>
       <View>

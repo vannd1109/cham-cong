@@ -1,12 +1,15 @@
+/* eslint-disable quotes */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
 import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import { useTranslation } from "react-i18next";
 
-const AlarmScreen = ({navigation}) => {
+const UsersScreen = ({navigation}) => {
+  const { t } = useTranslation();
   return (
-    <SafeAreaView style={{display: 'flex', flexDirection: 'column'}}>
+    <SafeAreaView style={{display: 'flex', flexDirection: "column"}}>
       <View
         style={{
           height: 50,
@@ -19,20 +22,16 @@ const AlarmScreen = ({navigation}) => {
           paddingRight: 10,
         }}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Feather name="menu" style={{fontSize: 20, color: '#fff'}} />
-        </TouchableOpacity>
-        <Text style={{color: '#fff'}}>Nhắc nhở</Text>
-        <View style={{display: 'flex', flexDirection: 'row', gap: 12}}>
-          <Feather name="plus" style={{fontSize: 20, color: '#fff'}} />
-          <Feather name="list" style={{fontSize: 20, color: '#fff'}} />
-          <Feather name="settings" style={{fontSize: 20, color: '#fff'}} />
-        </View>
+            <Feather name="menu" style={{fontSize: 20, color: '#fff'}} />
+          </TouchableOpacity>
+        <Text style={{color: '#fff'}}>{t('members')}</Text>
+        <View style={{display: 'flex'}} />
       </View>
       <View>
-        <Text>Nhắc nhở</Text>
+        <Text>Tin nhắn</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default AlarmScreen;
+export default UsersScreen;

@@ -6,7 +6,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  self.moduleName = @"hello_world";
+  self.moduleName = @"vgl_hrm";
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

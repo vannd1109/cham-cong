@@ -5,7 +5,7 @@ import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import { useTranslation } from "react-i18next";
 
-const MessagesScreen = ({navigation}) => {
+const AlarmScreen = ({navigation}) => {
   const { t } = useTranslation();
   return (
     <SafeAreaView style={{display: 'flex', flexDirection: 'column'}}>
@@ -23,16 +23,18 @@ const MessagesScreen = ({navigation}) => {
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Feather name="menu" style={{fontSize: 20, color: '#fff'}} />
         </TouchableOpacity>
-        <Text style={{color: '#fff'}}>{t('company_name')}</Text>
-        <View style={{display: 'flex'}}>
-          <Feather name="edit" style={{fontSize: 20, color: '#fff'}} />
+        <Text style={{color: '#fff'}}>{ t('reminders') }</Text>
+        <View style={{display: 'flex', flexDirection: 'row', gap: 12}}>
+          <Feather name="plus" style={{fontSize: 20, color: '#fff'}} />
+          <Feather name="list" style={{fontSize: 20, color: '#fff'}} />
+          <Feather name="settings" style={{fontSize: 20, color: '#fff'}} />
         </View>
       </View>
       <View>
-        <Text>Tin nhắn</Text>
+        <Text>Nhắc nhở</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default MessagesScreen;
+export default AlarmScreen;

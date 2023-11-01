@@ -18,10 +18,13 @@ import TimeOffScreen from '../screens/TimeOff';
 import TabNavigator from './TabNavigator';
 import BookRiceScreen from '../screens/BookRice';
 import StatisticsScreen from '../screens/Statistics';
+import { useTranslation } from "react-i18next";
 
 const Drawer = createDrawerNavigator();
 
 const AuthStack = () => {
+  const { t } = useTranslation();
+
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
@@ -46,7 +49,7 @@ const AuthStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Chấm công"
+        name={t('timekeeping')}
         component={CheckInOutScreen}
         options={{
           drawerIcon: () => (
@@ -56,7 +59,7 @@ const AuthStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Bảng lương"
+        name={t('payroll')}
         component={PayRollsScreen}
         options={{
           drawerIcon: () => (
@@ -66,7 +69,7 @@ const AuthStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Nghỉ phép"
+        name={t('time_off')}
         component={TimeOffScreen}
         options={{
           drawerIcon: () => (
@@ -76,7 +79,7 @@ const AuthStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Đặt cơm"
+        name={t('book_rice')}
         component={BookRiceScreen}
         options={{
           drawerIcon: () => (
@@ -86,7 +89,7 @@ const AuthStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Thống kê chấm công"
+        name={t('timekeeping_statistics')}
         component={StatisticsScreen}
         options={{
           drawerIcon: () => (

@@ -1,4 +1,4 @@
-package com.hello_world;
+package com.vgl_hrm;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "hello_world";
+    return "vgl_hrm";
   }
 
   /**

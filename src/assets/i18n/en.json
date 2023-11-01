@@ -2,7 +2,7 @@
     "translation": {
       "language":"Language",
       "current_version": "Current version",
-      "account_management" : "Account management",
+      "account_management" : "Account manage",
       "change_color": "Change color",
       "dark_mode": "Dark mode",
       "use_another_account": "Use another account",
@@ -12,6 +12,22 @@
       "time_off": "Time off",
       "book_rice": "Book rice",
       "timekeeping_statistics": "Timekeeping statistics",
-      "application": "Application"
+      "application": "Application",
+      "notification": "Notification",
+      "notifications": "Notifications",
+      "message": "Message",
+      "all": "All",
+      "on_my_turn": "On my turn",
+      "overdue": "Overdue",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "canceled": "Canceled",
+      "warning": "Warning",
+      "confirmed": "Confirmed",
+      "needs_confirming": "Needs Confirming",
+      "reminders": "Reminders",
+      "members": "Members",
+      "company_name": "VIETNAM GOLDEN LOTUS COMPANY LIMITED"
     }
   }

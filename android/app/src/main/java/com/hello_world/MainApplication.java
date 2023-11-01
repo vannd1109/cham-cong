@@ -1,4 +1,4 @@
-package com.hello_world;
+package com.vgl_hrm;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

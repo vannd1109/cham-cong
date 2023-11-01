@@ -22,10 +22,11 @@ import { useTranslation } from "react-i18next";
 
 const CustomDrawer = props => {
   const { logout, userInfo } = useContext(AuthContext);
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [darkMode, setDarkMode] = useState(false);
+  const [notification, setNotification] = useState(false);
   const { t, i18n } = useTranslation();
   const [ currentLanguage, setLanguage ] = useState("vi");
+  const [currentColor, setColor] = useState("#003868");
   const [languages, setLanguages] = useState([
     {
       id: 'vi',
@@ -48,8 +49,6 @@ const CustomDrawer = props => {
         i18n.changeLanguage(language?.id)
         .then(() => setLanguage(language?.id))
         .catch(err => console.log(err))
-
-        console.log(currentLanguage);
       } else {
         item.active = false;
       }
@@ -58,6 +57,13 @@ const CustomDrawer = props => {
     setLanguages(_language);
   }
 
+  const handleChangeNotification = () => {
+    setNotification(!notification);
+  }
+
+  const handleChangeDarkMode = () => {
+    setDarkMode(!darkMode);
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -103,15 +109,15 @@ const CustomDrawer = props => {
               <Text style={{ color: '#666666', fontSize: 12 }}>{t('dark_mode')}</Text>
               <Switch
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={isEnabled}
+                onValueChange={handleChangeDarkMode}
+                value={darkMode}
               />
             </View>
           </View>
           <View style={{
             display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: 12
           }}>
-            <Ionicons name='color-palette-outline' size={24} color={'#666666'} style={{ width: 30, textAlign: 'center' }} />
+            <Ionicons name='color-palette-outline' size={24} color={currentColor} style={{ width: 30, textAlign: 'center' }} />
             <View style={{
               display: 'flex', flex: 1, flexDirection: 'row',
               alignItems: 'center', justifyContent: 'space-between',
@@ -121,6 +127,25 @@ const CustomDrawer = props => {
             }}>
               <Text style={{ color: '#666666', fontSize: 12 }}>{t('change_color')}</Text>
               <View style={{ width: 24, height: 24, backgroundColor: '#003868', borderRadius: 50 }}></View>
+            </View>
+          </View>
+          <View style={{
+            display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: 12
+          }}>
+            <Ionicons name='notifications-outline' size={24} color={'#666666'} style={{ width: 30, textAlign: 'center' }} />
+            <View style={{
+              display: 'flex', flex: 1, flexDirection: 'row',
+              alignItems: 'center', justifyContent: 'space-between',
+              borderBottomColor: '#d5d5d5',
+              borderBottomWidth: .5,
+              padding: 12
+            }}>
+              <Text style={{ color: '#666666', fontSize: 12 }}>{t('notification')}</Text>
+              <Switch
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={handleChangeNotification}
+                value={notification}
+              />
             </View>
           </View>
           <View style={{
@@ -154,7 +179,7 @@ const CustomDrawer = props => {
                   <TouchableOpacity
                   onPress={() => handleChangeLanguage(language)}
                    key={language.id} 
-                   style={{backgroundColor: `${language.active ? '#003868' : '#666666'}`}}>
+                   style={{backgroundColor: `${language.id === currentLanguage ? '#003868' : '#666666'}`}}>
                     <Text style={{textTransform: 'uppercase', padding: 8, color: '#fff', width: 50}}>{language.label}</Text>
                   </TouchableOpacity>
                 ))}

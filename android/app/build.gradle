@@ -95,9 +95,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.hello_world"
+    namespace "com.vgl_hrm"
     defaultConfig {
-        applicationId "com.hello_world"
+        applicationId "com.vgl_hrm"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

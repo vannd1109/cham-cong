@@ -9,7 +9,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Camera</string>
 	<key>CFBundleDisplayName</key>
-	<string>hello_world</string>
+	<string>VGL HRM</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

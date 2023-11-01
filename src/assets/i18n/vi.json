@@ -12,6 +12,22 @@
       "time_off": "Nghỉ phép",
       "book_rice": "Đặt cơm",
       "timekeeping_statistics": "Thống kê chấm công",
-      "application": "Ứng dụng"
+      "application": "Ứng dụng",
+      "notification": "Thông báo",
+      "notifications": "Thông báo",
+      "message": "Tin nhắn",
+      "all": "Tất cả",
+      "on_my_turn": "Đến lượt duyệt",
+      "overdue": "Quá hạn duyệt",
+      "pending": "Đang chờ duyệt",
+      "approved": "Đã phê duyệt",
+      "rejected": "Đã từ chối",
+      "canceled": "Đã hủy bỏ",
+      "warning": "Loại cảnh báo",
+      "confirmed": "Đã xác thực",
+      "needs_confirming": "Đang chờ xác nhận",
+      "reminders": "Nhắc nhở",
+      "members": "Thành viên",
+      "company_name": "CÔNG TY TNHH SEN VÀNG VIỆT NAM"
     }
   }

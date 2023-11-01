@@ -6,14 +6,15 @@ import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MessagesScreen from '../screens/MessagesScreen';
-import UsersScreen from '../screens/UsersScreen';
+import MembersScreen from '../screens/MembersScreen';
 import ApplicationScreen from '../screens/ApplicationScreen';
-import AlarmScreen from '../screens/AlarmScreen';
+import RemindScreen from '../screens/RemindScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
+
   return (
     <Tab.Navigator
       initialRouteName="Application"
@@ -40,7 +41,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Alarm"
-        component={AlarmScreen}
+        component={RemindScreen}
         options={{
           tabBarIcon: ({color, size}) => (
             <MaterialIcons
@@ -69,8 +70,8 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Users"
-        component={UsersScreen}
+        name="Members"
+        component={MembersScreen}
         options={{
           tabBarIcon: ({color, size}) => (
             <Feather

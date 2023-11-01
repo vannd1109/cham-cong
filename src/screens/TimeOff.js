@@ -25,6 +25,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from "react-i18next";
 
 const arrTimeOff = [
   {
@@ -401,46 +402,47 @@ const TimeOff = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [currentArrayTimeOff, setCurrentArrayTimeOff] = useState([...arrTimeOff]);
   let timer = useRef().current;
+  const { t } = useTranslation();
 
   const tabs = {
-    total: {
-      name: 'Tổng',
+    all: {
+      name: t('all'),
       component: <TotalScreen />,
     },
-    turn: {
-      name: 'Đến lượt duyệt',
+    on_my_turn: {
+      name: t('on_my_turn'),
       component: <TurnScreen setShow={setShow} />,
     },
-    approvalOverdue: {
-      name: 'Quá hạn duyệt',
+    overdue: {
+      name: t('overdue'),
       component: <ApprovalOverdueScreen setShow={setShow} />,
     },
-    pendingApproval: {
-      name: 'Đang chờ duyệt',
+    pending: {
+      name: t('pending'),
       component: <PendingApprovalScreen setShow={setShow} />,
     },
     approved: {
-      name: 'Đã phê duyệt',
+      name: t('approved'),
       component: <ApprovedScreen setShow={setShow} />,
     },
-    denied: {
-      name: 'Đã từ chối',
+    rejected: {
+      name: t('rejected'),
       component: <DeniedScreen setShow={setShow} />,
     },
     canceled: {
-      name: 'Đã hủy bỏ',
+      name: t('canceled'),
       component: <CanceledScreen setShow={setShow} />,
     },
-    kindOfWarning: {
-      name: 'Loại cảnh báo',
+    warning: {
+      name: t('Loại cảnh báo'),
       component: <KindOfWarningScreen setShow={setShow} />,
     },
-    verified: {
-      name: 'Đã xác thực',
+    confirmed: {
+      name: t('confirmed'),
       component: <VerifiedScreen setShow={setShow} />,
     },
-    waitingForConfirmation: {
-      name: 'Đang chờ xác nhận',
+    needs_confirming: {
+      name: t('needs_confirming'),
       component: <WaitingForConfirmationScreen setShow={setShow} />,
     },
   };
